@@ -1,0 +1,22 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin-top: 0;
+}
+
+.primary {
+  color: #303765;
+}
+
+.secondary {
+  color: #055e4e;
+}
+
+@media screen and (min-width: 768px) {
+  .grid {
+    width: 70vw;
+    margin: 0 auto;
+    padding: 2rem;
+    grid-template-columns: 1fr 1fr;
+  }
+}

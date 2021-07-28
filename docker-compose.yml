@@ -1,0 +1,118 @@
+version: "3"
+
+services:
+  #   postgres:
+  #     image: postgres:11.9-alpine
+  #     environment:
+  #       PGDATA: /var/lib/postgresql/data/pgdata
+  #       POSTGRES_USER: ${POSTGRES_USER}
+  #       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  #     # Un-comment to access the db service directly
+  # #   ports:
+  # #     - 5432:5432
+  #     restart: unless-stopped
+  #     volumes:
+  #       - db_data:/var/lib/postgresql/data
+
+  #   fusionauth:
+  #     image: fusionauth/fusionauth-app:latest
+  #     depends_on:
+  #       - postgres
+  #     environment:
+  #       DATABASE_URL: jdbc:postgresql://postgres:5432/fusionauth
+  #       # Prior to version 1.19.0, use this deprecated name
+  #       # DATABASE_ROOT_USER: ${POSTGRES_USER}
+  #       DATABASE_ROOT_USERNAME: ${POSTGRES_USER}
+  #       DATABASE_ROOT_PASSWORD: ${POSTGRES_PASSWORD}
+  #       # Prior to version 1.19.0, use this deprecated name
+  #       # DATABASE_USER: ${DATABASE_USER}
+  #       DATABASE_USERNAME: ${DATABASE_USERNAME}
+  #       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+  #       # Prior to version 1.19.0, use this deprecated names
+  #       # FUSIONAUTH_MEMORY: ${FUSIONAUTH_MEMORY}
+  #       # FUSIONAUTH_SEARCH_ENGINE_TYPE: database
+  #       # FUSIONAUTH_URL: http://fusionauth:9011
+  #       # FUSIONAUTH_RUNTIME_MODE: development
+  #       FUSIONAUTH_APP_MEMORY: ${FUSIONAUTH_APP_MEMORY}
+  #       FUSIONAUTH_APP_RUNTIME_MODE: development
+  #       FUSIONAUTH_APP_URL: http://fusionauth:9011
+  #       SEARCH_TYPE: database
+
+  #     restart: unless-stopped
+  #     ports:
+  #       - 9011:9011
+  #     volumes:
+  #       - fa_config:/usr/local/fusionauth/config
+
+  #   graphql-engine:
+  #     image: hasura/graphql-engine:v2.0.0-beta.2
+  #     ports:
+  #       - "8080:8080"
+  #     depends_on:
+  #       - postgres
+  #     restart: always
+  #     environment:
+  #         HASURA_GRAPHQL_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/postgres
+  #         ## enable the console served by server
+  #         HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+  #         ## enable debugging mode. It is recommended to disable this in production
+  #         HASURA_GRAPHQL_DEV_MODE: "true"
+  #         HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+  #         ## uncomment next line to set an admin secret
+  #         HASURA_GRAPHQL_ADMIN_SECRET: S#CREtp@55W0rd
+  #         HASURA_GRAPHQL_JWT_SECRET: '{"type": "RS512", "jwk_url": "http://fusionauth:9011/.well-known/jwks"}'
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+
+  api:
+    build:
+      context: ./api
+    depends_on:
+      - mongo
+    environment:
+      MONGO_DATASOURCE_USER: ${MONGO_USER}
+      MONGO_DATASOURCE_PASSWORD: ${MONGO_PASSWORD}
+      HASURA_URL: ${HASURA_URL}
+      HASURA_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+      GUPSHUP_USERNAME: ${GUPSHUP_USERNAME}
+      GUPSHUP_PASSWORD: ${GUPSHUP_PASSWORD}
+      GUPSHUP_PRINCIPAL_ENTITY_ID: ${GUPSHUP_PRINCIPAL_ENTITY_ID}
+      SLACK_ADMIN_LOGGER_AUTH_TOKEN: ${SLACK_ADMIN_LOGGER_AUTH_TOKEN}
+      SLACK_ADMIN_LOGS_CHANNEL_ID: ${SLACK_ADMIN_LOGS_CHANNEL_ID}
+    ports:
+      - "3001:3000"
+
+  portal:
+    build:
+      context: ./portal
+    ports:
+      - "3000:3000"
+    environment:
+      HASURA_URL: ${HASURA_URL}
+      HASURA_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+      FUSIONAUTH_DOMAIN: ${FUSIONAUTH_DOMAIN}
+      FUSIONAUTH_API_KEY: ${FUSIONAUTH_API_KEY}
+      GUPSHUP_USERNAME: ${GUPSHUP_USERNAME}
+      GUPSHUP_PASSWORD: ${GUPSHUP_PASSWORD}
+      GUPSHUP_PRINCIPAL_ENTITY_ID: ${GUPSHUP_PRINCIPAL_ENTITY_ID}
+      NEXTAUTH_URL: ${NEXTAUTH_URL}
+      SLACK_ADMIN_LOGGER_AUTH_TOKEN: ${SLACK_ADMIN_LOGGER_AUTH_TOKEN}
+      CERTIFICATE_URL: ${CERTIFICATE_URL}
+      CAPTCHA_URL: ${CAPTCHA_URL}
+
+  certificate:
+    build:
+      context: ./certificate
+
+  captcha-service:
+    build:
+      context: ./captcha-service
+# volumes:
+#   db_data:
+#   fa_config:

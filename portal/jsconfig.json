@@ -1,0 +1,11 @@
+// tsconfig.json or jsconfig.json
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["components/*"],
+      "@/utils/*": ["utils/*"],
+      "@/resources/*": ["components/react-admin/base/resources/*"]
+    }
+  }
+}

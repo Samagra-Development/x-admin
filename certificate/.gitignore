@@ -1,0 +1,4 @@
+node_modules
+nodemon.json
+jwtRS256_digitalsaathi.key
+assets/*

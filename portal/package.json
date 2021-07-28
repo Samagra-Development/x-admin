@@ -1,0 +1,31 @@
+{
+  "name": "portal-2",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.3.20",
+    "@hcaptcha/react-hcaptcha": "^0.3.6",
+    "axios": "^0.21.1",
+    "clsx": "^1.1.1",
+    "graphql": "^15.5.0",
+    "graphql-ast-types-browser": "^1.0.2",
+    "next": "11.0.0",
+    "next-auth": "^3.27.0",
+    "prop-types": "^15.7.2",
+    "ra-data-hasura": "^0.1.0",
+    "react": "17.0.2",
+    "react-admin": "^3.16.2",
+    "react-dom": "17.0.2",
+    "react-toast-notifications": "^2.4.4"
+  },
+  "devDependencies": {
+    "eslint": "7.29.0",
+    "eslint-config-next": "11.0.0"
+  }
+}

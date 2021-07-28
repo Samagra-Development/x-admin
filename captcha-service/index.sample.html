@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <body onload="getCaptcha();">
+    <div class="d-flex flex-col align-items-center w-100">
+      <div class="d-flex flex-row align-items-center">
+        <img
+          src="test.jpg"
+          alt="captcha"
+          id="mainCaptcha"
+          width="120"
+          height="30"
+        />
+        <input
+          type="button"
+          id="refresh"
+          value="Refresh"
+          onclick="getCaptcha();"
+        />
+      </div>
+      <input type="text" id="txtInput" />
+      <input
+        id="Button1"
+        type="button"
+        value="Check"
+        onclick="alert(ValidCaptcha());"
+      />
+    </div>
+
+    <style type="text/css">
+      .d-flex {
+        display: flex;
+      }
+      .align-items-center {
+        align-items: center;
+      }
+      .flex-col {
+        flex-direction: column;
+      }
+      .flex-row {
+        flex-direction: row;
+      }
+      .w-100 {
+        width: 100%;
+      }
+    </style>
+  </body>
+  <script type="text/javascript">
+    function getCaptcha() {
+      let token = "";
+      const url = "http://127.0.0.1:9000/";
+
+      fetch(url)
+        .then((response) => {
+          token = response.headers.get("token");
+          return response.blob();
+        })
+        .then((images) => {
+          outside = URL.createObjectURL(images);
+          const captchaElement = document.getElementById("mainCaptcha");
+          captchaElement.src = outside;
+          captchaElement.setAttribute("data-token", token);
+        });
+    }
+
+    function isValidCaptcha() {
+      const captchaElement = document.getElementById("mainCaptcha");
+      const captchaInput = document.getElementById("captchaInput").value;
+
+      const token = captchaElement.getAttribute("data-token");
+
+      const url = `http://127.0.0.1:9000/verify?token=${token}&captcha=${captchaInput}`;
+      console.log({ url });
+      return fetch(url).then((response) => {
+        return response.status === 200;
+      });
+    }
+
+    function removeSpaces(string) {
+      return string.split(" ").join("");
+    }
+  </script>
+</html>

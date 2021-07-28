@@ -1,0 +1,157 @@
+.container {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  align-items: center;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.headerLogos {
+  display: flex;
+  flex-direction: row;
+  width: 70vw;
+  justify-content: space-around;
+}
+
+.main {
+  opacity: 0;
+  transition-property: opacity;
+  transition-timing-function: ease-in;
+  transition-delay: 0ms;
+  transition-duration: 500ms;
+}
+
+.footer {
+  width: 100%;
+  border-top: 1px solid #eaeaea;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.title a,
+.title span {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.title a:hover,
+.title a:focus,
+.title a:active {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 2.75rem;
+  color: #303765;
+  margin-bottom: 0.2rem;
+}
+.subtitle {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 1.6rem;
+  color: #000;
+  font-weight: 400;
+  margin-bottom: 0.4rem;
+}
+.subsubtitle {
+  margin: 0rem;
+  line-height: 1.15;
+  font-size: 1rem;
+  color: #000;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.title,
+.description {
+  text-align: center;
+}
+
+.logo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.credit {
+  font-weight: 700;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.address {
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.65;
+  font-weight: 500;
+}
+
+/**
+* =============
+* TRANSITION STYLES
+*/
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fadeOut {
+}
+/**
+* =============
+* MEDIA QUERIES
+*/
+
+@media (max-width: 1600px) {
+  .logo {
+    width: 60vw;
+    margin-top: 1rem;
+  }
+  .address {
+    width: 30vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerLogos {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .logo {
+    width: 100vw;
+  }
+
+  .face {
+    transform: scale(0.8);
+  }
+
+  .logo img {
+    transform: scale(0.625);
+  }
+  .address {
+    width: 80vw;
+    font-size: 0.7rem;
+    transform: translateX(10px);
+  }
+}

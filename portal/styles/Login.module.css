@@ -1,0 +1,77 @@
+.grid {
+  display: grid;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.grid-one {
+  grid-template-columns: 1fr;
+  width: 30vw;
+  margin: 0 auto;
+}
+
+.grid-two {
+  grid-template-columns: 1fr 1fr;
+  width: 70vw;
+  margin: 0 auto;
+}
+
+.description {
+  font-size: 1.5rem;
+  padding: 1rem 0;
+}
+
+.helper {
+  font-size: 1.1rem;
+  padding: 1rem 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form input[type="text"],
+.form input[type="password"] {
+  border: 0;
+  border-bottom: 1px solid gray;
+  margin-bottom: 1rem;
+  font-family: "Bahnschrift", sans-serif;
+}
+
+.form button {
+  font-family: "Bahnschrift";
+  border: 0;
+  padding: 0.5rem 0;
+  background-color: #303765;
+  color: #eee;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: 100ms ease-in all;
+}
+
+.form button:disabled {
+  color: #888;
+  background-color: #efefef;
+}
+
+.form input:focus,
+.form input:active {
+  outline: 0;
+}
+
+@media screen and (max-width: 600px) {
+  .grid {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .grid-two {
+    width: 100vw;
+  }
+
+  .grid-one {
+    width: 70vw;
+  }
+}
