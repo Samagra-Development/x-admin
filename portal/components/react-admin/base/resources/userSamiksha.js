@@ -232,8 +232,8 @@ export const UserSamikshaEdit = (props) => {
   const Title = ({ record }) => {
     return (
       <span>
-        Edit donor{" "}
-        <span className={classes.grey}>#{record.device_tracking_key}</span>
+        Edit {"User"}
+        {/* <span className={classes.grey}>#{record.id}</span> */}
       </span>
     );
   };
@@ -247,11 +247,12 @@ export const UserSamikshaEdit = (props) => {
       >
         <SimpleForm toolbar={<EditNoDeleteToolbar />}>
           <BackButton history={props.history} />
+          <span className={classes.heading}>User Details</span>
           <div className={classes.grid}>
-            <TextField label="Full Name" source="fullName" disabled variant="outlined" />
-            <TextField label="Username" source="username" disabled variant="outlined" />
-            <TextField label="Email" source="email" disabled variant="outlined" />
-            <TextField label="Mobile Phone" source="mobilePhone" disabled variant="outlined" />
+            <TextInput label="Full Name" source="fullName" variant="outlined" />
+            <TextInput label="Username" source="username" variant="outlined" />
+            <TextInput label="Email" source="email" variant="outlined" />
+            <TextInput label="Mobile Phone" source="mobilePhone" variant="outlined" />
           </div>
         </SimpleForm>
       </Edit>

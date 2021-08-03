@@ -37,7 +37,7 @@ const Layout = ({ children, home }) => {
   return (
     <>
       <Head>
-        <title>Saksham Samiksha Console</title>
+        <title>Admin Console</title>
         <link rel="preload" href="/Bahnschrift.otf" as="font" crossOrigin="" />
       </Head>
       <div className={styles.container}>
