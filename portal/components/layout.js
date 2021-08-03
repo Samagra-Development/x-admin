@@ -37,7 +37,7 @@ const Layout = ({ children, home }) => {
   return (
     <>
       <Head>
-        <title>Saksham Samiksha Console</title>
+        <title>Admin Console</title>
         <link rel="preload" href="/Bahnschrift.otf" as="font" crossOrigin="" />
       </Head>
       <div className={styles.container}>
@@ -51,10 +51,10 @@ const Layout = ({ children, home }) => {
               height={80}
             /> */}
             <Image
-              src="/logo_hariyana.png"
+              src="/logo_hp.png"
               alt="Campaign Logo"
               width={397}
-              height={119}
+              height={103}
             />
             {/* <Image
               src="/em-final-square.png"
@@ -84,8 +84,8 @@ const Layout = ({ children, home }) => {
             <Image
               src="/default.png"
               alt="HP Govt Logo"
-              width={80}
-              height={80}
+              width={120}
+              height={60}
             />
             {/* <span className={styles.address}>
               State Project Office (Samagra Shiksha), Directorate Education,

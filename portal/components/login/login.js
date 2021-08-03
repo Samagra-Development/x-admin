@@ -151,7 +151,7 @@ export default function Login(props) {
           name={"captcha"}
           autoComplete={"off"}
           required={"required"}
-          placeholder={"captcha"}
+          placeholder={"Captcha"}
           onChange={handleInputCaptcha}
         />
         <button

@@ -139,7 +139,7 @@ const getChoice = (choices, id) => {
   return choices?.find((elem) => elem.id === id);
 };
 
-const UserSamikshaFilter = (props) => {
+const ESamwadUsersFilter = (props) => {
   const classes = useStyles();
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   return (
@@ -158,17 +158,17 @@ const UserSamikshaFilter = (props) => {
  * Donate Device Request List
  * @param {*} props
  */
-export const UserSamikshaList = (props) => {
+export const ESamwadUsersList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
   return (
     <List
       {...props}
       bulkActionButtons={false}
-      title="Samiksha User List"
+      title="e-Samwad User List"
       className={isSmall ? classes.smList : classes.list}
       sort={{ field: "id", order: "DESC" }}
-      filters={<UserSamikshaFilter />}
+      filters={<ESamwadUsersFilter />}
     >
       {isSmall ? (
         <SimpleList
@@ -189,7 +189,7 @@ export const UserSamikshaList = (props) => {
   );
 };
 
-export const UserSamikshaEdit = (props) => {
+export const ESamwadUsersEdit = (props) => {
   const classes = useStyles();
   const notify = useNotify();
   const redirect = useRedirect();
@@ -232,8 +232,8 @@ export const UserSamikshaEdit = (props) => {
   const Title = ({ record }) => {
     return (
       <span>
-        Edit donor{" "}
-        <span className={classes.grey}>#{record.device_tracking_key}</span>
+        Edit {"User"}
+        {/* <span className={classes.grey}>#{record.id}</span> */}
       </span>
     );
   };
@@ -247,11 +247,12 @@ export const UserSamikshaEdit = (props) => {
       >
         <SimpleForm toolbar={<EditNoDeleteToolbar />}>
           <BackButton history={props.history} />
+          <span className={classes.heading}>User Details</span>
           <div className={classes.grid}>
-            <TextField label="Full Name" source="fullName" disabled variant="outlined" />
-            <TextField label="Username" source="username" disabled variant="outlined" />
-            <TextField label="Email" source="email" disabled variant="outlined" />
-            <TextField label="Mobile Phone" source="mobilePhone" disabled variant="outlined" />
+            <TextInput label="Full Name" source="fullName" variant="outlined" />
+            <TextInput label="Username" source="username" variant="outlined" />
+            <TextInput label="Email" source="email" variant="outlined" />
+            <TextInput label="Mobile Phone" source="mobilePhone" variant="outlined" />
           </div>
         </SimpleForm>
       </Edit>

@@ -1,15 +1,15 @@
 import {
-  UserSamikshaEdit,
-  UserSamikshaList,
-} from "@/resources/userSamiksha";
+  ESamwadUsersEdit,
+  ESamwadUsersList,
+} from "@/components/react-admin/base/resources/eSamwadUsers";
 
 export const resourceConfig = [
   {
-    name: "userSamiksha",
-    list: UserSamikshaList,
-    edit: UserSamikshaEdit,
+    name: "e_samwad_users",
+    list: ESamwadUsersList,
+    edit: ESamwadUsersEdit,
     create: null,
-    label: "Samiksha Users",
+    label: "e-Samwad Users",
     icon: "person",
   },
 ];

@@ -31,10 +31,10 @@ const UserNavbarHeader = () => {
     <div className={classes.sidebarHeader}>
       <Image
         className={classes.sidebarHeaderLogo}
-        src="/logo_hariyana.png"
+        src="/logo_hp.png"
         alt="logo"
-        width={200}
-        height={60}
+        width={155}
+        height={40}
         layout={"intrinsic"}
       />
     </div>
