@@ -1,16 +1,30 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import axios from "axios";
+const CryptoJS = require('crypto-js');
 
 const fusionAuthLogin = async (path, credentials) => {
+  const parsedBase64Key = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_BASE64_KEY);
+  var bytes  = CryptoJS.AES.decrypt(credentials.loginId, parsedBase64Key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  });
+  var decryptedLoginId = bytes.toString(CryptoJS.enc.Utf8);
+
+  var bytes1 = CryptoJS.AES.decrypt(credentials.password, parsedBase64Key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  });
+  var decryptedPassword = bytes1.toString(CryptoJS.enc.Utf8);
+  
   const options = {
     headers: { Authorization: process.env.FUSIONAUTH_API_KEY },
   };
   const response = await axios.post(
     `${path}/api/login`,
     {
-      loginId: credentials.loginId,
-      password: credentials.password,
+      loginId: decryptedLoginId,
+      password: decryptedPassword,
       applicationId: credentials.applicationId,
     },
     options

@@ -17,6 +17,14 @@ const resourceConfig = {
       redirectUrl: `admin#/device_donation_donor`,
     },
   ],
+  loginPerson: {
+    consonant: false,
+    en: "official",
+    hi: "अधिकारी",
+    credentials: "Saksham Samiksha",
+    applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
+    redirectUrl: `admin#/userSamiksha`,
+  },
   homepageCards: [
     {
     //   title: {

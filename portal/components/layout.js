@@ -37,38 +37,38 @@ const Layout = ({ children, home }) => {
   return (
     <>
       <Head>
-        <title>समर्थ हिमाचल</title>
+        <title>Saksham Samiksha Console</title>
         <link rel="preload" href="/Bahnschrift.otf" as="font" crossOrigin="" />
       </Head>
       <div className={styles.container}>
         <header className={styles.header}>
           <div className={styles.headerLogos}>
-            <Image
+            {/* <Image
               src="/cm.png"
               alt="Chief Minister"
               className={styles.face}
               width={80}
               height={80}
-            />
+            /> */}
             <Image
-              src="/campaign_logo.png"
+              src="/logo_hariyana.png"
               alt="Campaign Logo"
-              width={80}
-              height={80}
+              width={397}
+              height={119}
             />
-            <Image
+            {/* <Image
               src="/em-final-square.png"
               alt="Education Minister"
               className={styles.face}
               width={80}
               height={80}
-            />
+            /> */}
           </div>
-          <h1 className={styles.title}>Digital Saathi </h1>
+          {/* <h1 className={styles.title}>Digital Saathi </h1>
           <h2 className={styles.subtitle}>Bacchon ka sahara, phone humara</h2>
           <h3 className={styles.subsubtitle}>
             An initiative of the Government of Himachal Pradesh, India
-          </h3>
+          </h3> */}
         </header>
         <main
           onTransitionEnd={() => {
@@ -78,19 +78,19 @@ const Layout = ({ children, home }) => {
         >
           {activeChildren}
         </main>
-        <span className={styles.credit}>For more details, contact 1800-180-8190 </span>
+        {/* <span className={styles.credit}>For more details, contact 1800-180-8190 </span> */}
         <footer className={styles.footer}>
           <div className={styles.logo}>
             <Image
               src="/default.png"
               alt="HP Govt Logo"
-              width={120}
-              height={60}
+              width={80}
+              height={80}
             />
-            <span className={styles.address}>
+            {/* <span className={styles.address}>
               State Project Office (Samagra Shiksha), Directorate Education,
               DPEP Bhawan, Below Old ISBT, Lalpani, Shimla - 171001
-            </span>
+            </span> */}
             <Image
               src="/SSA_logo.png"
               className={styles["ssa-logo"]}

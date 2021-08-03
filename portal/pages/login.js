@@ -7,13 +7,13 @@ import config from "@/components/config";
 
 const LoginWrapper = () => {
   const [selectedPersona, setSelectedPersona] = useState(null);
-  if (selectedPersona) {
+  // if (selectedPersona) {
     return (
       <Layout>
-        <Login persona={selectedPersona}></Login>
+        <Login persona={config.loginPerson}></Login>
       </Layout>
     );
-  }
+  // }
 
   return (
     <Layout>
