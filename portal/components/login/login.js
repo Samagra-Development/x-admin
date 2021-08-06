@@ -80,13 +80,13 @@ export default function Login(props) {
       return false;
     }
 
-    const parsedBase64Key = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_BASE64_KEY);
-    let encryptedUsername = CryptoJS.AES.encrypt(input.username, parsedBase64Key, {
+    const bytesPassword = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_BASE64_KEY);
+    let encryptedUsername = CryptoJS.AES.encrypt(input.username, bytesPassword, {
       mode: CryptoJS.mode.ECB,
       padding: CryptoJS.pad.Pkcs7
     })
     encryptedUsername = encryptedUsername.toString();      
-    const encryptedPassword = CryptoJS.AES.encrypt(input.password, parsedBase64Key, {
+    const encryptedPassword = CryptoJS.AES.encrypt(input.password, bytesPassword, {
       mode: CryptoJS.mode.ECB,
       padding: CryptoJS.pad.Pkcs7
     }).toString();

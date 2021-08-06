@@ -31,7 +31,7 @@ const UserNavbarHeader = () => {
     <div className={classes.sidebarHeader}>
       <Image
         className={classes.sidebarHeaderLogo}
-        src="/logo_hariyana.png"
+        src="/logo-haryana.png"
         alt="logo"
         width={200}
         height={60}
