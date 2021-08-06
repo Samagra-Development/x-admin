@@ -39,15 +39,15 @@ services:
       SEARCH_TYPE: database
 
     restart: unless-stopped
-    ports:
-      - 9011:9011
+    # ports:
+    #   - 9011:9011
     volumes:
       - fa_config:/usr/local/fusionauth/config
 
   graphql-engine:
     image: hasura/graphql-engine:v2.0.0-beta.2
-    ports:
-      - "8080:8080"
+    # ports:
+    #   - "8080:8080"
     depends_on:
       - postgres
     restart: always

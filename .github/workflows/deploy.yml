@@ -2,11 +2,12 @@ name: deploy-to-production
 on:
   # release:
   #   types: [published]
-  push:
-    branches: ['dev/haryana']
+  pull_request:
+    branches:
+      - release/haryana
 jobs:
   deploy-to-production:
-    environment: production-haryana
+    environment: release-haryana
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
