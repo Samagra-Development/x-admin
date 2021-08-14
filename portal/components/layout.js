@@ -37,38 +37,19 @@ const Layout = ({ children, home }) => {
   return (
     <>
       <Head>
-        <title>समर्थ हिमाचल</title>
+        <title>Admin Console</title>
         <link rel="preload" href="/Bahnschrift.otf" as="font" crossOrigin="" />
       </Head>
       <div className={styles.container}>
         <header className={styles.header}>
           <div className={styles.headerLogos}>
             <Image
-              src="/cm.png"
-              alt="Chief Minister"
-              className={styles.face}
-              width={80}
-              height={80}
-            />
-            <Image
-              src="/campaign_logo.png"
+              src="/logo_hp.png"
               alt="Campaign Logo"
-              width={80}
-              height={80}
-            />
-            <Image
-              src="/em-final-square.png"
-              alt="Education Minister"
-              className={styles.face}
-              width={80}
-              height={80}
+              width={397}
+              height={103}
             />
           </div>
-          <h1 className={styles.title}>Digital Saathi </h1>
-          <h2 className={styles.subtitle}>Bacchon ka sahara, phone humara</h2>
-          <h3 className={styles.subsubtitle}>
-            An initiative of the Government of Himachal Pradesh, India
-          </h3>
         </header>
         <main
           onTransitionEnd={() => {
@@ -78,7 +59,6 @@ const Layout = ({ children, home }) => {
         >
           {activeChildren}
         </main>
-        <span className={styles.credit}>For more details, contact 1800-180-8190 </span>
         <footer className={styles.footer}>
           <div className={styles.logo}>
             <Image
@@ -87,10 +67,6 @@ const Layout = ({ children, home }) => {
               width={120}
               height={60}
             />
-            <span className={styles.address}>
-              State Project Office (Samagra Shiksha), Directorate Education,
-              DPEP Bhawan, Below Old ISBT, Lalpani, Shimla - 171001
-            </span>
             <Image
               src="/SSA_logo.png"
               className={styles["ssa-logo"]}

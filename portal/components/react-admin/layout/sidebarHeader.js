@@ -12,10 +12,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey.darker,
     boxShadow:
       "0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%)",
-    opacity: 0.7,
   },
   sidebarHeaderLogo: {
-    filter: "grayscale(1)",
+    filter: "grayscale(1) invert(1)",
     [theme.breakpoints.down("sm")]: {
       width: "25%",
       height: "7vh",
@@ -32,10 +31,10 @@ const UserNavbarHeader = () => {
     <div className={classes.sidebarHeader}>
       <Image
         className={classes.sidebarHeaderLogo}
-        src="/default.png"
+        src="/logo_hp.png"
         alt="logo"
-        width={75}
-        height={50}
+        width={155}
+        height={40}
         layout={"intrinsic"}
       />
     </div>

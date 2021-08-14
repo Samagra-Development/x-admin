@@ -3,14 +3,14 @@ const controls = [
     name: "username",
     type: "text",
     placeholder: "Username",
-    autocomplete: "username",
+    autocomplete: "off",
     required: true,
   },
   {
     name: "password",
     type: "password",
     placeholder: "Password",
-    autocomplete: "current-password",
+    autocomplete: "off",
     required: true,
   },
 ];
