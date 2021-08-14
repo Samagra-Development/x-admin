@@ -10,7 +10,7 @@ const LoginWrapper = () => {
   if (selectedPersona) {
     return (
       <Layout>
-        <Login persona={config.loginPerson}></Login>
+        <Login persona={selectedPersona}></Login>
       </Layout>
     );
   }
@@ -29,12 +29,12 @@ const LoginWrapper = () => {
               className={`card card-center`}
             >
               <h2 className={"capitalize"}>
-                {persona.en} &#47; <br />
-                {persona.hi}&rarr;
+                Login &#47; <br />
+                लॉग इन&rarr;
               </h2>
               <p>
-                I am a{persona.consonant ? "" : "n"} {persona.suben ? persona.suben : persona.en}
-                <br /> मैं राज्य में {persona.subhi ? persona.subhi : persona.hi} हूँ{" "}
+                I am a{persona.consonant ? "" : "n"} {persona.en}
+                <br /> मैं राज्य में {persona.hi} हूँ{" "}
               </p>
             </div>
           ))}

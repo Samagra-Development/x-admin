@@ -1,6 +1,5 @@
 import axios from 'axios';
 import sendLog from '../utils/adminLogger';
-//import sendLog from "@samagra-x/admin-logger"; 
 import {graphQLQuery} from './graphQL-query';
 
 export class graphQLHelper {

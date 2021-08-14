@@ -59,7 +59,7 @@ services:
         HASURA_GRAPHQL_DEV_MODE: "true"
         HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
         ## uncomment next line to set an admin secret
-        HASURA_GRAPHQL_ADMIN_SECRET: "S#CREtp@55W0rd"
+        HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
         HASURA_GRAPHQL_JWT_SECRET: '{"type": "RS512", "jwk_url": "http://fusionauth:9011/.well-known/jwks"}'
 
   # mongo:

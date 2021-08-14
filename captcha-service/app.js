@@ -32,7 +32,6 @@ db.defaults({ captchas: [] }).write();
 app.listen(port, host, () => console.log(`listening on port: ${port}`));
 
 app.get("/", (request, response) => {
-  // const captchaParsed = parseInt(Math.random() * 900000 + 100000);
   const captchaParsed = Math.random().toString(36).substr(2,6).toUpperCase();
   var p = new captchapng(120, 30, captchaParsed); // width,height,numeric captcha
   p.color(0, 0, 0, 0); // First color: background (red, green, blue, alpha)

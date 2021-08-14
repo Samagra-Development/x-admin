@@ -10,23 +10,13 @@ const resourceConfig = {
     // },
     {
       consonant: false,
-      en: "Login",
-      hi: "लॉग इन",
-      suben: "official",
-      subhi: "अधिकारी",
+      en: "official",
+      hi: "अधिकारी",
       credentials: "Admin Console",
       applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
       redirectUrl: `admin#/e_samwad_users`,
     },
   ],
-  loginPerson: {
-    consonant: false,
-    en: "official",
-    hi: "अधिकारी",
-    credentials: "e-Samwad",
-    applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
-    redirectUrl: `admin#/e_samwad_users`,
-  },
   homepageCards: [
     {
     //   title: {
