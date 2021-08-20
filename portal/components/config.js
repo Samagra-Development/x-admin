@@ -14,7 +14,7 @@ const resourceConfig = {
       hi: "अधिकारी",
       credentials: "Admin Console",
       applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
-      redirectUrl: `admin#/e_samwad_users`,
+      redirectUrl: `admin#/teacher`,
     },
   ],
   homepageCards: [
@@ -114,53 +114,45 @@ const resourceConfig = {
   ],
   statusChoices: [
     {
-      id: "no-action-taken",
-      name: "Donation in Progress",//No Action Taken
+      id: "1",
+      name: "Pending",//No Action Taken
       icon: "warning",
-      style: "error",
+      color: "#FEC400",
     },
     {
-      id: "donor-no-init",
-      name: "Delivery Not Initiated",
+      id: "2",
+      name: "Rejected",
       icon: "pending_actions",
-      style: "error",
+      color: "#F12B2C",
     },
     {
-      id: "donor-init",
-      name: "Delivery Initiated",
+      id: "3",
+      name: "Active",
       icon: "inventory",
-      style: "pending",
+      color: "#29CC97",
     },
     {
-      id: "received-state",
-      name: "Received by state",
+      id: "4",
+      name: "Deactivated",
       icon: "real_estate_agent",
-      style: "success",
-      templateId: "1007356590433077522",
-      template:
-        "Congratulations! Your donated device with the tracking ID {#var#} has been successfully received by Samagra Shiksha, Himachal Pradesh.\nYou can visit the donation portal to download your DigitalSaathi eCertificate.\n\n\n- Samagra Shiksha, Himachal Pradesh",
-      variables: ["device_tracking_key"],
+      color: "#cbcbcb",
     },
-    {
-      id: "delivered-child",
-      name: "Delivered to child",
-      icon: "check_circle",
-      style: "success",
-      templateId: "1007267945817846297",
-      template:
-        "Congratulations! Your donated device with the tracking ID {#var#} has been successfully donated to a child-in-need from {#var#},({#var#}) . Thank you for your contribution to a student's online learning.\n\n\n- Samagra Shiksha, Himachal Pradesh",
-      variables: [
-        "device_tracking_key",
-        "recipient_school.name",
-        "recipient_school.location.district",
-      ],
-    },
-    {
-      id: "cancelled",
-      name: "Cancelled",
-      icon: "disabled_by_default",
-      style: "error",
-    },
+  ],
+  jobCadre:[
+    {id:'JBT',name:'JBT'},
+    {id:'Head Teacher',name:'Head Teacher'},
+    {id:'CHT',name:'CHT'},
+    {id:'DPE',name:'DPE'},
+    {id:'C&V',name:'C&V'},
+    {id:'TGT',name:'TGT'},
+    {id:'Lecturer',name:'Lecturer'},
+    {id:'Principal',name:'Principal'},
+    {id:'Head Master',name:'Head Master'},
+  ],
+  modeOfEmployment:[
+    {id:'Permanent',name:'Permanent'},
+    {id:'Contractual',name:'Contractual'},
+    {id:'Others',name:'Others'},
   ],
   deliveryTypeChoices: [
     { id: "hand", name: "Hand Off", filterable: true },
@@ -168,6 +160,10 @@ const resourceConfig = {
     { id: "courier", name: "Courier", filterable: true },
     { id: "handnonhp", name: "Hand Off (outside HP)" },
     { id: "couriernonhp", name: "Courier (outside HP)" },
+  ],
+  schoolSession: [
+    {id:'S',name:'Summer'},
+    {id:'W',name:'Winter'}
   ],
   gradeChoices: [
     {

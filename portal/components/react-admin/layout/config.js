@@ -1,15 +1,26 @@
 import {
-  ESamwadUsersEdit,
-  ESamwadUsersList,
-} from "@/components/react-admin/base/resources/eSamwadUsers";
+  schoolEdit,
+  schoolList,
+} from "@/components/react-admin/base/resources/schools";
+import {
+  teacherEdit,
+  teacherList,
+} from "@/components/react-admin/base/resources/teachers";
 
 export const resourceConfig = [
   {
-    name: "e_samwad_users",
-    list: ESamwadUsersList,
-    edit: ESamwadUsersEdit,
+    name: "school",
+    list: schoolList,
+    edit: schoolEdit,
     create: null,
-    label: "e-Samwad Users",
+    label: "School Information",
+    icon: "school",
+  },{
+    name: "teacher",
+    list: teacherList,
+    edit: teacherEdit,
+    create: null,
+    label: "Employees",
     icon: "person",
   },
 ];

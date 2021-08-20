@@ -18,10 +18,11 @@ import {
   FormDataConsumer,
   AutocompleteInput,
   ReferenceInput,
+  ChipField,
 } from "react-admin";
 
 import { useSession } from "next-auth/client";
-import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
+import { Typography, makeStyles, useMediaQuery, Chip} from "@material-ui/core";
 import EditNoDeleteToolbar from "../components/EditNoDeleteToolbar";
 import BackButton from "../components/BackButton";
 import blueGrey from "@material-ui/core/colors/blueGrey";
@@ -96,13 +97,17 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center",
     "& > label": {
       opacity: "0.7",
-      fontSize: "1.1rem",
+      fontSize: "1rem",
     },
     "& > div": {
       transform: "translate(0 5px)",
     },
     " .MuiInputLabel-shrink": {
       transform: "translate(12px, 7px) scale(0.75)",
+    },
+    "& > div > div": {
+      paddingTop: "15px",
+      paddingBottom: "5px",
     },
   },
   textInput: {
@@ -139,16 +144,34 @@ const getChoice = (choices, id) => {
   return choices?.find((elem) => elem.id === id);
 };
 
-const ESamwadUsersFilter = (props) => {
+const DevicesFilter = (props) => {
   const classes = useStyles();
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   return (
     <Filter {...props} className={classes.filter}>
       <SearchInput
-        placeholder="Full Name"
-        source="fullName"
+        placeholder="Employee Name"
+        source="user#full_name@_like"
         className={isSmall ? classes.smSearchBar : classes.searchBar}
         alwaysOn
+      />
+      <SelectInput
+        label="Mode of employement"
+        source="employment"
+        className={classes.filterSelect}
+        choices={config.modeOfEmployment}
+      />
+      <SelectInput
+        label="Account Status"
+        source="account_status"
+        className={classes.filterSelect}
+        choices={config.statusChoices}
+      />
+      <SelectInput
+        label="Job Cadre"
+        source="cadre"
+        className={classes.filterSelect}
+        choices={config.jobCadre}
       />
     </Filter>
   );
@@ -158,38 +181,45 @@ const ESamwadUsersFilter = (props) => {
  * Donate Device Request List
  * @param {*} props
  */
-export const ESamwadUsersList = (props) => {
+export const teacherList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
+
+  const ColoredChipField = props => {
+    let data = config.statusChoices.find((elem) => elem.id === props.record[props.source]);
+    return (<Chip style={{backgroundColor:data?.color,color:'#FFF'}} label={data?.name} />);
+  };
+
   return (
     <List
       {...props}
       bulkActionButtons={false}
-      title="e-Samwad User List"
+      title="Employees list"
       className={isSmall ? classes.smList : classes.list}
-      sort={{ field: "id", order: "DESC" }}
-      filters={<ESamwadUsersFilter />}
+      sort={{ field: "account_status", order: "ASC" }}
+      filters={<DevicesFilter  />}
+      exporter={false}
     >
       {isSmall ? (
         <SimpleList
           primaryText={(record) => record.name}
-          secondaryText={(record) => record.district}
-          tertiaryText={(record) => record.device_tracking_key}
           linkType="edit"
         />
       ) : (
         <Datagrid rowClick="edit">
-          <TextField label="Full Name" source="fullName" />
-          <TextField label="Username" source="username" />
-          <TextField label="Email" source="email" />
-          <TextField label="Mobile Phone" source="mobilePhone" />
+          <TextField label="Username" source="user.username" />
+          <TextField label="Employee Name" source="user.full_name" />
+          <TextField label="Contact Number" source="user.mobile_phone" />
+          <TextField label="Mode of Employee" source="employment" />
+          <TextField label="Designation" source="designation" />
+          <ColoredChipField label="Account Status" source="account_status" />
         </Datagrid>
       )}
     </List>
   );
 };
 
-export const ESamwadUsersEdit = (props) => {
+export const teacherEdit = (props) => {
   const classes = useStyles();
   const notify = useNotify();
   const redirect = useRedirect();
@@ -208,9 +238,9 @@ export const ESamwadUsersEdit = (props) => {
         { smart_count: 1 },
         props.mutationMode === "undoable"
       );
-      const { delivery_status } = data;
+      const { account_status } = data;
       const [template, templateId, variables] =
-        getTemplateFromDeliveryStatus(delivery_status);
+        getTemplateFromDeliveryStatus(account_status);
       if (template && variables && session.role) {
         //get each variable (which could be a path, like "ab.cd"), and replace it with
         //the appropriate value from the data object
@@ -232,8 +262,8 @@ export const ESamwadUsersEdit = (props) => {
   const Title = ({ record }) => {
     return (
       <span>
-        Edit {"User"}
-        {/* <span className={classes.grey}>#{record.id}</span> */}
+        Edit Employee{" "}
+        <span className={classes.grey}> {record.user.username}</span>
       </span>
     );
   };
@@ -247,13 +277,44 @@ export const ESamwadUsersEdit = (props) => {
       >
         <SimpleForm toolbar={<EditNoDeleteToolbar />}>
           <BackButton history={props.history} />
-          <span className={classes.heading}>User Details</span>
+          <span className={classes.heading}>Employee Details</span>
           <div className={classes.grid}>
-            <TextInput label="Full Name" source="fullName" variant="outlined" />
-            <TextInput label="Username" source="username" variant="outlined" />
-            <TextInput label="Email" source="email" variant="outlined" />
-            <TextInput label="Mobile Phone" source="mobilePhone" variant="outlined" />
+            <td>Username</td>
+            <td>Employee Name</td>
+            <td>Contact Number</td>
+            <TextField label="Username" source="user.username" />
+            <TextField label="Employee Name" source="user.full_name" />
+            <TextField label="Contact Number" source="user.mobile_phone" />
           </div>
+          <div className={classes.grid}>
+            <td>Mode of Employee</td>
+            <td>Designation</td>
+            <td>Job Cadre</td>
+            <TextField label="Mode of Employee" source="employment" />
+            <TextField label="Designation" source="designation" />
+            <TextField label="Job Cadre" source="cadre" />
+          </div>
+          
+          <span className={classes.heading}>Update Status</span>
+          <div className={`${classes.grid}`}>
+            {/* <SelectInput
+              source="delivery_status"
+              label="Grades Taught"
+            />
+            <SelectInput
+              source="delivery_status"
+              label="Subjects Taught"
+            /> */}
+            <SelectInput
+              source="account_status"
+              label="Account Status"
+              choices={config.statusChoices}
+            />
+          </div>
+          <p className={classes.warning}>
+            Changing status will trigger an SMS notification to the teacher upon
+            saving.
+          </p>
         </SimpleForm>
       </Edit>
     </div>
