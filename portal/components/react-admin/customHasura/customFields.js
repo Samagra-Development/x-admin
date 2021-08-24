@@ -13,7 +13,7 @@ const customBuildFields = (type, fetchType) => {
   const defaultFields = buildFields(type, fetchType);
 
   if (resourceName === "teacher") {
-    if (["GET_LIST","GET_ONE"].includes(fetchType)) {
+    if (["GET_LIST","GET_ONE","UPDATE"].includes(fetchType)) {
       const relatedEntities = extractFieldsFromQuery(EXTENDED_TEACHER_RECORD);
       defaultFields.push(...relatedEntities);
     }

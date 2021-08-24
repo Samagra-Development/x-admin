@@ -1,21 +1,21 @@
 const resourceConfig = {
   personas: [
-    // {
-    //   consonant: true,
-    //   en: "school head",
-    //   hi: "स्कूल प्रमुख",
-    //   credentials: "e-Samwad",
-    //   applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID,
-    //   redirectUrl: "school",
-    // },
     {
-      consonant: false,
-      en: "official",
-      hi: "अधिकारी",
-      credentials: "Admin Console",
-      applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
-      redirectUrl: `admin#/teacher`,
+      consonant: true,
+      en: "school head",
+      hi: "स्कूल प्रमुख",
+      credentials: "e-Samwad",
+      applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID,
+      redirectUrl: "school",
     },
+    // {
+    //   consonant: false,
+    //   en: "official",
+    //   hi: "अधिकारी",
+    //   credentials: "Admin Console",
+    //   applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
+    //   redirectUrl: `admin#/teacher`,
+    // },
   ],
   homepageCards: [
     {

@@ -235,7 +235,7 @@ export const schoolEdit = (props) => {
       >
         <SimpleForm toolbar={<EditNoDeleteToolbar />}>
           <BackButton history={props.history} />
-          <span className={classes.heading}>Donor Details</span>
+          <span className={classes.heading}>School Details</span>
           <div className={classes.grid}>
             <td>UDISE</td>
             <td>District</td>
@@ -258,10 +258,6 @@ export const schoolEdit = (props) => {
                 return obj?.name;
               }}
             />
-          </div>
-          <span className={classes.heading}>Phone number</span>
-          <div className={`${classes.grid} ${classes.fullWidthGrid}`}>
-            <TextInput source="phone_number" label="Phone number" disabled />
           </div>
         </SimpleForm>
       </Edit>

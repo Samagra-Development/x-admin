@@ -210,7 +210,7 @@ export const teacherList = (props) => {
           <TextField label="Username" source="user.username" />
           <TextField label="Employee Name" source="user.full_name" />
           <TextField label="Contact Number" source="user.mobile_phone" />
-          <TextField label="Mode of Employee" source="employment" />
+          <TextField label="Mode of employement" source="employment" />
           <TextField label="Designation" source="designation" />
           <ColoredChipField label="Account Status" source="account_status" />
         </Datagrid>
@@ -263,7 +263,7 @@ export const teacherEdit = (props) => {
     return (
       <span>
         Edit Employee{" "}
-        <span className={classes.grey}> {record.user.username}</span>
+        <span className={classes.grey}> {record.user?.username}</span>
       </span>
     );
   };
@@ -287,10 +287,10 @@ export const teacherEdit = (props) => {
             <TextField label="Contact Number" source="user.mobile_phone" />
           </div>
           <div className={classes.grid}>
-            <td>Mode of Employee</td>
+            <td>Mode of employement</td>
             <td>Designation</td>
             <td>Job Cadre</td>
-            <TextField label="Mode of Employee" source="employment" />
+            <TextField label="Mode of employement" source="employment" />
             <TextField label="Designation" source="designation" />
             <TextField label="Job Cadre" source="cadre" />
           </div>
