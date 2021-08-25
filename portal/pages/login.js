@@ -18,7 +18,7 @@ const LoginWrapper = () => {
   return (
     <Layout>
       <>
-        <h2 className="text-center">Admin Console &#47; प्रशासन कौंसोल</h2>
+        <h2 className="text-center">Admin Console &#47; प्एडमिन कंसोल</h2>
         <div className={`${styles.grid} ${styles["grid-two"]}`}>
           {config.personas.map((persona, index) => (
             <div

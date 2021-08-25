@@ -6,7 +6,7 @@ const resourceConfig = {
       hi: "स्कूल प्रमुख",
       credentials: "e-Samwad",
       applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID,
-      redirectUrl: "school",
+      redirectUrl: "admin#/teacher",
     },
     // {
     //   consonant: false,
