@@ -139,7 +139,7 @@ const useStyles = makeStyles((theme) => ({
  * Donate Device Request List
  * @param {*} props
  */
-export const schoolList = (props) => {
+export const SchoolList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
   return (
@@ -177,7 +177,7 @@ export const schoolList = (props) => {
   );
 };
 
-export const schoolEdit = (props) => {
+export const SchoolEdit = (props) => {
   const classes = useStyles();
   const notify = useNotify();
   const redirect = useRedirect();

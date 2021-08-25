@@ -25,6 +25,7 @@ export default function Login(props) {
     })
   );
   const [formValidity, setFormValidity] = useState(false);
+  const { addToast } = useToasts();
 
   const handleInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -58,8 +59,6 @@ export default function Login(props) {
         });
       });
   }, [refreshToken]);
-
-  const { addToast } = useToasts();
 
   const signUserIn = async (e) => {
     e.preventDefault();

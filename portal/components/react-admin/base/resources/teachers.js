@@ -181,7 +181,7 @@ const DevicesFilter = (props) => {
  * Donate Device Request List
  * @param {*} props
  */
-export const teacherList = (props) => {
+export const TeacherList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
 
@@ -219,7 +219,7 @@ export const teacherList = (props) => {
   );
 };
 
-export const teacherEdit = (props) => {
+export const TeacherEdit = (props) => {
   const classes = useStyles();
   const notify = useNotify();
   const redirect = useRedirect();
