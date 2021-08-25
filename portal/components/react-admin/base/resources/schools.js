@@ -135,61 +135,49 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getChoice = (choices, id) => {
-  return choices?.find((elem) => elem.id === id);
-};
-
-const ESamwadUsersFilter = (props) => {
-  const classes = useStyles();
-  const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-  return (
-    <Filter {...props} className={classes.filter}>
-      <SearchInput
-        placeholder="Full Name"
-        source="fullName"
-        className={isSmall ? classes.smSearchBar : classes.searchBar}
-        alwaysOn
-      />
-    </Filter>
-  );
-};
-
 /**
  * Donate Device Request List
  * @param {*} props
  */
-export const ESamwadUsersList = (props) => {
+export const schoolList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
   return (
     <List
       {...props}
       bulkActionButtons={false}
-      title="e-Samwad User List"
+      title="Schools list"
       className={isSmall ? classes.smList : classes.list}
       sort={{ field: "id", order: "DESC" }}
-      filters={<ESamwadUsersFilter />}
+      exporter={false}
     >
       {isSmall ? (
         <SimpleList
           primaryText={(record) => record.name}
-          secondaryText={(record) => record.district}
-          tertiaryText={(record) => record.device_tracking_key}
           linkType="edit"
         />
       ) : (
         <Datagrid rowClick="edit">
-          <TextField label="Full Name" source="fullName" />
-          <TextField label="Username" source="username" />
-          <TextField label="Email" source="email" />
-          <TextField label="Mobile Phone" source="mobilePhone" />
+          <TextField label="UDISE" source="udise" />
+          <TextField label="District" source="location.district" />
+          <TextField label="Block" source="location.block" />
+          <TextField label="Cluster" source="location.cluster" />
+          {/* <TextField label="Name" source="name" />
+          <TextField label="Type" source="type" /> */}
+          <FunctionField
+            label="Session"
+            render={(record) => {
+              const obj = config.schoolSession.find((elem) => elem.id === record.session);
+              return obj?.name;
+            }}
+          />
         </Datagrid>
       )}
     </List>
   );
 };
 
-export const ESamwadUsersEdit = (props) => {
+export const schoolEdit = (props) => {
   const classes = useStyles();
   const notify = useNotify();
   const redirect = useRedirect();
@@ -232,8 +220,8 @@ export const ESamwadUsersEdit = (props) => {
   const Title = ({ record }) => {
     return (
       <span>
-        Edit {"User"}
-        {/* <span className={classes.grey}>#{record.id}</span> */}
+        Edit school{" "}
+        <span className={classes.grey}>#{record.udise}</span>
       </span>
     );
   };
@@ -247,12 +235,29 @@ export const ESamwadUsersEdit = (props) => {
       >
         <SimpleForm toolbar={<EditNoDeleteToolbar />}>
           <BackButton history={props.history} />
-          <span className={classes.heading}>User Details</span>
+          <span className={classes.heading}>School Details</span>
           <div className={classes.grid}>
-            <TextInput label="Full Name" source="fullName" variant="outlined" />
-            <TextInput label="Username" source="username" variant="outlined" />
-            <TextInput label="Email" source="email" variant="outlined" />
-            <TextInput label="Mobile Phone" source="mobilePhone" variant="outlined" />
+            <td>UDISE</td>
+            <td>District</td>
+            <td>Block</td>
+            <TextField label="UDISE" locales="en-IN" source="udise" />
+            <TextField label="District" source="location.district" />
+            <TextField label="Block" source="location.block" />
+            {/* <TextField label="Name" source="name" />
+            <TextField label="Type" source="type" /> */}
+          </div>
+          <div className={classes.grid}>
+            <td>Cluster</td>
+            <td>Session</td>
+            <td></td>
+            <TextField label="Cluster" source="location.cluster" />
+            <FunctionField
+              label="Session"
+              render={(record) => {
+                const obj = config.schoolSession.find((elem) => elem.id === record.session);
+                return obj?.name;
+              }}
+            />
           </div>
         </SimpleForm>
       </Edit>
