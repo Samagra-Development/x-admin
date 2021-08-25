@@ -1,24 +1,24 @@
 import {
-  schoolEdit,
-  schoolList,
+  SchoolEdit,
+  SchoolList,
 } from "@/components/react-admin/base/resources/schools";
 import {
-  teacherEdit,
-  teacherList,
+  TeacherEdit,
+  TeacherList,
 } from "@/components/react-admin/base/resources/teachers";
 
 export const resourceConfig = [
   {
     name: "school",
-    list: schoolList,
-    edit: schoolEdit,
+    list: SchoolList,
+    edit: SchoolEdit,
     create: null,
     label: "School Information",
     icon: "school",
   },{
     name: "teacher",
-    list: teacherList,
-    edit: teacherEdit,
+    list: TeacherList,
+    edit: TeacherEdit,
     create: null,
     label: "Employees",
     icon: "person",
