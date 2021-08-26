@@ -32,7 +32,7 @@ db.defaults({ captchas: [] }).write();
 app.listen(port, host, () => console.log(`listening on port: ${port}`));
 
 app.get("/", (request, response) => {
-  const captchaParsed = parseInt(Math.random() * 900000 + 100000);
+  const captchaParsed = Math.random().toString(36).substr(2,6).toUpperCase();
   var p = new captchapng(120, 30, captchaParsed); // width,height,numeric captcha
   p.color(0, 0, 0, 0); // First color: background (red, green, blue, alpha)
   p.color(80, 80, 80, 255); // Second color: paint (red, green, blue, alpha)
@@ -83,7 +83,7 @@ app.get("/verify", (request, response) => {
     }
 
     deleteUsedCaptcha(token);
-    if (parseInt(userResponse) === (captcha && captcha.captchaParsed)) {
+    if (userResponse === (captcha && captcha.captchaParsed)) {
       response.status(200).send({ status: "Success" });
     } else {
       response.status(400).send({ status: "Code Incorrect" });

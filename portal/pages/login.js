@@ -18,7 +18,7 @@ const LoginWrapper = () => {
   return (
     <Layout>
       <>
-        <h2 className="text-center">Login &#47; लॉग इन</h2>
+        <h2 className="text-center">Admin Console &#47; प्रशासन कौंसोल</h2>
         <div className={`${styles.grid} ${styles["grid-two"]}`}>
           {config.personas.map((persona, index) => (
             <div
@@ -26,11 +26,11 @@ const LoginWrapper = () => {
                 setSelectedPersona(persona);
               }}
               key={index}
-              className={`card`}
+              className={`card card-center`}
             >
               <h2 className={"capitalize"}>
-                {persona.en} &#47; <br />
-                {persona.hi}&rarr;
+                Login &#47; <br />
+                लॉग इन&rarr;
               </h2>
               <p>
                 I am a{persona.consonant ? "" : "n"} {persona.en}

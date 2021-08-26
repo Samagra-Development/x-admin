@@ -13,6 +13,7 @@
     "@hcaptcha/react-hcaptcha": "^0.3.6",
     "axios": "^0.21.1",
     "clsx": "^1.1.1",
+    "crypto-js": "^4.1.1",
     "graphql": "^15.5.0",
     "graphql-ast-types-browser": "^1.0.2",
     "next": "11.0.0",
