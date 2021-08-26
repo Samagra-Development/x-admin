@@ -2,7 +2,7 @@ name: deploy-to-production
 on:
   # release:
   #   types: [published]
-  pull_request:
+  push:
     branches:
       - release/haryana-education
 jobs:
