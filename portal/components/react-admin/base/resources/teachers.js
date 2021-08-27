@@ -149,12 +149,6 @@ const DevicesFilter = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   return (
     <Filter {...props} className={classes.filter}>
-      <SearchInput
-        placeholder="Employee Name"
-        source="user#full_name@_like"
-        className={isSmall ? classes.smSearchBar : classes.searchBar}
-        alwaysOn
-      />
       <SelectInput
         label="Mode of employement"
         source="employment"
@@ -196,7 +190,6 @@ export const TeacherList = (props) => {
       bulkActionButtons={false}
       title="Employees list"
       className={isSmall ? classes.smList : classes.list}
-      sort={{ field: "account_status", order: "ASC" }}
       filters={<DevicesFilter  />}
       exporter={false}
     >
@@ -207,9 +200,9 @@ export const TeacherList = (props) => {
         />
       ) : (
         <Datagrid rowClick="edit">
-          <TextField label="Username" source="user.username" />
-          <TextField label="Employee Name" source="user.full_name" />
-          <TextField label="Contact Number" source="user.mobile_phone" />
+          <TextField label="Username" source="user.username" sortable={false} />
+          <TextField label="Employee Name" source="user.first_name" sortable={false} />
+          <TextField label="Contact Number" source="user.mobile_phone" sortable={false} />
           <TextField label="Mode of employement" source="employment" />
           <TextField label="Designation" source="designation" />
           <ColoredChipField label="Account Status" source="account_status" />
@@ -230,6 +223,28 @@ export const TeacherEdit = (props) => {
     return [obj?.template, obj?.templateId, obj?.variables];
   };
 
+  const onSuccess = async ({ data }) => {
+    if (data) {
+      notify(
+        "ra.notification.updated",
+        "info",
+        { smart_count: 1 },
+        props.mutationMode === "undoable"
+      );
+      const { account_status } = data;
+      const [template, templateId] =
+        getTemplateFromDeliveryStatus(account_status);
+      if (template && session.role) {
+        //get each variable (which could be a path, like "ab.cd"), and replace it with
+        //the appropriate value from the data object
+        const response = await sendSMS(template, templateId, data.user.mobile_phone);
+        if (response?.success) notify(response.success, "info");
+        else if (response?.error) notify(response.error, "warning");
+        redirect("list", props.basePath, data.id, data);
+      }
+    }
+  };
+
   const Title = ({ record }) => {
     return (
       <span>
@@ -241,6 +256,7 @@ export const TeacherEdit = (props) => {
   return (
     <div>
       <Edit
+        onSuccess={onSuccess}
         mutationMode={"pessimistic"}
         title={<Title />}
         {...props}
@@ -253,7 +269,7 @@ export const TeacherEdit = (props) => {
             <td>Employee Name</td>
             <td>Contact Number</td>
             <TextField label="Username" source="user.username" />
-            <TextField label="Employee Name" source="user.full_name" />
+            <TextField label="Employee Name" source="user.first_name" />
             <TextField label="Contact Number" source="user.mobile_phone" />
           </div>
           <div className={classes.grid}>
