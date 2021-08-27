@@ -13,7 +13,7 @@ const sendSMS = async (
   const responseObject = response.data?.response;
   if (responseObject?.status === 'success') {
     sendLog(
-      `*✅ samarth-device*: SMS notiification successfully sent to _${contactNumber}_ with Tracking ID: *${trackingKey}*`,
+      `:white_check_mark: *e-Samwad*\n :round_pushpin: \`${process.env.NEXT_PUBLIC_URL}\` \n :pager: SMS notiification successfully sent to _${contactNumber}_ with Tracking ID: *${trackingKey}*`,
       process.env.SLACK_ADMIN_LOGS_CHANNEL_ID,
     );
     return {
@@ -23,7 +23,7 @@ const sendSMS = async (
     };
   } else {
     sendLog(
-      `*⚠️ samarth-device*: SMS notiification sending failed to _${contactNumber}_. 🦺 Skipping graphQL insertion for this record.`,
+      `⚠️ *e-Samwad*\n :round_pushpin: \`${process.env.NEXT_PUBLIC_URL}\` \n :pager: SMS notiification sending failed to _${contactNumber}_. 🦺 Skipping graphQL insertion for this record.`,
       process.env.SLACK_ADMIN_LOGS_CHANNEL_ID,
     );
     return {
