@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 export const EXTENDED_TEACHER_RECORD = gql`
   {
     user {
-      full_name
+      first_name
       username
       mobile_phone
     }
