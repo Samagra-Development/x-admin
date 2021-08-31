@@ -21,7 +21,7 @@ const fusionAuthLogin = async (path, credentials) => {
     headers: { Authorization: process.env.FUSIONAUTH_API_KEY },
   };
   const response = await axios.post(
-    `${path}/api/login`,
+    `${path}/user/login`,
     {
       loginId: decryptedLoginId,
       password: decryptedPassword,
@@ -46,7 +46,7 @@ export default NextAuth({
             credentials
           );
           if (response) {
-            return response.data;
+            return response.data?.result?.data?.user;
           }
         } catch (err) {
           throw err;
