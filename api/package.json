@@ -41,7 +41,7 @@
     "url": ""
   },
   "author": "Bharat Kashyap <bharatkashyap@outlook.com>",
-  "license": "",
+  "license": "ISC",
   "files": [
     "README.md",
     "dist",

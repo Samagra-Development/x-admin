@@ -9,15 +9,62 @@ const extractFieldsFromQuery = (queryAst) => {
 };
 
 // Define the additional fields that we want.
-const EXTENDED_DONATION_RECORD = gql`
+const EXTENDED_CANDIDATE_RECORD = gql`
   {
-    recipient_school {
-      id
-      udise
+    qualification_detail {
+      qualification_name
+    }
+    gender {
+      gender_name
+    }
+    district_name {
       name
-      location {
-        district
-      }
+    }
+    highest_level_qualification {
+      highest_level_qualification_name
+    }
+    expected_salary {
+      salary_range
+    }
+    current_employment {
+      id
+    }
+    monthly_salary_details {
+      salary_range
+    }
+    driver_license {
+      driver_license_choice
+    }
+    district_travel {
+      district_travel_choice
+    }
+    pan_card {
+      pan_card_choice
+    }
+    
+    computer_operator {
+      computer_operator_choice
+    }
+    current_employment {
+      current_employment_status
+    }
+    ever_employment {
+      employment_status
+    }
+    work_experience_details {
+      work_experience_choices
+    }
+    sector_preference_3 {
+      sector_preference_name
+    }
+    sector_preference_1 {
+      sector_preference_name
+    }
+    sector_preference_2 {
+      sector_preference_name
+    }
+    english_knowledge_choice {
+      english_choice
     }
   }
 `;
@@ -25,10 +72,9 @@ const EXTENDED_DONATION_RECORD = gql`
 const customBuildFields = (type, fetchType) => {
   const resourceName = type.name;
   const defaultFields = buildFields(type, fetchType);
-
-  if (resourceName === "device_donation_donor") {
-    if (fetchType === "UPDATE") {
-      const relatedEntities = extractFieldsFromQuery(EXTENDED_DONATION_RECORD);
+  if (resourceName === "candidate_profile") {
+    if (fetchType === "GET_LIST" ||fetchType === "GET_ONE") {
+      const relatedEntities = extractFieldsFromQuery(EXTENDED_CANDIDATE_RECORD);
       defaultFields.push(...relatedEntities);
     }
   }

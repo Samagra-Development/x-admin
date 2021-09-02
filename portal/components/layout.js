@@ -42,33 +42,11 @@ const Layout = ({ children, home }) => {
       </Head>
       <div className={styles.container}>
         <header className={styles.header}>
-          <div className={styles.headerLogos}>
-            <Image
-              src="/cm.png"
-              alt="Chief Minister"
-              className={styles.face}
-              width={80}
-              height={80}
-            />
-            <Image
-              src="/campaign_logo.png"
-              alt="Campaign Logo"
-              width={80}
-              height={80}
-            />
-            <Image
-              src="/em-final-square.png"
-              alt="Education Minister"
-              className={styles.face}
-              width={80}
-              height={80}
-            />
-          </div>
-          <h1 className={styles.title}>Digital Saathi </h1>
-          <h2 className={styles.subtitle}>Bacchon ka sahara, phone humara</h2>
+          <h1 className={styles.title}>Rozgar Saathi </h1>
+          {/* <h2 className={styles.subtitle}>Bacchon ka sahara, phone humara</h2>
           <h3 className={styles.subsubtitle}>
             An initiative of the Government of Himachal Pradesh, India
-          </h3>
+          </h3> */}
         </header>
         <main
           onTransitionEnd={() => {
@@ -82,7 +60,7 @@ const Layout = ({ children, home }) => {
         <footer className={styles.footer}>
           <div className={styles.logo}>
             <Image
-              src="/default.png"
+              src="/DPlogo.png"
               alt="HP Govt Logo"
               width={120}
               height={60}

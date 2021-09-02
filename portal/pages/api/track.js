@@ -8,6 +8,7 @@ const handler = async (req, res) => {
       const { id } = req.body;
       const responseObject = await startFetchTrackDevice(id);
       if (responseObject?.errors) {
+        console.log("ERROR:",responseObject?.errors?.[0]?.message)
         res
           .status(500)
           .json({ error: responseObject?.errors?.[0]?.message, success: null });
@@ -61,9 +62,9 @@ async function fetchGraphQL(operationsDoc, operationName, variables) {
   const result = await axios({
     method: "POST",
     headers: {
-      "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET,
+      "x-hasura-admin-secret": "2OWslm5aAjlTARU",
     },
-    url: process.env.HASURA_URL,
+    url: "http://143.110.186.108:5001/v1/graphql",
     data: {
       query: operationsDoc,
       variables: variables,
