@@ -37,13 +37,6 @@ const exporter = (records) => {
     console.log(records)
     
     return {
-      "Mobile Number": (record.mobile_number),
-      "Company Name": (record.company_name),
-      "District Name": (record.district_name.name),
-      "pincode": (record.pincode),
-      "CRN": (record.CRN),
-      "GSTN": (record.GSTN),
-      
       
       
     };
@@ -51,7 +44,7 @@ const exporter = (records) => {
   jsonExport(recordsForExport, (err, csv) => {
     downloadCSV(
       csv,
-      `recruiterData_${new Date(Date.now()).toLocaleDateString()}`
+      `candidateData_${new Date(Date.now()).toLocaleDateString()}`
     );
   });
 };
@@ -87,17 +80,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "1rem",
   },
 }));
-export const RecruiterData = (props) => {
+export const InterestedCandidateist = (props) => {
   console.log("Entered Recruiter");
   const classes = useStyles();
-
-  
 
   return (
     <div className={classes.root}>
       <List
         {...props}
-        title={"Recruiter"}
+        title={"Candidates"}
         actions={<CandidateActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
@@ -108,14 +99,12 @@ export const RecruiterData = (props) => {
        
            
            
-           
-            <TextField label='Mobile Number' source='mobile_number' />
-            <TextField label='Company Name' source='company_name' />
-            <TextField label='District Name' source='district_name.name' />
-            <TextField label='pincode' source='pincode' />
-            <TextField label='CRN' source='CRN'/>
-            <TextField label='GSTN' source='GSTN' />
-          
+            <TextField label='Vacancy ID' source='vacancy_id' />
+            <TextField label='Name of company' source='vacancy_detail.employer_detail.company_name' />
+            <TextField label='Vacancy Sector' source='company_name' />
+            <TextField label='Name of candidate' source='district_id' />
+            <TextField label='Interested' source='interested' />
+
           {/* <FunctionField label="Name" render={(record) => `${record.name}`} />
           <FunctionField
             label="Age"
