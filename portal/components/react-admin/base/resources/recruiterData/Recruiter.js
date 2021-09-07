@@ -30,22 +30,19 @@ const SearchFilter = (props) => {
 };
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
-    let age =  getAge({
+    let age = getAge({
       start: record.DOB,
       end: null,
     }).years;
-    console.log(records)
-    
+    console.log(records);
+
     return {
-      "Mobile Number": (record.mobile_number),
-      "Company Name": (record.company_name),
-      "District Name": (record.district_name.name),
-      "pincode": (record.pincode),
-      "CRN": (record.CRN),
-      "GSTN": (record.GSTN),
-      
-      
-      
+      "Mobile Number": record.mobile_number,
+      "Company Name": record.company_name,
+      "District Name": record.district_name.name,
+      pincode: record.pincode,
+      CRN: record.CRN,
+      GSTN: record.GSTN,
     };
   });
   jsonExport(recordsForExport, (err, csv) => {
@@ -91,8 +88,6 @@ export const RecruiterData = (props) => {
   console.log("Entered Recruiter");
   const classes = useStyles();
 
-  
-
   return (
     <div className={classes.root}>
       <List
@@ -105,75 +100,13 @@ export const RecruiterData = (props) => {
         exporter={exporter}
       >
         <Datagrid rowClick="show">
-       
-           
-           
-           
-            <TextField label='Mobile Number' source='mobile_number' />
-            <TextField label='Company Name' source='company_name' />
-            <TextField label='District Name' source='district_name.name' />
-            <TextField label='pincode' source='pincode' />
-            <TextField label='CRN' source='CRN'/>
-            <TextField label='GSTN' source='GSTN' />
-          
-          {/* <FunctionField label="Name" render={(record) => `${record.name}`} />
-          <FunctionField
-            label="Age"
-            render={(record) => {
-              if (record && record) {
-                console.log(record);
-                return getAge({
-                  start: record,
-                  end: null,
-                }).years;
-              }
-            }}
-          /> */}
-          {/* <FunctionField
-            label="Gender"
-            render={(record) => {
-              if (record && record.gender) {
-                return record.gender.gender_name;
-              }
-            }}
-          />
-          <FunctionField
-            label="Whatsapp"
-            render={(record) => `${record.whatsapp_mobile_number}`}
-          />
-          <FunctionField
-            label="District"
-            render={(record) => {
-              if (record && record.district_name) {
-                return record.district_name.name;
-              }
-            }}
-          />
-          <FunctionField
-            label="PinCode"
-            render={(record) => `${record.pincode}`}
-          />
-          <FunctionField
-            label="Max Qualification"
-            render={(record) => {
-              if (record && record.highest_level_qualification) {
-                return record.highest_level_qualification
-                  .highest_level_qualification_name;
-              }
-            }}
-          />
-          <FunctionField
-            label="Qualification"
-            render={(record) => {
-              if (record && record.qualification_detail) {
-                return record.qualification_detail.qualification_name;
-              }
-            }}
-          />
-          <FunctionField
-            label="Marks"
-            render={(record) => `${record.final_score_highest_qualification}`}
-          /> */}
+          <TextField label="Company Name" source="company_name"/>
+          <TextField label="Mobile Number" source="mobile_number"/>
+          <TextField label="District Name" source="district_name.name"/>
+          <TextField label="pincode" source="pincode" />
+          <TextField label="CRN" source="CRN"/>
+          <TextField label="GSTN" source="GSTN"/>
+
         </Datagrid>
       </List>
     </div>

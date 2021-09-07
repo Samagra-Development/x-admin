@@ -30,21 +30,27 @@ const SearchFilter = (props) => {
 };
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
-    let age =  getAge({
+    let age = getAge({
       start: record.DOB,
       end: null,
     }).years;
-    console.log(records)
-    
+    console.log(records);
+
     return {
-      
-      
+      "Vacancy ID": record.vacancy_id,
+      "Name of company": record.vacancy_detail.employer_detail.company_name,
+      "Vacancy Sector":
+        record.vacancy_detail.sector_preference.sector_preference_name,
+      "Name of candidate": record.candidate_profile
+        ? record.candidate_profile.name
+        : "NULL",
+      Interested: record.interested,
     };
   });
   jsonExport(recordsForExport, (err, csv) => {
     downloadCSV(
       csv,
-      `candidateData_${new Date(Date.now()).toLocaleDateString()}`
+      `intrestedCandidatesList_${new Date(Date.now()).toLocaleDateString()}`
     );
   });
 };
@@ -88,7 +94,7 @@ export const InterestedCandidateist = (props) => {
     <div className={classes.root}>
       <List
         {...props}
-        title={"Candidates"}
+        title={"Intrested Candidates"}
         actions={<CandidateActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
@@ -96,73 +102,20 @@ export const InterestedCandidateist = (props) => {
         exporter={exporter}
       >
         <Datagrid rowClick="show">
-       
-           
-           
-            <TextField label='Vacancy ID' source='vacancy_id' />
-            <TextField label='Name of company' source='vacancy_detail.employer_detail.company_name' />
-            <TextField label='Vacancy Sector' source='company_name' />
-            <TextField label='Name of candidate' source='district_id' />
-            <TextField label='Interested' source='interested' />
-
-          {/* <FunctionField label="Name" render={(record) => `${record.name}`} />
-          <FunctionField
-            label="Age"
-            render={(record) => {
-              if (record && record) {
-                console.log(record);
-                return getAge({
-                  start: record,
-                  end: null,
-                }).years;
-              }
-            }}
-          /> */}
-          {/* <FunctionField
-            label="Gender"
-            render={(record) => {
-              if (record && record.gender) {
-                return record.gender.gender_name;
-              }
-            }}
+          <TextField label="Vacancy ID" source="vacancy_id" />
+          <TextField
+            label="Name of company"
+            source="vacancy_detail.employer_detail.company_name"
           />
-          <FunctionField
-            label="Whatsapp"
-            render={(record) => `${record.whatsapp_mobile_number}`}
+          <TextField
+            label="Vacancy Sector"
+            source="vacancy_detail.sector_preference.sector_preference_name"
           />
-          <FunctionField
-            label="District"
-            render={(record) => {
-              if (record && record.district_name) {
-                return record.district_name.name;
-              }
-            }}
+          <TextField
+            label="Name of candidate"
+            source="candidate_profile.name"
           />
-          <FunctionField
-            label="PinCode"
-            render={(record) => `${record.pincode}`}
-          />
-          <FunctionField
-            label="Max Qualification"
-            render={(record) => {
-              if (record && record.highest_level_qualification) {
-                return record.highest_level_qualification
-                  .highest_level_qualification_name;
-              }
-            }}
-          />
-          <FunctionField
-            label="Qualification"
-            render={(record) => {
-              if (record && record.qualification_detail) {
-                return record.qualification_detail.qualification_name;
-              }
-            }}
-          />
-          <FunctionField
-            label="Marks"
-            render={(record) => `${record.final_score_highest_qualification}`}
-          /> */}
+          <TextField label="Interested" source="interested" />
         </Datagrid>
       </List>
     </div>
