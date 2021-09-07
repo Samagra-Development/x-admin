@@ -29,29 +29,45 @@ const SearchFilter = (props) => {
 };
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
-    let age =  getAge({
+    let age = getAge({
       start: record.DOB,
       end: null,
     }).years;
-    
+
     return {
-      "Candidate Name": (record.name?record.name:'NONE'),
-      "Mobile Number": (record.mobile_number?record.mobile_number:"NONE"),
-      "Whatsapp Number": (record.whatsapp_mobile_number?record.whatsapp_mobile_number:'NONE'),
-      District: (record.district_name.name?record.district_name.name:"NONE"),
-      Pincode: (record.pincode?record.pincode:"NONE"),
-      "Max Qualification":
-        (record.highest_level_qualification.highest_level_qualification_name?record.highest_level_qualification.highest_level_qualification_name:"NONE"),
-      Qualification: (record.qualification_detail.qualification_name?record.qualification_detail.qualification_name:"NONE"),
-      Marks: (record.final_score_highest_qualification?record.final_score_highest_qualification:"NONE"),
+      "Candidate Name": record.name ? record.name : "NONE",
+      "Mobile Number": record.mobile_number ? record.mobile_number : "NONE",
+      "Whatsapp Number": record.whatsapp_mobile_number
+        ? record.whatsapp_mobile_number
+        : "NONE",
+      District: record.district_name.name ? record.district_name.name : "NONE",
+      Pincode: record.pincode ? record.pincode : "NONE",
+      "Max Qualification": record.highest_level_qualification
+        .highest_level_qualification_name
+        ? record.highest_level_qualification.highest_level_qualification_name
+        : "NONE",
+      Qualification: record.qualification_detail.qualification_name
+        ? record.qualification_detail.qualification_name
+        : "NONE",
+      Marks: record.final_score_highest_qualification
+        ? record.final_score_highest_qualification
+        : "NONE",
       "Date of Birth": record.DOB,
       Age: age,
       Gender: record.gender.gender_name,
-      "Have you ever been employed": (record.ever_employment.employment_status?record.ever_employment.employment_status:"NONE"),
-      "Job Role": (record.job_role?record.job_role:"NONE"),
-      "Company Name": (record.employer_organization_name?record.employer_organization_name:"NONE"),
-      "Total work experience (months)": (record.work_experience_details?record.work_experience_details.work_experience_choices:"NONE"),
-      "Monthly salary (Rs.)": (record.monthly_salary_details?record.monthly_salary_details.salary_range:"NONE"),
+      "Have you ever been employed": record.ever_employment.employment_status
+        ? record.ever_employment.employment_status
+        : "NONE",
+      "Job Role": record.job_role ? record.job_role : "NONE",
+      "Company Name": record.employer_organization_name
+        ? record.employer_organization_name
+        : "NONE",
+      "Total work experience (months)": record.work_experience_details
+        ? record.work_experience_details.work_experience_choices
+        : "NONE",
+      "Monthly salary (Rs.)": record.monthly_salary_details
+        ? record.monthly_salary_details.salary_range
+        : "NONE",
       "Driving License": record.driver_license.driver_license_choice,
       "Distance willing to travel":
         record.district_travel.district_travel_choice,
@@ -60,7 +76,6 @@ const exporter = (records) => {
         record.english_knowledge_choice.english_choice,
       "Computer operating competencies":
         record.computer_operator.computer_operator_choices,
-      // "Preferred Sectors": `${record.sector_preference_1.sector_preference_name},${record.sector_preference_2.sector_preference_name},${record.sector_preference_3.sector_preference_name}`,
       "Preferred Skill #1": record.skill_1,
       "Preferred Skill #2": record.skill_2,
       "Preferred Skill #3": record.skill_3,

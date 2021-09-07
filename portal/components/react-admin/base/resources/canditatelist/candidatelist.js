@@ -37,18 +37,20 @@ const exporter = (records) => {
     console.log(records);
 
     return {
-      "Mobile Number": record.mobile_number,
-      "Company Name": record.company_name,
-      "District Name": record.district_name.name,
-      pincode: record.pincode,
-      CRN: record.CRN,
-      GSTN: record.GSTN,
+      "Vacancy ID": record.vacancy_id,
+      "Name of company": record.vacancy_detail.employer_detail.company_name,
+      "Vacancy Sector":
+        record.vacancy_detail.sector_preference.sector_preference_name,
+      "Name of candidate": record.candidate_profile
+        ? record.candidate_profile.name
+        : "NULL",
+      Interested: record.interested,
     };
   });
   jsonExport(recordsForExport, (err, csv) => {
     downloadCSV(
       csv,
-      `recruiterData_${new Date(Date.now()).toLocaleDateString()}`
+      `intrestedCandidatesList_${new Date(Date.now()).toLocaleDateString()}`
     );
   });
 };
@@ -84,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "1rem",
   },
 }));
-export const RecruiterData = (props) => {
+export const InterestedCandidateist = (props) => {
   console.log("Entered Recruiter");
   const classes = useStyles();
 
@@ -92,7 +94,7 @@ export const RecruiterData = (props) => {
     <div className={classes.root}>
       <List
         {...props}
-        title={"Recruiter"}
+        title={"Intrested Candidates"}
         actions={<CandidateActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
@@ -100,13 +102,20 @@ export const RecruiterData = (props) => {
         exporter={exporter}
       >
         <Datagrid rowClick="show">
-          <TextField label="Company Name" source="company_name"/>
-          <TextField label="Mobile Number" source="mobile_number"/>
-          <TextField label="District Name" source="district_name.name"/>
-          <TextField label="pincode" source="pincode" />
-          <TextField label="CRN" source="CRN"/>
-          <TextField label="GSTN" source="GSTN"/>
-
+          <TextField label="Vacancy ID" source="vacancy_id" />
+          <TextField
+            label="Name of company"
+            source="vacancy_detail.employer_detail.company_name"
+          />
+          <TextField
+            label="Vacancy Sector"
+            source="vacancy_detail.sector_preference.sector_preference_name"
+          />
+          <TextField
+            label="Name of candidate"
+            source="candidate_profile.name"
+          />
+          <TextField label="Interested" source="interested" />
         </Datagrid>
       </List>
     </div>
