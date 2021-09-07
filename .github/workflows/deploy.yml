@@ -20,7 +20,7 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy files with rsync
-        run: rsync -avz --exclude '.git' --exclude '.github' . ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/device-donation/
+        run: rsync -avz --exclude '.git' --exclude '.github' . ${{ secrets.SSH_USER }}@${{ secrets.SSH_ }}:/home/device-donation/
 
       - name: Rebuild containers with docker
         uses: appleboy/ssh-action@master

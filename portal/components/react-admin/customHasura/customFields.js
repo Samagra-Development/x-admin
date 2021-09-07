@@ -69,6 +69,7 @@ const EXTENDED_CANDIDATE_VACANCY_INTREST = gql`
     }
   }
 `;
+
 const EXTENDED_CANDIDATE_RECORD = gql`
   {
     qualification_detail {
@@ -155,6 +156,7 @@ const customBuildFields = (type, fetchType) => {
       defaultFields.push(...relatedEntities);
     }
   }
+
   return defaultFields;
 };
 

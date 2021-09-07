@@ -1,4 +1,3 @@
-import { concatAST } from "graphql";
 import { CandidateList } from "./candidate-profile";
 import { CandidateShow } from "./candidate-show";
 

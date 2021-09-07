@@ -16,6 +16,7 @@ import {
   CandidateData,
   InterestedCandidateist,
 } from "@/components/react-admin/base/resources/canditatelist/candidatelist";
+
 export const resourceConfig = [
   {
     name: "candidate_profile",
@@ -31,6 +32,7 @@ export const resourceConfig = [
     name: "employer_details",
     list: RecruiterData,
     edit: null,
+
     create: null,
     label: "Recruiter Data",
     icon: "person",
@@ -46,7 +48,6 @@ export const resourceConfig = [
   {
     name: "candidate_vacancy_interest",
     list: InterestedCandidateist,
-
     create: null,
     label: "Interested Candidates",
     icon: "person",

@@ -30,12 +30,6 @@ const SearchFilter = (props) => {
 };
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
-    let age = getAge({
-      start: record.DOB,
-      end: null,
-    }).years;
-    console.log(records);
-
     return {
       "Vacancy ID": record.vacancy_id,
       "Name of company": record.vacancy_detail.employer_detail.company_name,
@@ -54,21 +48,6 @@ const exporter = (records) => {
     );
   });
 };
-
-function getAge({ start, end }) {
-  var today = end ? new Date(end) : new Date();
-  var birthDate = new Date(start);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  let roundedDownAge = age;
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    roundedDownAge--;
-  }
-  if (today < birthDate) {
-    return { years: "Invalid Date", months: "Invalid Date" };
-  }
-  return { years: roundedDownAge, months: age * 12 + m };
-}
 
 const CandidateActions = (props) => (
   <TopToolbar {...sanitizeListRestProps(props)}>
@@ -101,7 +80,7 @@ export const InterestedCandidateist = (props) => {
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
         exporter={exporter}
       >
-        <Datagrid rowClick="show">
+        <Datagrid>
           <TextField label="Vacancy ID" source="vacancy_id" />
           <TextField
             label="Name of company"
