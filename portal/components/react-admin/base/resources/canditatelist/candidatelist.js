@@ -16,7 +16,6 @@ import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 
 const SearchFilter = (props) => {
-  console.log("Props:", props);
   return (
     <Filter {...props}>
       <SearchInput
@@ -32,12 +31,10 @@ const exporter = (records) => {
   const recordsForExport = records.map((record) => {
     return {
       "Vacancy ID": record.vacancy_id,
-      "Name of company": record.vacancy_detail.employer_detail.company_name,
+      "Name of company": record.vacancy_detail?.employer_detail?.company_name,
       "Vacancy Sector":
-        record.vacancy_detail.sector_preference.sector_preference_name,
-      "Name of candidate": record.candidate_profile
-        ? record.candidate_profile.name
-        : "NULL",
+        record.vacancy_detail?.sector_preference?.sector_preference_name,
+      "Name of candidate": record.candidate_profile?.name,
       Interested: record.interested,
     };
   });
@@ -66,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export const InterestedCandidateist = (props) => {
-  console.log("Entered Recruiter");
   const classes = useStyles();
 
   return (

@@ -16,7 +16,7 @@ import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 
 const SearchFilter = (props) => {
-  console.log("Props:", props);
+  "Props:", props;
   return (
     <Filter {...props}>
       <SearchInput
@@ -33,7 +33,7 @@ const exporter = (records) => {
     return {
       "Mobile Number": record.mobile_number,
       "Company Name": record.company_name,
-      "District Name": record.district_name.name,
+      "District Name": record.district_name?.name,
       pincode: record.pincode,
       CRN: record.CRN,
       GSTN: record.GSTN,
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export const RecruiterData = (props) => {
-  console.log("Entered Recruiter");
+  ("Entered Recruiter");
   const classes = useStyles();
 
   return (

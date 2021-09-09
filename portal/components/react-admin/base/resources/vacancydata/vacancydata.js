@@ -16,7 +16,6 @@ import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 
 const SearchFilter = (props) => {
-  console.log("Props:", props);
   return (
     <Filter {...props}>
       <SearchInput
@@ -30,66 +29,43 @@ const SearchFilter = (props) => {
 };
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
-    let age = getAge({
-      start: record.DOB,
-      end: null,
-    }).years;
-    console.log(records);
-
     return {
-      "Name of company": record.employer_detail
-        ? record.employer_detail.company_name
-        : "NULL",
-      GSTN: record.GSTN ? record.GSTN : "NULL",
+      "Name of company": record.employer_detail?.company_name,
       "Mobile Number": record.employer_mobile_number
         ? record.employer_mobile_number
-        : "NULL",
-      pincode: record.employer_detail ? record.employer_detail.pincode : "NULL",
-      "Vacancy ID": record.vacancy_id ? id : "NULL",
+        : "",
+      pincode: record.employer_detail?.pincode,
+      "Vacancy ID": record.vacancy_id ? id : "",
 
-      "Sector of job": record.sector_preference
-        ? record.sector_preference.sector_preference_name
-        : "NULL",
-      job_role: record.employer_detail
-        ? record.employer_detail.job_role
-        : "NULL",
-      expected_salary: record.expected_salary
-        ? record.expected_salary.salary_range
-        : "NULL",
+      "Sector of job": record.sector_preference?.sector_preference_name,
+      job_role: record.employer_detail?.job_role,
+      expected_salary: record.expected_salary?.salary_range,
       "Number of candidates to recruit": record.number_of_candidates_required
         ? record.number_of_candidates_required
-        : "NULL",
-      "Minimum qualification requirement": record.highest_level_qualification
-        ? record.highest_level_qualification.highest_level_qualification_name
-        : "NULL",
+        : "",
+      "Minimum qualification requirement":
+        record.highest_level_qualification?.highest_level_qualification_name,
       "Are vacancies open for freshers?": record.freshers_open_choice
         ? record.freshers_open_choice
-        : "NULL",
-      "Minimum work experience required": record.min_work_experience_requirement
-        ? record.min_work_experience_requirement.work_experience_choices
-        : "NULL",
-      "Requirement of driving license": record.driver_license
-        ? record.driver_license.driver_license_choice
-        : "NULL",
+        : "",
+      "Minimum work experience required":
+        record.min_work_experience_requirement?.work_experience_choices,
+      "Requirement of driving license":
+        record.driver_license?.driver_license_choice,
+      "English speaking skills":
+        record.englishSpeakingRequiredByFreshersOpenChoice
+          ?.english_speaking_required_choices,
+      "Computer operating skills":
+        record.englishSpeakingRequiredByIsComputerKnowledgeRequiredChoices
+          ?.english_speaking_required_choices,
+      "Age criteria": record.age_criteria_choice?.age_range_values,
 
-      "English speaking skills": record.englishSpeakingRequiredByFreshersOpenChoice
-        ? record.englishSpeakingRequiredByFreshersOpenChoice
-          .english_speaking_required_choices
-        : "NULL",
-      "Computer operating skills": record.englishSpeakingRequiredByIsComputerKnowledgeRequiredChoices
-        ? record.englishSpeakingRequiredByIsComputerKnowledgeRequiredChoices
-          .english_speaking_required_choices
-        : "NULL",
-      "Age criteria": record.age_criteria_choice
-        ? record.age_criteria_choice.age_range_values
-        : "NULL",
-
-      "Gender criteria": record.gender ? record.gender.gender_name : "NULL",
+      "Gender criteria": record.gender?.gender_name,
       "Expected interview date": record.interview_date
         ? record.interview_date
-        : "NULL",
-      CRN: record.employer_detail ? record.employer_detail.CRN : "NULL",
-      GSTN: record.employer_detail ? record.employer_detail.GSTN : "NULL",
+        : "",
+      CRN: record.employer_detail?.CRN,
+      GSTN: record.employer_detail?.GSTN,
     };
   });
   jsonExport(recordsForExport, (err, csv) => {
@@ -99,21 +75,6 @@ const exporter = (records) => {
     );
   });
 };
-
-function getAge({ start, end }) {
-  var today = end ? new Date(end) : new Date();
-  var birthDate = new Date(start);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
-  let roundedDownAge = age;
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    roundedDownAge--;
-  }
-  if (today < birthDate) {
-    return { years: "Invalid Date", months: "Invalid Date" };
-  }
-  return { years: roundedDownAge, months: age * 12 + m };
-}
 
 const CandidateActions = (props) => (
   <TopToolbar {...sanitizeListRestProps(props)}>
@@ -132,7 +93,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export const VacancyData = (props) => {
-  console.log("Entered Vacancy");
   const classes = useStyles();
 
   return (

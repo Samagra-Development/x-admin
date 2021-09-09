@@ -123,7 +123,6 @@ export const CandidateShow = (props) => {
             label="Role and Employer"
             render={(record) => {
               if (record) {
-                console.log("Role:", record);
                 if (record.current_employed_status === 1) {
                   return `${record.job_role}, ${record.employer_organization_name}`;
                 } else return "N/A";

@@ -47,7 +47,6 @@ const App = () => {
   );
 };
 function AsyncResources({ client }) {
-  console.log("Async")
   let introspectionResultObjects =
     client.cache?.data?.data?.ROOT_QUERY?.__schema.types
       ?.filter((obj) => obj.kind === "OBJECT")
@@ -58,7 +57,6 @@ function AsyncResources({ client }) {
     filteredResources = resources.filter((elem) =>
       introspectionResultObjects.includes(elem.name)
     );
-    console.log("introspectionResultObjects", filteredResources)
   }
   if (!resources) return null;
   return (
