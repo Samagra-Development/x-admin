@@ -62,31 +62,31 @@ services:
   #         HASURA_GRAPHQL_ADMIN_SECRET: S#CREtp@55W0rd
   #         HASURA_GRAPHQL_JWT_SECRET: '{"type": "RS512", "jwk_url": "http://fusionauth:9011/.well-known/jwks"}'
 
-  mongo:
-    image: mongo
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+  # mongo:
+  #   image: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
 
-  api:
-    build:
-      context: ./api
-    depends_on:
-      - mongo
-    environment:
-      MONGO_DATASOURCE_USER: ${MONGO_USER}
-      MONGO_DATASOURCE_PASSWORD: ${MONGO_PASSWORD}
-      HASURA_URL: ${HASURA_URL}
-      HASURA_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
-      GUPSHUP_USERNAME: ${GUPSHUP_USERNAME}
-      GUPSHUP_PASSWORD: ${GUPSHUP_PASSWORD}
-      GUPSHUP_PRINCIPAL_ENTITY_ID: ${GUPSHUP_PRINCIPAL_ENTITY_ID}
-      SLACK_ADMIN_LOGGER_AUTH_TOKEN: ${SLACK_ADMIN_LOGGER_AUTH_TOKEN}
-      SLACK_ADMIN_LOGS_CHANNEL_ID: ${SLACK_ADMIN_LOGS_CHANNEL_ID}
-    ports:
-      - "3001:3000"
+  # api:
+  #   build:
+  #     context: ./api
+  #   depends_on:
+  #     - mongo
+  #   environment:
+  #     MONGO_DATASOURCE_USER: ${MONGO_USER}
+  #     MONGO_DATASOURCE_PASSWORD: ${MONGO_PASSWORD}
+  #     HASURA_URL: ${HASURA_URL}
+  #     HASURA_ADMIN_SECRET: ${HASURA_ADMIN_SECRET}
+  #     GUPSHUP_USERNAME: ${GUPSHUP_USERNAME}
+  #     GUPSHUP_PASSWORD: ${GUPSHUP_PASSWORD}
+  #     GUPSHUP_PRINCIPAL_ENTITY_ID: ${GUPSHUP_PRINCIPAL_ENTITY_ID}
+  #     SLACK_ADMIN_LOGGER_AUTH_TOKEN: ${SLACK_ADMIN_LOGGER_AUTH_TOKEN}
+  #     SLACK_ADMIN_LOGS_CHANNEL_ID: ${SLACK_ADMIN_LOGS_CHANNEL_ID}
+  #   ports:
+  #     - "3001:3000"
 
   portal:
     build:
@@ -106,13 +106,13 @@ services:
       CERTIFICATE_URL: ${CERTIFICATE_URL}
       CAPTCHA_URL: ${CAPTCHA_URL}
 
-  certificate:
-    build:
-      context: ./certificate
+  # certificate:
+  #   build:
+  #     context: ./certificate
 
-  captcha-service:
-    build:
-      context: ./captcha-service
+  # captcha-service:
+  #   build:
+  #     context: ./captcha-service
 # volumes:
 #   db_data:
 #   fa_config:
