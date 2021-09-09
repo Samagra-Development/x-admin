@@ -10,8 +10,8 @@ const LoginWrapper = () => {
     consonant: false,
       en: "official",
       hi: "अधिकारी",
-      credentials: "Shiksha Saathi",
-      applicationId: "2875657e-71aa-4ec0-93fb-b21611998b21",
+      credentials: "Rozgar Saathi",
+      applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_IDs,
       redirectUrl: `admin#/candidate_profile`,
     });
   if (selectedPersona) {

@@ -14,12 +14,10 @@ const handler = async (req, res) => {
 
       const responseObject = response.data;
       if (responseObject) {
-        console.log("Error in graphQl",responseObject)
         res.status(200).json(responseObject);
       }
     }
   } else {
-    // console.log("Error in graphQl")
     res.status(401).json({ error: "Unauthorised access.", success: null });}
 };
 

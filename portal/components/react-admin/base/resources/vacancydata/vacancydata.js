@@ -183,7 +183,6 @@ export const VacancyData = (props) => {
               }
             }}
           />
-          (record.name?record.name:'NONE')
           <TextField
             label="Minimum work experience required"
             source="min_work_experience_requirement.work_experience_choices"

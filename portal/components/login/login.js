@@ -38,9 +38,7 @@ export default function Login(props) {
 
   const signUserIn = async (e) => {
     e.preventDefault();
-    console.log("person:",persona)
-    console.log("Env Variables",`${process.env.NEXT_PUBLIC_URL}/${persona.redirectUrl}`)
-    const { error, url } = await signIn("fusionauth", {
+      const { error, url } = await signIn("fusionauth", {
       loginId: input.username,  
       password: input.password,
       applicationId: persona.applicationId,

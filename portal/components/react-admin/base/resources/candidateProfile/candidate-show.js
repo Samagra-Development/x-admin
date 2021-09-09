@@ -66,7 +66,7 @@ export const CandidateShow = (props) => {
         }}
       >
         {url ? (
-          <a href={url} target="_blank" rel="noopener">
+          <a href={url} target="_blank" rel="noopener noreferrer">
             <Typography variant="body2">Resume</Typography>
           </a>
         ) : (

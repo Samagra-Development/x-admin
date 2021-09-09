@@ -16,7 +16,6 @@ const App = () => {
   const [session] = useSession();
 
   useEffect(() => {
-    // console.log("ENtered app.js",process.env.NEXT_PUBLIC_HASURA_URL)
     const hasuraHeaders = {};
     hasuraHeaders.Authorization = `Bearer ${session.jwt}`;
     if (session.role) hasuraHeaders["x-hasura-role"] = session.role;
@@ -26,7 +25,6 @@ const App = () => {
       cache: new InMemoryCache(),
       headers: hasuraHeaders,
     });
-    // console.log("temp Client:", tempClient)
     async function buildDataProvider() {
       const hasuraProvider = await buildHasuraProvider(
         { client: tempClient },

@@ -10,6 +10,10 @@ import {
   SearchInput,
   ExportButton,
   downloadCSV,
+  TextInput,
+  SelectInput,
+  ReferenceInput,
+
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
@@ -17,16 +21,27 @@ import jsonExport from "jsonexport/dist";
 const SearchFilter = (props) => {
   console.log("Props:", props);
   return (
+    // <Filter {...props}>
+    //   <SearchInput
+    //     placeholder="Search by Name *"
+    //     source="name"
+    //     className="searchBar"
+    //     alwaysOn
+    //   />
+    // </Filter>
     <Filter {...props}>
-      <SearchInput
-        placeholder="Search by Name *"
-        source="name"
-        className="searchBar"
-        alwaysOn
-      />
-    </Filter>
+    <TextInput label="Search" source="name" alwaysOn />
+    <ReferenceInput label="Name" source="name" reference="name" allowEmpty>
+        <SelectInput optionText="name" />
+    </ReferenceInput>
+</Filter>
   );
 };
+
+const postFilters = [
+  // <TextInput label="Search" source="q" alwaysOn />,
+  <TextInput label="Name" source="name"  />,
+]
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
     let age = getAge({
@@ -134,7 +149,7 @@ export const CandidateList = (props) => {
         title={"Candidates"}
         actions={<CandidateActions />}
         bulkActionButtons={false}
-        filters={<SearchFilter />}
+        // filters={postFilters}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
         exporter={exporter}
       >

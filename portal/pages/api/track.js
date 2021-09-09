@@ -62,9 +62,9 @@ async function fetchGraphQL(operationsDoc, operationName, variables) {
   const result = await axios({
     method: "POST",
     headers: {
-      "x-hasura-admin-secret": "2OWslm5aAjlTARU",
+      "x-hasura-admin-secret":  process.env.HASURA_ADMIN_SECRET,
     },
-    url: "http://143.110.186.108:5001/v1/graphql",
+    url:  process.env.HASURA_URL,
     data: {
       query: operationsDoc,
       variables: variables,
