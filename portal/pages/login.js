@@ -11,7 +11,7 @@ const LoginWrapper = () => {
       en: "official",
       hi: "अधिकारी",
       credentials: "Rozgar Saathi",
-      applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_IDs,
+      applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
       redirectUrl: `admin#/candidate_profile`,
     });
   if (selectedPersona) {

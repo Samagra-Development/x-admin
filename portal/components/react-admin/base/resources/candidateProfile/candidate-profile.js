@@ -21,27 +21,17 @@ import jsonExport from "jsonexport/dist";
 const SearchFilter = (props) => {
   console.log("Props:", props);
   return (
-    // <Filter {...props}>
-    //   <SearchInput
-    //     placeholder="Search by Name *"
-    //     source="name"
-    //     className="searchBar"
-    //     alwaysOn
-    //   />
-    // </Filter>
     <Filter {...props}>
-    <TextInput label="Search" source="name" alwaysOn />
-    <ReferenceInput label="Name" source="name" reference="name" allowEmpty>
-        <SelectInput optionText="name" />
-    </ReferenceInput>
-</Filter>
+      <SearchInput
+        placeholder="Search by Name *"
+        source="name"
+        className="searchBar"
+        alwaysOn
+      />
+    </Filter>
   );
 };
 
-const postFilters = [
-  // <TextInput label="Search" source="q" alwaysOn />,
-  <TextInput label="Name" source="name"  />,
-]
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
     let age = getAge({
@@ -149,7 +139,7 @@ export const CandidateList = (props) => {
         title={"Candidates"}
         actions={<CandidateActions />}
         bulkActionButtons={false}
-        // filters={postFilters}
+        filters={<SearchFilter/>}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
         exporter={exporter}
       >
