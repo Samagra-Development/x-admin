@@ -173,11 +173,11 @@ export const CandidateShow = (props) => {
             render={(record) => {
               if (record) {
                 return `${
-                  record.sector_preference_1.sector_preference_name || "None"
+                  record.sector_preference_1?.sector_preference_name
                 }, ${
-                  record.sector_preference_2.sector_preference_name || "None"
+                  record.sector_preference_2?.sector_preference_name 
                 }, ${
-                  record.sector_preference_3.sector_preference_name || "None"
+                  record.sector_preference_3?.sector_preference_name
                 }`;
               }
             }}
