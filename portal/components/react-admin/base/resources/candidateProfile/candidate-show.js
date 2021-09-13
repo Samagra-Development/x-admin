@@ -1,30 +1,11 @@
 import React from "react";
 import {
-  List,
-  Datagrid,
-  Pagination,
   TextField,
   DateField,
   FunctionField,
-  TopToolbar,
-  sanitizeListRestProps,
-  UrlField,
-  BooleanField,
-  RichTextField,
-  ArrayField,
-  SingleFieldList,
-  FileField,
   Show,
   Tab,
   TabbedShowLayout,
-  SimpleShowLayout,
-  Filter,
-  SelectInput,
-  SearchInput,
-  ExportButton,
-  AutocompleteInput,
-  useQuery,
-  downloadCSV,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 
@@ -43,20 +24,9 @@ function getAge({ start, end }) {
   return { years: roundedDownAge, months: age * 12 + m };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "calc(100% - 0px)",
-    height: "86vh",
-    marginTop: theme.spacing.unit * 3,
-    overflowX: "auto",
-    overflowY: "scroll",
-    marginLeft: "1rem",
-  },
-}));
-
 export const CandidateShow = (props) => {
   const CustomFileField = ({ record, ...props }) => {
-    const url = generateResumeLink(record?.data?.[0]?.resume?.url);
+    const url = generateResumeLink(record?.resume?.url);
     return (
       <div
         style={{
@@ -75,6 +45,10 @@ export const CandidateShow = (props) => {
       </div>
     );
   };
+  const generateResumeLink = (url) => {
+    return url?.replace(/\/(.*?)\:/g, `//${config.odkAggregateUrl}:`);
+  };
+
   return (
     <Show {...props} title="Candiate details">
       <TabbedShowLayout>
@@ -92,32 +66,52 @@ export const CandidateShow = (props) => {
               }
             }}
           />
-
-          <TextField label="Gender" source="gender.gender_name" />
+          <FunctionField
+            label="Gender"
+            render={(record) => {
+                return record?.gender?.gender_name;
+            }}
+          />
           <TextField label="Mobile" source="mobile_number" />
           <TextField label="Whatsapp" source="whatsapp_mobile_number" />
-          <TextField label="Distict" source="district_name.name" />
+          <FunctionField
+            label="District"
+            render={(record) => {
+                return record?.district_name?.name;
+            }}
+          />
           <TextField label="Pincode" source="pincode" />
         </Tab>
         <Tab label="Educational Details">
-          <TextField
+      
+           <FunctionField
             label="Max Qualification"
-            source="highest_level_qualification.highest_level_qualification_name"
+            render={(record) => {
+                return record?.highest_level_qualification?.highest_level_qualification_name;
+            }}
           />
-          <TextField
+           <FunctionField
             label="Qualification"
-            source="qualification_detail.qualification_name"
+            render={(record) => {
+                return record?.qualification_detail?.qualification_name;
+            }}
           />
           <TextField label="Marks" source="final_score_highest_qualification" />
         </Tab>
         <Tab label="Employment History">
-          <TextField
+          
+           <FunctionField
             label="Are you currently employed?"
-            source="current_employment.current_employment_status"
+            render={(record) => {
+                return record?.current_employment?.current_employment_status;
+            }}
           />
-          <TextField
+          
+           <FunctionField
             label="Have you ever been employed?"
-            source="ever_employment.employment_status"
+            render={(record) => {
+                return record?.ever_employment?.employment_status;
+            }}
           />
           <FunctionField
             label="Role and Employer"
@@ -150,24 +144,38 @@ export const CandidateShow = (props) => {
           />
         </Tab>
         <Tab label="Profile and Preferences">
-          <TextField
+           <FunctionField
             label="Driving License"
-            source="driver_license.driver_license_choice"
+            render={(record) => {
+                return record.driver_license.driver_license_choice;
+            }}
           />
-          <TextField
+           <FunctionField
             label="Travel willingness"
-            source="district_travel.district_travel_choice"
+            render={(record) => {
+                return record?.district_travel?.district_travel_choice;
+            }}
           />
-          <TextField label="PAN CARD" source="pan_card.pan_card_choice" />
-          <TextField
+          <FunctionField
+            label="PAN CARD"
+            render={(record) => {
+              return record?.pan_card?.pan_card_choice;
+          }}
+          />
+        
+           <FunctionField
             label="English Speaking Competency"
-            source="english_knowledge_choice.english_choice"
+            render={(record) => {
+                return record?.english_knowledge_choice?.english_choice;
+            }}
           />
-          <TextField
+          
+           <FunctionField
             label="Computer Skills"
-            source="computer_operator.computer_operator_choice"
+            render={(record) => {
+                return record?.computer_operator?.computer_operator_choice;          
+            }}
           />
-
           <FunctionField
             label="Preferred Sectors"
             render={(record) => {
@@ -192,12 +200,15 @@ export const CandidateShow = (props) => {
               }
             }}
           />
-          <TextField
+          
+           <FunctionField
             label="Expected Salary"
-            source="expected_salary.salary_range"
+            render={(record) => {
+                return record?.expected_salary?.salary_range;
+            }}
           />
 
-          {/* <CustomFileField /> */}
+          <CustomFileField />
         </Tab>
       </TabbedShowLayout>
     </Show>
