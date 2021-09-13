@@ -106,19 +106,6 @@ const CandidateActions = (props) => (
   </TopToolbar>
 );
 
-const PostFilterButton = () => {
-  const { showFilter } = useListContext();
-  return (
-    <Button
-      size="small"
-      color="primary"
-      onClick={() => showFilter("main")}
-      startIcon={<ContentFilter />}
-    >
-      Filter
-    </Button>
-  );
-};
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "calc(100% - 0px)",
