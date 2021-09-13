@@ -7,7 +7,7 @@ on:
       - release/haryana-skills
 jobs:
   deploy-to-production:
-    environment: release-harayana-skills
+    environment: release-haryana-skills
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -32,5 +32,5 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/device-donation/
+            cd /home/x-admin/
             docker-compose up -d --build
