@@ -34,7 +34,7 @@ const UserNavbarHeader = () => {
         className={classes.sidebarHeaderLogo}
         src="/DPlogo1.png"
         alt="logo"
-        width={75}
+        width={50}
         height={50}
         layout={"intrinsic"}
       />

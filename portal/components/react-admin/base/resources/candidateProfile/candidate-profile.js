@@ -7,12 +7,11 @@ import {
   TopToolbar,
   sanitizeListRestProps,
   Filter,
-  SearchInput,
   ExportButton,
   downloadCSV,
-  TextInput,
   SelectInput,
   ReferenceInput,
+  ListActions,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
@@ -20,12 +19,42 @@ import jsonExport from "jsonexport/dist";
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
-      <SearchInput
-        placeholder="Search by Name *"
-        source="name"
-        className="searchBar"
-        alwaysOn
-      />
+      <ReferenceInput label="Name" source="name" reference="candidate_profile">
+        <SelectInput optionText="name" optionValue="name" />
+      </ReferenceInput>
+      <ReferenceInput label="Age" source="DOB" reference="candidate_profile">
+        <SelectInput optionText="DOB" optionValue="DOB" />
+      </ReferenceInput>
+
+      <ReferenceInput
+        label="Whatsapp"
+        source="whatsapp_mobile_number"
+        reference="candidate_profile"
+      >
+        <SelectInput
+          optionText="whatsapp_mobile_number"
+          optionValue="whatsapp_mobile_number"
+        />
+      </ReferenceInput>
+
+      <ReferenceInput
+        label="PinCode"
+        source="pincode"
+        reference="candidate_profile"
+      >
+        <SelectInput optionText="pincode" optionValue="pincode" />
+      </ReferenceInput>
+
+      <ReferenceInput
+        label="Marks"
+        source="final_score_highest_qualification"
+        reference="candidate_profile"
+      >
+        <SelectInput
+          optionText="final_score_highest_qualification"
+          optionValue="final_score_highest_qualification"
+        />
+      </ReferenceInput>
     </Filter>
   );
 };
@@ -123,7 +152,7 @@ export const CandidateList = (props) => {
       <List
         {...props}
         title={"Candidates"}
-        actions={<CandidateActions />}
+        actions={<ListActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}

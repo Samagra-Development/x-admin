@@ -8,9 +8,11 @@ import {
   TextField,
   sanitizeListRestProps,
   Filter,
-  SearchInput,
   ExportButton,
   downloadCSV,
+  ListActions,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
@@ -18,12 +20,33 @@ import jsonExport from "jsonexport/dist";
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
-      <SearchInput
-        placeholder="Search by Name *"
-        source="name"
-        className="searchBar"
-        alwaysOn
-      />
+      <ReferenceInput
+        label="Mobile Number"
+        source="employer_mobile_number"
+        reference="vacancy_details"
+        allowEmpty
+      >
+        <SelectInput
+          optionText="employer_mobile_number"
+          optionValue="employer_mobile_number"
+        />
+      </ReferenceInput>
+
+      <ReferenceInput
+        label="Vacancy ID"
+        source="id"
+        reference="vacancy_details"
+      >
+        <SelectInput optionText="id" optionValue="id" />
+      </ReferenceInput>
+
+      <ReferenceInput
+        label="job_role"
+        source="job_role"
+        reference="vacancy_details"
+      >
+        <SelectInput optionText="job_role" optionValue="job_role" />
+      </ReferenceInput>
     </Filter>
   );
 };
@@ -35,7 +58,7 @@ const exporter = (records) => {
         ? record.employer_mobile_number
         : "",
       pincode: record.employer_detail?.pincode,
-      "Vacancy ID": record.vacancy_id ? id : "",
+      "Vacancy ID": record.id,
 
       "Sector of job": record.sector_preference?.sector_preference_name,
       job_role: record.employer_detail?.job_role,
@@ -100,7 +123,7 @@ export const VacancyData = (props) => {
       <List
         {...props}
         title={"Vacancy Data"}
-        actions={<CandidateActions />}
+        actions={<ListActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}

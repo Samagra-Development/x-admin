@@ -3,14 +3,15 @@ import {
   List,
   Datagrid,
   Pagination,
-  FunctionField,
   TopToolbar,
   TextField,
   sanitizeListRestProps,
   Filter,
-  SearchInput,
   ExportButton,
   downloadCSV,
+  ListActions,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
@@ -18,12 +19,13 @@ import jsonExport from "jsonexport/dist";
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
-      <SearchInput
-        placeholder="Search by Name *"
-        source="name"
-        className="searchBar"
-        alwaysOn
-      />
+      <ReferenceInput
+        label="Vacancy ID"
+        source="vacancy_id"
+        reference="candidate_vacancy_interest"
+      >
+        <SelectInput optionText="vacancy_id" optionValue="vacancy_id" />
+      </ReferenceInput>
     </Filter>
   );
 };
@@ -70,7 +72,7 @@ export const InterestedCandidateist = (props) => {
       <List
         {...props}
         title={"Intrested Candidates"}
-        actions={<CandidateActions />}
+        actions={<ListActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
