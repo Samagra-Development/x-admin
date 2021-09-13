@@ -46,7 +46,7 @@ const UserMenuComponent = ({ user, logout }) => {
       <Button className="h-64" onClick={userMenuClick}>
         <Avatar
           alt="user photo"
-          src={`${process.env.NEXT_PUBLIC_URL}/default.png`}
+          src={`${process.env.NEXT_PUBLIC_URL}/DPlogo1.png`}
         />
         {isSmall ? (
           <></>

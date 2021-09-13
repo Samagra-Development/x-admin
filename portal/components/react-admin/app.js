@@ -50,7 +50,7 @@ function AsyncResources({ client }) {
   let introspectionResultObjects =
     client.cache?.data?.data?.ROOT_QUERY?.__schema.types
       ?.filter((obj) => obj.kind === "OBJECT")
-      ?.map((elem) => elem.name);
+      ?.map((elem) => elem.name); 
   const resources = resourceConfig;
   let filteredResources = resources;
   if (introspectionResultObjects) {
@@ -69,6 +69,7 @@ function AsyncResources({ client }) {
             list={resource.list}
             edit={resource.edit}
             create={resource.create}
+            show={resource.show}
           />
         ))}
       </AdminUI>

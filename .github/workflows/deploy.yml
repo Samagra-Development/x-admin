@@ -1,10 +1,13 @@
 name: deploy-to-production
 on:
-  release:
-    types: [published]
+  # release:
+  #   types: [published]
+  push:
+    branches:
+      - release/haryana-skills
 jobs:
   deploy-to-production:
-    environment: production
+    environment: release-harayana-skills
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

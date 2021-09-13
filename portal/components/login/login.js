@@ -38,8 +38,8 @@ export default function Login(props) {
 
   const signUserIn = async (e) => {
     e.preventDefault();
-    const { error, url } = await signIn("fusionauth", {
-      loginId: input.username,
+      const { error, url } = await signIn("fusionauth", {
+      loginId: input.username,  
       password: input.password,
       applicationId: persona.applicationId,
       redirect: false,

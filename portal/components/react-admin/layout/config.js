@@ -6,38 +6,50 @@ import {
   RequestDeviceEdit,
   RequestDeviceList,
 } from "@/resources/request-device";
+import {
+  CandidateShow,
+  CandidateList,
+} from "@/components/react-admin/base/resources/candidateProfile/index";
+import { RecruiterData } from "@/components/react-admin/base/resources/recruiterData/Recruiter";
+import { VacancyData } from "@/components/react-admin/base/resources/vacancydata/vacancydata";
+import {
+  CandidateData,
+  InterestedCandidateist,
+} from "@/components/react-admin/base/resources/canditatelist/candidatelist";
 
 export const resourceConfig = [
   {
-    label: "Data",
-    title: true,
-  },
-  {
-    name: "device_donation_donor",
-    label: "Donors",
-    list: DonateDeviceRequestList,
-    edit: DonateDeviceRequestEdit,
+    name: "candidate_profile",
+    list: CandidateList,
+    // edit: CandidateEdit,
+    show: CandidateShow,
     create: null,
-    icon: "smartphone",
+    label: "Candidate Data",
+    icon: "person",
+  },
+
+  {
+    name: "employer_details",
+    list: RecruiterData,
+    edit: null,
+
+    create: null,
+    label: "Recruiter Data",
+    icon: "person",
   },
   {
-    name: "school",
-    list: null,
+    name: "vacancy_details",
+    list: VacancyData,
     edit: null,
     create: null,
+    label: "Vacancy Data",
+    icon: "person",
   },
   {
-    name: "location",
-    list: null,
-    edit: null,
+    name: "candidate_vacancy_interest",
+    list: InterestedCandidateist,
     create: null,
-  },
-  {
-    name: "device_demand_response",
-    list: RequestDeviceList,
-    edit: RequestDeviceEdit,
-    create: null,
-    label: "School Level Demand",
-    icon: "school",
+    label: "Interested Candidates",
+    icon: "person",
   },
 ];
