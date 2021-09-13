@@ -8,13 +8,10 @@ import {
   TextField,
   sanitizeListRestProps,
   Filter,
-  TextInput,
-  SearchInput,
   ExportButton,
   downloadCSV,
   ReferenceInput,
   SelectInput,
-  ReferenceField,
   ListActions,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
@@ -146,12 +143,17 @@ export const RecruiterData = (props) => {
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
         exporter={exporter}
       >
-        <Datagrid rowClick="show">
+        <Datagrid>
           <TextField label="Company Name" source="company_name" />
 
           <TextField label="Mobile Number" source="mobile_number" />
 
-          <TextField label="District Name" source="district_name.name" />
+          <FunctionField
+            label="District Name"
+            render={(record) => {
+              return record?.district_name?.name;
+            }}
+          />
 
           <TextField label="pincode" source="pincode" />
 

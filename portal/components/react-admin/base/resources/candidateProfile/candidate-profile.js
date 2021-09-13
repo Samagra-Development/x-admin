@@ -12,6 +12,7 @@ import {
   SelectInput,
   ReferenceInput,
   ListActions,
+  TextField,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
@@ -159,7 +160,7 @@ export const CandidateList = (props) => {
         exporter={exporter}
       >
         <Datagrid rowClick="show">
-          <FunctionField label="Name" render={(record) => `${record.name}`} />
+          <TextField label="Name" source="name"/>
           <FunctionField
             label="Age"
             render={(record) => {
@@ -174,47 +175,38 @@ export const CandidateList = (props) => {
           <FunctionField
             label="Gender"
             render={(record) => {
-              if (record && record.gender) {
-                return record.gender.gender_name;
-              }
+                return record?.gender?.gender_name;
             }}
           />
-          <FunctionField
+          <TextField
             label="Whatsapp"
-            render={(record) => `${record.whatsapp_mobile_number}`}
+            source="whatsapp_mobile_number"
           />
           <FunctionField
             label="District"
             render={(record) => {
-              if (record && record.district_name) {
-                return record.district_name.name;
-              }
+                return record?.district_name?.name;
             }}
           />
-          <FunctionField
+          <TextField
             label="PinCode"
-            render={(record) => `${record.pincode}`}
-          />
+            source="pincode"
+            />
           <FunctionField
             label="Max Qualification"
             render={(record) => {
-              if (record && record.highest_level_qualification) {
-                return record.highest_level_qualification
-                  .highest_level_qualification_name;
-              }
+                return record?.highest_level_qualification?.highest_level_qualification_name;
             }}
           />
           <FunctionField
             label="Qualification"
             render={(record) => {
-              if (record && record.qualification_detail) {
-                return record.qualification_detail.qualification_name;
-              }
+                return record?.qualification_detail?.qualification_name;
             }}
           />
-          <FunctionField
+          <TextField
             label="Marks"
-            render={(record) => `${record.final_score_highest_qualification}`}
+            source="final_score_highest_qualification"
           />
         </Datagrid>
       </List>

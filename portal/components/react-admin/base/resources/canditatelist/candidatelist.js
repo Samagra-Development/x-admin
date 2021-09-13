@@ -12,6 +12,7 @@ import {
   ListActions,
   ReferenceInput,
   SelectInput,
+  FunctionField
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
@@ -80,18 +81,27 @@ export const InterestedCandidateist = (props) => {
       >
         <Datagrid>
           <TextField label="Vacancy ID" source="vacancy_id" />
-          <TextField
+          <FunctionField
             label="Name of company"
-            source="vacancy_detail.employer_detail.company_name"
+            render={(record) => {
+              return record?.vacancy_detail?.employer_detail?.company_name;
+            }}
           />
-          <TextField
+          ​
+          <FunctionField
             label="Vacancy Sector"
-            source="vacancy_detail.sector_preference.sector_preference_name"
+            render={(record) => {
+              return record?.vacancy_detail?.sector_preference
+                ?.sector_preference_name;
+            }}
           />
-          <TextField
+          <FunctionField
             label="Name of candidate"
-            source="candidate_profile.name"
+            render={(record) => {
+              return record?.candidate_profile?.name;
+            }}
           />
+          ​
           <TextField label="Interested" source="interested" />
         </Datagrid>
       </List>
