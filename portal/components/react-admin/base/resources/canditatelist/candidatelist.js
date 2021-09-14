@@ -72,7 +72,7 @@ export const InterestedCandidateist = (props) => {
     <div className={classes.root}>
       <List
         {...props}
-        title={"Intrested Candidates"}
+        title={"Interested Candidates"}
         actions={<ListActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
@@ -101,8 +101,6 @@ export const InterestedCandidateist = (props) => {
               return record?.candidate_profile?.name;
             }}
           />
-          ​
-          <TextField label="Interested" source="interested" />
         </Datagrid>
       </List>
     </div>

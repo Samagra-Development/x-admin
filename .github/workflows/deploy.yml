@@ -33,4 +33,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/x-admin/
+            export FUSIONAUTH_DOMAIN=${{secrets.FUSIONAUTH_DOMAIN}} &&
+            export FUSIONAUTH_API_KEY=${{secrets.FUSIONAUTH_API_KEY}} &&
+            export HASURA_URL=${{secrets.HASURA_URL}} &&
+            export HASURA_ADMIN_SECRET=${{secrets.HASURA_ADMIN_SECRET}} &&
+            export NEXTAUTH_URL=${{secrets.NEXTAUTH_URL}}
             docker-compose up -d --build

@@ -1,13 +1,5 @@
 const resourceConfig = {
   personas: [
-    // {
-    //   consonant: true,
-    //   en: "school head",
-    //   hi: "स्कूल प्रमुख",
-    //   credentials: "e-Samwad",
-    //   applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID,
-    //   redirectUrl: "school",
-    // },
     {
       consonant: false,
       en: "official",
@@ -19,41 +11,6 @@ const resourceConfig = {
   ],
   homepageCards: [
     {
-    //   title: {
-    //     en: "Donate your smartphone",
-    //     hi: "अपना स्मार्टफ़ोन दान करें",
-    //   },
-    //   target: "/donate",
-    //   icon: "volunteer_activism",
-    //   colour: "primary",
-    // },{
-    //   title: {
-    //     en: "Donate a Smartphone as an Individual Donor",
-    //     hi: "व्यक्तिगत दाता",
-    //   },
-    //   target: process.env.NEXT_PUBLIC_DONATE_DEVICE_INDIV_FORM_URL,
-    //   icon: "volunteer_activism",
-    //   colour: "primary",
-    // },
-    // {
-    //   title: {
-    //     en: "Donate a smartphone as a Corporate Donor",
-    //     hi: "कॉर्पोरेट दाता",
-    //   },
-    //   target: process.env.NEXT_PUBLIC_DONATE_DEVICE_CORP_FORM_URL,
-    //   icon: "corporate_fare",
-    //   colour: "primary",
-    // },
-    // {
-    //   title: {
-    //     en: "Frequently Asked Questions",
-    //     hi: "जानकारी",
-    //   },
-    //   target: process.env.NEXT_PUBLIC_FAQ_DOCUMENT_URL,
-    //   icon: "quiz",
-    //   colour: "primary",
-    // },
-    // {
       title: {
         en: "Login for state officials",
         hi: "राज्य के अधिकारियों के लिए लॉग इन",
@@ -62,15 +19,6 @@ const resourceConfig = {
       icon: "login",
       colour: "secondary",
     },
-    // {
-    //   title: {
-    //     en: "Track your smartphone and get your Digi Saathi certificate",
-    //     hi: "अपने स्मार्टफ़ोन को ट्रैक करें और अपना Digi साथी प्रशंसा पत्र लें",
-    //   },
-    //   target: "/track",
-    //   icon: "grading",
-    //   colour: "secondary",
-    // },
   ],
   donatePageCards: [
     {
