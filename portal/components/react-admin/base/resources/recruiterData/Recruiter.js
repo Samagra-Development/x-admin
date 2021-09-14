@@ -123,7 +123,7 @@ export const RecruiterData = (props) => {
     <div className={classes.root}>
       <List
         {...props}
-        title={"Recruiter"}
+        title={"Recruiter Data"}
         actions={<ListActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}

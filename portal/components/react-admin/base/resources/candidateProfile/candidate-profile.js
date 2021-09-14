@@ -142,8 +142,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing.unit * 3,
     overflowX: "auto",
     overflowY: "scroll",
-    marginLeft: "1rem",
+    marginLeft: "1rem"
   },
+  tablecss:{
+    marginRight: "1rem"
+  }
 }));
 export const CandidateList = (props) => {
   const classes = useStyles();
@@ -152,13 +155,14 @@ export const CandidateList = (props) => {
     <div className={classes.root}>
       <List
         {...props}
-        title={"Candidates"}
+        title={"Candidate Data"}
         actions={<ListActions />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
         exporter={exporter}
       >
+        <div className={classes.tablecss}>
         <Datagrid rowClick="show">
           <TextField label="Name" source="name"/>
           <FunctionField
@@ -204,11 +208,8 @@ export const CandidateList = (props) => {
                 return record?.qualification_detail?.qualification_name;
             }}
           />
-          <TextField
-            label="Marks"
-            source="final_score_highest_qualification"
-          />
         </Datagrid>
+        </div>
       </List>
     </div>
   );

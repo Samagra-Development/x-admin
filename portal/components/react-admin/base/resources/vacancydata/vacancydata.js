@@ -21,18 +21,6 @@ const SearchFilter = (props) => {
   return (
     <Filter {...props}>
       <ReferenceInput
-        label="Mobile Number"
-        source="employer_mobile_number"
-        reference="vacancy_details"
-        allowEmpty
-      >
-        <SelectInput
-          optionText="employer_mobile_number"
-          optionValue="employer_mobile_number"
-        />
-      </ReferenceInput>
-
-      <ReferenceInput
         label="Vacancy ID"
         source="id"
         reference="vacancy_details"
@@ -136,21 +124,7 @@ export const VacancyData = (props) => {
               return record?.employer_detail?.company_name;
             }}
           />
-          <FunctionField
-            label="GST Number"
-            render={(record) => {
-              return record?.employer_detail?.GSTN;
-            }}
-          />
-          <FunctionField
-            label="pincode"
-            render={(record) => {
-              return record?.employer_detail?.pincode;
-            }}
-          />
-          ​
-          <TextField label="Mobile Number" source="employer_mobile_number" />
-          ​
+                   ​
           <TextField label="Vacancy ID" source="id" />
           ​
           <FunctionField
@@ -244,12 +218,7 @@ export const VacancyData = (props) => {
           />
           ​
           <TextField label="Expected interview date" source="interview_date" />
-          <FunctionField
-            label="CRN"
-            render={(record) => {
-              return record?.employer_detail?.CRN;
-            }}
-          />
+     
         </Datagrid>
       </List>
     </div>

@@ -50,10 +50,12 @@ export const CandidateShow = (props) => {
   };
 
   return (
+  
     <Show {...props} title="Candiate details">
-      <TabbedShowLayout>
+      <TabbedShowLayout style={{marginLeft:"1rem",marginRight:"1rem"}}>
         <Tab label="Candidate Bio">
-          <TextField label="Name" source="name" />
+          
+          <TextField label="Name"  source="name" />
           <DateField label="DOB" source="DOB" />
           <FunctionField
             label="Age"
@@ -212,5 +214,6 @@ export const CandidateShow = (props) => {
         </Tab>
       </TabbedShowLayout>
     </Show>
+       
   );
 };

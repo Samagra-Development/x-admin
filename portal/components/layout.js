@@ -37,17 +37,14 @@ const Layout = ({ children, home }) => {
   return (
     <>
       <Head>
+      
         <title>समर्थ हिमाचल</title>
         <link rel="preload" href="/Bahnschrift.otf" as="font" crossOrigin="" />
       </Head>
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>Rozgar Saathi </h1>
-          {/* <h2 className={styles.subtitle}>Bacchon ka sahara, phone humara</h2>
-          <h3 className={styles.subsubtitle}>
-            An initiative of the Government of Himachal Pradesh, India
-          </h3> */}
-        </header>
+         </header>
         <main
           onTransitionEnd={() => {
             transitionEnd();
@@ -56,28 +53,17 @@ const Layout = ({ children, home }) => {
         >
           {activeChildren}
         </main>
-        <span className={styles.credit}>For more details, contact 1800-180-8190 </span>
-        <footer className={styles.footer}>
+        {/* <footer className={styles.footer}> */}
           <div className={styles.logo}>
             <Image
               src="/DPlogo.png"
-              alt="HP Govt Logo"
+              alt="Haryana Govt Logo"
               width={120}
-              height={60}
-            />
-            <span className={styles.address}>
-              State Project Office (Samagra Shiksha), Directorate Education,
-              DPEP Bhawan, Below Old ISBT, Lalpani, Shimla - 171001
-            </span>
-            <Image
-              src="/SSA_logo.png"
-              className={styles["ssa-logo"]}
-              alt="SSA Logo"
-              width={200}
               height={80}
             />
+            
           </div>
-        </footer>
+        {/* </footer> */}
       </div>
     </>
   );
