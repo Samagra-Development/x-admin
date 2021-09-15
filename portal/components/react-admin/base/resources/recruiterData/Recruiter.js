@@ -10,8 +10,8 @@ import {
   Filter,
   ExportButton,
   downloadCSV,
-  ReferenceInput,
-  SelectInput,
+  SearchInput,
+  TextInput,
   ListActions,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
@@ -20,46 +20,11 @@ import jsonExport from "jsonexport/dist";
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
-      <ReferenceInput
-        label="Company Name"
-        source="company_name"
-        reference="employer_details"
-      >
-        <SelectInput optionText="company_name" optionValue="company_name" />
-      </ReferenceInput>
-      <ReferenceInput
-        label="Mobile Number"
-        source="mobile_number"
-        reference="employer_details"
-        allowEmpty
-      >
-        <SelectInput optionText="mobile_number" optionValue="mobile_number" />
-      </ReferenceInput>
-
-      <ReferenceInput
-        label="District Name"
-        source="district_name.name"
-        reference="employer_details"
-      >
-        <SelectInput
-          optionText="district_name.name"
-          optionValue="district_name.name"
-        />
-      </ReferenceInput>
-      <ReferenceInput
-        label="pincode"
-        source="pincode"
-        reference="employer_details"
-      >
-        <SelectInput optionText="pincode" optionValue="pincode" />
-      </ReferenceInput>
-      <ReferenceInput label="CRN" source="CRN" reference="employer_details">
-        <SelectInput optionText="CRN" optionValue="CRN" />
-      </ReferenceInput>
-
-      <ReferenceInput label="GSTN" source="GSTN" reference="employer_details">
-        <SelectInput optionText="GSTN" optionValue="GSTN" />
-      </ReferenceInput>
+      <SearchInput placeholder="Company Name" source="company_name" alwaysOn />
+      <TextInput label="Mobile Number" source="mobile_number" />
+      <TextInput label="pincode" source="pincode" />
+      <TextInput label="CRN" source="CRN" />
+      <TextInput label="GSTN" source="GSTN" />
     </Filter>
   );
 };
@@ -115,6 +80,9 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     marginLeft: "1rem",
   },
+  tablecss: {
+    marginRight: "1rem",
+  },
 }));
 export const RecruiterData = (props) => {
   console.log("Entered Recruiter");
@@ -130,24 +98,26 @@ export const RecruiterData = (props) => {
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
         exporter={exporter}
       >
-        <Datagrid>
-          <TextField label="Company Name" source="company_name" />
+        <div className={classes.tablecss}>
+          <Datagrid>
+            <TextField label="Company Name" source="company_name" />
 
-          <TextField label="Mobile Number" source="mobile_number" />
+            <TextField label="Mobile Number" source="mobile_number" />
 
-          <FunctionField
-            label="District Name"
-            render={(record) => {
-              return record?.district_name?.name;
-            }}
-          />
+            <FunctionField
+              label="District Name"
+              render={(record) => {
+                return record?.district_name?.name;
+              }}
+            />
 
-          <TextField label="pincode" source="pincode" />
+            <TextField label="pincode" source="pincode" />
 
-          <TextField label="CRN" source="CRN" />
+            <TextField label="CRN" source="CRN" />
 
-          <TextField label="GSTN" source="GSTN" />
-        </Datagrid>
+            <TextField label="GSTN" source="GSTN" />
+          </Datagrid>
+        </div>
       </List>
     </div>
   );

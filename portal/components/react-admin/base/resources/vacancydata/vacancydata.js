@@ -11,8 +11,8 @@ import {
   ExportButton,
   downloadCSV,
   ListActions,
-  ReferenceInput,
-  SelectInput,
+  SearchInput,
+  TextInput,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
@@ -20,21 +20,9 @@ import jsonExport from "jsonexport/dist";
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
-      <ReferenceInput
-        label="Vacancy ID"
-        source="id"
-        reference="vacancy_details"
-      >
-        <SelectInput optionText="id" optionValue="id" />
-      </ReferenceInput>
+      <SearchInput placeholder="Vacancy ID" source="id" alwaysOn />
 
-      <ReferenceInput
-        label="job_role"
-        source="job_role"
-        reference="vacancy_details"
-      >
-        <SelectInput optionText="job_role" optionValue="job_role" />
-      </ReferenceInput>
+      <TextInput label="job_role" source="job_role" />
     </Filter>
   );
 };
@@ -102,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     marginLeft: "1rem",
   },
+  tablecss: {
+    marginRight: "1rem",
+  },
 }));
 export const VacancyData = (props) => {
   const classes = useStyles();
@@ -117,109 +108,113 @@ export const VacancyData = (props) => {
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
         exporter={exporter}
       >
-        <Datagrid>
-          <FunctionField
-            label="Name of company"
-            render={(record) => {
-              return record?.employer_detail?.company_name;
-            }}
-          />
-                   ​
-          <TextField label="Vacancy ID" source="id" />
-          ​
-          <FunctionField
-            label="Sector of job"
-            render={(record) => {
-              return record?.sector_preference?.sector_preference_name;
-            }}
-          />
-          <TextField label="job_role" source="job_role" />
-          ​
-          <FunctionField
-            label="expected_salary"
-            render={(record) => {
-              return record?.expected_salary?.salary_range;
-            }}
-          />
-          <TextField
-            label="Number of candidates to recruit"
-            source="number_of_candidates_required"
-          />
-          ​
-          <FunctionField
-            label="Minimum qualification requirement"
-            render={(record) => {
-              return record?.highest_level_qualification
-                ?.highest_level_qualification_name;
-            }}
-          />
-          <FunctionField
-            label="Are vacancies open for freshers?"
-            render={(record) => {
-              if (record && record.freshers_open_choice === 1) {
-                return "YES";
-              } else {
-                return "NO";
-              }
-            }}
-          />
-          ​
-          <FunctionField
-            label="Minimum qualification requirement"
-            render={(record) => {
-              return record?.highest_level_qualification
-                ?.highest_level_qualification_name;
-            }}
-          />
-          <FunctionField
-            label="Minimum work experience required"
-            render={(record) => {
-              return record?.min_work_experience_requirement
-                ?.work_experience_choices;
-            }}
-          />
-          ​
-          <FunctionField
-            label="Requirement of driving license"
-            render={(record) => {
-              return record?.driver_license?.driver_license_choice;
-            }}
-          />
-          ​
-          <FunctionField
-            label="English speaking skills"
-            render={(record) => {
-              return record?.englishSpeakingRequiredByFreshersOpenChoice
-                ?.english_speaking_required_choices;
-            }}
-          />
-          ​
-          <FunctionField
-            label="Computer operating skills"
-            render={(record) => {
-              return record
-                ?.englishSpeakingRequiredByIsComputerKnowledgeRequiredChoices
-                ?.english_speaking_required_choices;
-            }}
-          />
-          ​
-          <FunctionField
-            label="Age criteria"
-            render={(record) => {
-              return record?.age_criteria_choice?.age_range_values;
-            }}
-          />
-          ​
-          <FunctionField
-            label="Gender criteria"
-            render={(record) => {
-              return record?.gender?.gender_name;
-            }}
-          />
-          ​
-          <TextField label="Expected interview date" source="interview_date" />
-     
-        </Datagrid>
+        <div className={classes.tablecss}>
+          <Datagrid>
+            <FunctionField
+              label="Name of company"
+              render={(record) => {
+                return record?.employer_detail?.company_name;
+              }}
+            />
+            ​
+            <TextField label="Vacancy ID" source="id" />
+            ​
+            <FunctionField
+              label="Sector of job"
+              render={(record) => {
+                return record?.sector_preference?.sector_preference_name;
+              }}
+            />
+            <TextField label="job_role" source="job_role" />
+            ​
+            <FunctionField
+              label="expected_salary"
+              render={(record) => {
+                return record?.expected_salary?.salary_range;
+              }}
+            />
+            <TextField
+              label="Number of candidates to recruit"
+              source="number_of_candidates_required"
+            />
+            ​
+            <FunctionField
+              label="Minimum qualification requirement"
+              render={(record) => {
+                return record?.highest_level_qualification
+                  ?.highest_level_qualification_name;
+              }}
+            />
+            <FunctionField
+              label="Are vacancies open for freshers?"
+              render={(record) => {
+                if (record && record.freshers_open_choice === 1) {
+                  return "YES";
+                } else {
+                  return "NO";
+                }
+              }}
+            />
+            ​
+            <FunctionField
+              label="Minimum qualification requirement"
+              render={(record) => {
+                return record?.highest_level_qualification
+                  ?.highest_level_qualification_name;
+              }}
+            />
+            <FunctionField
+              label="Minimum work experience required"
+              render={(record) => {
+                return record?.min_work_experience_requirement
+                  ?.work_experience_choices;
+              }}
+            />
+            ​
+            <FunctionField
+              label="Requirement of driving license"
+              render={(record) => {
+                return record?.driver_license?.driver_license_choice;
+              }}
+            />
+            ​
+            <FunctionField
+              label="English speaking skills"
+              render={(record) => {
+                return record?.englishSpeakingRequiredByFreshersOpenChoice
+                  ?.english_speaking_required_choices;
+              }}
+            />
+            ​
+            <FunctionField
+              label="Computer operating skills"
+              render={(record) => {
+                return record
+                  ?.englishSpeakingRequiredByIsComputerKnowledgeRequiredChoices
+                  ?.english_speaking_required_choices;
+              }}
+            />
+            ​
+            <FunctionField
+              label="Age criteria"
+              render={(record) => {
+                return record?.age_criteria_choice?.age_range_values;
+              }}
+            />
+            ​
+            <FunctionField
+              label="Gender criteria"
+              render={(record) => {
+                return record?.gender?.gender_name;
+              }}
+            />
+            ​
+            <TextField
+              label="Expected interview date"
+              source="interview_date"
+            />
+          </Datagrid>
+        </div>
       </List>
     </div>
   );

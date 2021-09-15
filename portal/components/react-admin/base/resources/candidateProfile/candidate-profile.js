@@ -9,10 +9,11 @@ import {
   Filter,
   ExportButton,
   downloadCSV,
-  SelectInput,
-  ReferenceInput,
   ListActions,
   TextField,
+  SearchInput,
+  TextInput,
+  DateInput
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
@@ -20,32 +21,16 @@ import jsonExport from "jsonexport/dist";
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
-      <ReferenceInput label="Name" source="name" reference="candidate_profile">
-        <SelectInput optionText="name" optionValue="name" />
-      </ReferenceInput>
-      <ReferenceInput label="Age" source="DOB" reference="candidate_profile">
-        <SelectInput optionText="DOB" optionValue="DOB" />
-      </ReferenceInput>
-
-      <ReferenceInput
-        label="Whatsapp"
-        source="whatsapp_mobile_number"
-        reference="candidate_profile"
-      >
-        <SelectInput
-          optionText="whatsapp_mobile_number"
-          optionValue="whatsapp_mobile_number"
-        />
-      </ReferenceInput>
-
-      <ReferenceInput
-        label="PinCode"
-        source="pincode"
-        reference="candidate_profile"
-      >
-        <SelectInput optionText="pincode" optionValue="pincode" />
-      </ReferenceInput>
-
+       <SearchInput
+        placeholder="Name"
+        source="name"
+        alwaysOn
+      />
+      <DateInput label="DOB" source="DOB" />
+      <TextInput label="Whatsapp"
+        source="whatsapp_mobile_number"/>
+      <TextInput label="PinCode"
+        source="pincode"/>
     </Filter>
   );
 };
@@ -166,6 +151,7 @@ export const CandidateList = (props) => {
               }
             }}
           />
+          <TextField label="DOB" source="DOB"/>
           <FunctionField
             label="Gender"
             render={(record) => {

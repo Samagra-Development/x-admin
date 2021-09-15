@@ -7,6 +7,9 @@ const useStyles = makeStyles((theme) => ({
     gridColumn: "1 / 2",
     gridRow: "1 / 2",
     height: "9vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
     textAlign: "center",
     boxSizing: "content-box",
     backgroundColor: theme.palette.grey.darker,
@@ -34,7 +37,7 @@ const UserNavbarHeader = () => {
         className={classes.sidebarHeaderLogo}
         src="/DPlogo1.png"
         alt="logo"
-        width={50}
+        width={40}
         height={50}
         layout={"intrinsic"}
       />
