@@ -46,16 +46,6 @@ const SearchFilter = (props) => {
         <SelectInput optionText="pincode" optionValue="pincode" />
       </ReferenceInput>
 
-      <ReferenceInput
-        label="Marks"
-        source="final_score_highest_qualification"
-        reference="candidate_profile"
-      >
-        <SelectInput
-          optionText="final_score_highest_qualification"
-          optionValue="final_score_highest_qualification"
-        />
-      </ReferenceInput>
     </Filter>
   );
 };
