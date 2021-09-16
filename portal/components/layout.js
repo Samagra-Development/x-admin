@@ -38,10 +38,18 @@ const Layout = ({ children, home }) => {
     <>
       <Head>
       
-        <title>समर्थ हिमाचल</title>
+        <title></title>
         <link rel="preload" href="/Bahnschrift.otf" as="font" crossOrigin="" />
       </Head>
       <div className={styles.container}>
+      <div className={styles.logo}>
+            <Image
+              src="/DPlogo.png"
+              alt="Haryana Govt Logo"
+              width={120}
+              height={127.5}
+            />
+          </div>
         <header className={styles.header}>
           <h1 className={styles.title}>Rozgar Saathi </h1>
          </header>
@@ -54,15 +62,7 @@ const Layout = ({ children, home }) => {
           {activeChildren}
         </main>
         {/* <footer className={styles.footer}> */}
-          <div className={styles.logo}>
-            <Image
-              src="/DPlogo.png"
-              alt="Haryana Govt Logo"
-              width={120}
-              height={80}
-            />
-            
-          </div>
+        
         {/* </footer> */}
       </div>
     </>

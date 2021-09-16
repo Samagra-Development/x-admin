@@ -66,6 +66,33 @@ const EXTENDED_CANDIDATE_VACANCY_INTREST = gql`
     }
     candidate_profile {
       name
+      gender {
+        gender_name
+      }
+      DOB
+      mobile_number
+      resume_url
+      district_name {
+        name
+      }
+      
+      highest_level_qualification {
+        highest_level_qualification_name
+      }
+      work_experience_details {
+        work_experience_choices
+      }
+      driver_license {
+        driver_license_choice
+        
+      }
+      english_knowledge_choice {
+        english_choice
+      }
+      computer_operator {
+        computer_operator_choice
+      }
+      
     }
   }
 `;
