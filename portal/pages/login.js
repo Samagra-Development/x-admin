@@ -19,14 +19,14 @@ const LoginWrapper = () => {
     <Layout>
       <>
         <h2 className="text-center">Admin Console &#47; एडमिन कंसोल</h2>
-        <div className={`${styles.grid} ${styles["grid-two"]}`}>
+        <div className={`${styles.grid} ${styles["grid-one"]}`}>
           {config.personas.map((persona, index) => (
             <div
               onClick={() => {
                 setSelectedPersona(persona);
               }}
               key={index}
-              className={`card card-center`}
+              className={`card`}
             >
               <h2 className={"capitalize"}>
                 Login &#47; <br />
