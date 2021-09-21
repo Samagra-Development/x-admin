@@ -196,6 +196,8 @@ export const TeacherList = (props) => {
       {isSmall ? (
         <SimpleList
           primaryText={(record) => record.name}
+          secondaryText={(record) => record.first_name}
+          tertiaryText={(record) => record.account_status}
           linkType="edit"
         />
       ) : (
@@ -280,7 +282,7 @@ export const TeacherEdit = (props) => {
             <TextField label="Designation" source="designation" />
             <TextField label="Job Cadre" source="cadre" />
           </div>
-          
+
           <span className={classes.heading}>Update Status</span>
           <div className={`${classes.grid}`}>
             {/* <SelectInput
