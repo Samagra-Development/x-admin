@@ -195,8 +195,8 @@ export const TeacherList = (props) => {
     >
       {isSmall ? (
         <SimpleList
-          primaryText={(record) => record.name}
-          secondaryText={(record) => record.first_name}
+          primaryText={(record) => record.user?.username}
+          secondaryText={(record) => record.user?.first_name}
           tertiaryText={(record) => record.account_status}
           linkType="edit"
         />
