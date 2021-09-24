@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import SmartphoneIcon from "@material-ui/icons/Smartphone";
 import SchoolIcon from "@material-ui/icons/School";
 import PersonIcon from '@material-ui/icons/Person';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
+import PieChartIcon from '@material-ui/icons/PieChart';
 
 const useStyles = makeStyles((theme) => ({
   sidebarItem: {
@@ -42,7 +42,7 @@ const Icon = (props) => {
   if (props.type === "person")
     return <PersonIcon className={props.className} />;
   if (props.type === "book")
-    return <MenuBookIcon className={props.className} />;
+    return <PieChartIcon className={props.className} />;
   return <></>;
 };
 
