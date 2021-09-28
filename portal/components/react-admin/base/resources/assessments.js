@@ -49,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
       paddingBottom: "5px",
     },
   },
+  list: {
+    margin: "0rem 2rem",
+  },
 }));
 
 const DevicesFilter = (props) => {
@@ -74,7 +77,7 @@ export const AssessmentsList = (props) => {
     <List
       {...props}
       bulkActionButtons={false}
-      title="Employees list"
+      title="Assessments list"
       className={isSmall ? classes.smList : classes.list}
       filters={<DevicesFilter  />}
       exporter={false}
