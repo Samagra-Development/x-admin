@@ -1,22 +1,32 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import axios from "axios";
-const CryptoJS = require('crypto-js');
+const CryptoJS = require("crypto-js");
 
 const fusionAuthLogin = async (path, credentials) => {
-  const base64Key = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_BASE64_KEY);
-  let byteEncodedUsername  = CryptoJS.AES.decrypt(credentials.loginId, base64Key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7
-  });
+  const base64Key = CryptoJS.enc.Base64.parse(
+    process.env.NEXT_PUBLIC_BASE64_KEY
+  );
+  let byteEncodedUsername = CryptoJS.AES.decrypt(
+    credentials.loginId,
+    base64Key,
+    {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7,
+    }
+  );
   let decryptedLoginId = byteEncodedUsername.toString(CryptoJS.enc.Utf8);
 
-  let byteEncodedPassword = CryptoJS.AES.decrypt(credentials.password, base64Key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7
-  });
+  let byteEncodedPassword = CryptoJS.AES.decrypt(
+    credentials.password,
+    base64Key,
+    {
+      mode: CryptoJS.mode.ECB,
+      padding: CryptoJS.pad.Pkcs7,
+    }
+  );
   let decryptedPassword = byteEncodedPassword.toString(CryptoJS.enc.Utf8);
-  
+
   const options = {
     headers: { Authorization: process.env.FUSIONAUTH_API_KEY },
   };
@@ -45,7 +55,9 @@ export default NextAuth({
             process.env.FUSIONAUTH_DOMAIN,
             credentials
           );
-          if (response) {
+          if (response.data?.responseCode == "FAILURE") {
+            throw new Error(response.data?.params?.errMsg);
+          } else {
             return response.data?.result?.data?.user;
           }
         } catch (err) {

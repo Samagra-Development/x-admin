@@ -6,7 +6,7 @@ import controls from "./form.config";
 import styles from "../../styles/Login.module.css";
 import axios from "axios";
 import Image from "next/image";
-const CryptoJS = require('crypto-js');
+const CryptoJS = require("crypto-js");
 
 export default function Login(props) {
   const { persona } = props;
@@ -53,7 +53,6 @@ export default function Login(props) {
         setCaptchaToken(token);
       })
       .catch((err) => {
-        console.log(err)
         addToast(err.response?.data?.errors || err.message, {
           appearance: "error",
         });
@@ -64,7 +63,7 @@ export default function Login(props) {
     e.preventDefault();
     let rightNow = new Date();
 
-    try{  
+    try {
       const result = await axios({
         method: "POST",
         url: `${process.env.NEXT_PUBLIC_CAPTCHA_URL}`,
@@ -73,22 +72,34 @@ export default function Login(props) {
           token: captchaToken,
         },
       });
-    }  catch (err) {
-      addToast('Incorect Captcha/ Captcha कोड गलत है!', { appearance: "error" });
+    } catch (err) {
+      addToast("Incorect Captcha/ Captcha कोड गलत है!", {
+        appearance: "error",
+      });
       setRefreshToken(rightNow.toISOString());
       return false;
     }
 
-    const parsedBase64Key = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_BASE64_KEY);
-    let encryptedUsername = CryptoJS.AES.encrypt(input.username, parsedBase64Key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7
-    })
-    encryptedUsername = encryptedUsername.toString();      
-    const encryptedPassword = CryptoJS.AES.encrypt(input.password, parsedBase64Key, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7
-    }).toString();
+    const parsedBase64Key = CryptoJS.enc.Base64.parse(
+      process.env.NEXT_PUBLIC_BASE64_KEY
+    );
+    let encryptedUsername = CryptoJS.AES.encrypt(
+      input.username,
+      parsedBase64Key,
+      {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7,
+      }
+    );
+    encryptedUsername = encryptedUsername.toString();
+    const encryptedPassword = CryptoJS.AES.encrypt(
+      input.password,
+      parsedBase64Key,
+      {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7,
+      }
+    ).toString();
 
     const { error, url } = await signIn("fusionauth", {
       loginId: encryptedUsername,

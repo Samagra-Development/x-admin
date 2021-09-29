@@ -132,8 +132,8 @@ export const TeacherEdit = (props) => {
         const response = await sendSMS(template, templateId, data.user.mobile_phone);
         if (response?.success) notify(response.success, "info");
         else if (response?.error) notify(response.error, "warning");
-        redirect("list", props.basePath, data.id, data);
       }
+      redirect("list", props.basePath, data.id, data);
     }
   };
 
@@ -174,20 +174,26 @@ export const TeacherEdit = (props) => {
           </div>
 
           <span className={classes.heading}>Update Status</span>
-          <div className={`${classes.grid}`}>
-            {/* <SelectInput
-              source="delivery_status"
-              label="Grades Taught"
-            />
-            <SelectInput
-              source="delivery_status"
-              label="Subjects Taught"
-            /> */}
+          <div className={`${classes.grid} ${classes.fullWidthGrid}`}>
             <SelectInput
               source="account_status"
               label="Account Status"
               choices={config.statusChoices}
             />
+            <FormDataConsumer>
+              {({ formData, ...rest }) =>
+                formData?.account_status === "DEACTIVATED" ? (
+                  <>
+                    <h2 className={classes.heading}>Reason</h2>
+                    <div className={classes.grid}>
+                      <TextInput label="Reason" source="deactivation_reason" />
+                    </div>
+                    </>
+                ) : (
+                  <></>
+                )
+              }
+            </FormDataConsumer>
           </div>
           <p className={classes.warning}>
             Changing status will trigger an SMS notification to the teacher upon
