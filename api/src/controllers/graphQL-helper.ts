@@ -47,16 +47,14 @@ export class graphQLHelper {
     if (errors) {
       console.error(errors);
       sendLog(
-        `*⚠️ samarth-device*: *${obj.operationName}* failed with the following error: \`\`\`${errors?.[0]?.message}\`\`\``,
+        `*⚠️ Saksham Samiksha Monitoring *: ${obj.operationName}* failed with the following error: \`\`\`${errors?.[0]?.message}\`\`\``,
         process.env.SLACK_ADMIN_LOGS_CHANNEL_ID,
       );
       return {errors: errors, data: null};
     } else {
       console.log(data);
       sendLog(
-        `*✅ samarth-device*: *${
-          obj.operationName
-        }* successfully done for:  \`\`\`${JSON.stringify(
+        `*✅ Saksham Samiksha Monitoring *: ${obj.operationName}* successfully done for:  \`\`\`${JSON.stringify(
           data[obj.databaseOperationName],
         )}\`\`\``,
         process.env.SLACK_ADMIN_LOGS_CHANNEL_ID,
