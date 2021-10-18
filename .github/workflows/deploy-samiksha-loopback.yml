@@ -1,4 +1,4 @@
-name: deploy-to-production
+name: deploy-samiksha-loopback
 on:
   # release:
   #   types: [published]
