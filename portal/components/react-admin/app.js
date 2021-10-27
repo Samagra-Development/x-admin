@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AdminContext, AdminUI, Resource, useDataProvider } from "react-admin";
+import { AdminContext, AdminUI, Resource, useDataProvider ,useRedirect} from "react-admin";
 import buildHasuraProvider, { buildFields } from "ra-data-hasura";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { useSession } from "next-auth/client";
@@ -9,10 +9,12 @@ import customLayout from "./layout/";
 import customFields from "./customHasura/customFields";
 import customVariables from "./customHasura/customVariables";
 import { resourceConfig } from "./layout/config";
+import { useRouter } from "next/router";
 
 const App = () => {
   const [dataProvider, setDataProvider] = useState(null);
   const [apolloClient, setApolloClient] = useState(null);
+  const router = useRouter();
   const [session] = useSession();
 
   useEffect(() => {
@@ -25,21 +27,34 @@ const App = () => {
       cache: new InMemoryCache(),
       headers: hasuraHeaders,
     });
+
     async function buildDataProvider() {
-      const hasuraProvider = await buildHasuraProvider(
-        { client: tempClient },
-        {
-          buildFields: customFields,
-        },
-        customVariables
-      );
+      try{
+        const hasuraProvider = await buildHasuraProvider(
+          { client: tempClient },
+          {
+            buildFields: customFields,
+          },
+          customVariables
+        );
+
       setDataProvider(() => hasuraProvider);
       setApolloClient(tempClient);
+      } catch(e){
+        console.log("Error catch:",e)
+        if (!router.isFallback) {
+            router.push("/");
+          }
+      }
+      
     }
     buildDataProvider();
   }, [session]);
 
-  if (!dataProvider || !apolloClient) return null;
+  if (!dataProvider || !apolloClient){
+  
+    return null;
+  } 
   return (
     <AdminContext dataProvider={dataProvider}>
       <AsyncResources client={apolloClient} />
@@ -61,7 +76,7 @@ function AsyncResources({ client }) {
   if (!resources) return null;
   return (
     <MuiThemeProvider theme={createMuiTheme(customTheme)}>
-      <AdminUI disableTelemetry loginPage={false} layout={customLayout}>
+      <AdminUI disablloginPageeTelemetry ={false} layout={customLayout}>
         {filteredResources.map((resource) => (
           <Resource
             key={resource.name}

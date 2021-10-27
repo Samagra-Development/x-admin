@@ -10,19 +10,27 @@ import {
   Filter,
   ExportButton,
   downloadCSV,
-  ListActions,
   SearchInput,
   TextInput,
+  useRecordContext,
+  useListContext,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
+import { cloneElement } from "react";
 
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
       <SearchInput placeholder="Vacancy ID" source="id" alwaysOn />
-
+      <TextInput label="Company Name" source="employer_detail#company_name@_ilike" />
+      <TextInput label="Sector" source="sector_preference#sector_preference_name@_ilike" />
       <TextInput label="job_role" source="job_role" />
+      <TextInput label="Expected Salary" source="expected_salary#salary_range@_ilike" />
+      <TextInput label="No of candidates to recruit" source="number_of_candidates_required" />
+      <TextInput label="Qualification" source="highest_level_qualification#highest_level_qualification_name@_ilike" />
+      <TextInput label="Experience" source="min_work_experience_requirement#work_experience_choices@_ilike" />
+      <TextInput label="Freshers" source="freshers_open_choice" />
     </Filter>
   );
 };
@@ -75,11 +83,17 @@ const exporter = (records) => {
   });
 };
 
-const CandidateActions = (props) => (
-  <TopToolbar {...sanitizeListRestProps(props)}>
-    <ExportButton exporter={exporter} maxResults={100000} />
-  </TopToolbar>
-);
+const ListActions = (props) => {
+  const { className, maxResults, filters, ...rest } = props;
+  const { total } = useListContext();
+
+  return (
+    <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
+      {cloneElement(filters, { context: "button" })}
+      <ExportButton exporter={exporter} maxResults={maxResults} />
+    </TopToolbar>
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,19 +108,36 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "1rem",
   },
 }));
+
 export const VacancyData = (props) => {
   const classes = useStyles();
+
+  const ViewIntrested = (props) => {
+    console.log("Props:", props);
+    const { source, label } = props;
+    const record = useRecordContext(props);
+    const url =
+      `${process.env.NEXT_PUBLIC_URL}/admin#/candidate_vacancy_interest?filter=` +
+      encodeURIComponent(`{"vacancy_id":"${record.id}"}`);
+    return (
+      <div>
+        <a href={url} rel="noopener noreferrer">
+          View
+        </a>
+      </div>
+    );
+  };
 
   return (
     <div className={classes.root}>
       <List
         {...props}
         title={"Vacancy Data"}
-        actions={<ListActions />}
+        actions={<ListActions maxResults={100000}/>}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
-        exporter={exporter}
+        // exporter={exporter}
       >
         <div className={classes.tablecss}>
           <Datagrid>
@@ -118,7 +149,6 @@ export const VacancyData = (props) => {
             />
             ​
             <TextField label="Vacancy ID" source="id" />
-            ​
             <FunctionField
               label="Sector of job"
               render={(record) => {
@@ -213,6 +243,7 @@ export const VacancyData = (props) => {
               label="Expected interview date"
               source="interview_date"
             />
+            <ViewIntrested label="Vacancy Intrest" source="id" />
           </Datagrid>
         </div>
       </List>

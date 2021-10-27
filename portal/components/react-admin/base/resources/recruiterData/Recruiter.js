@@ -12,15 +12,18 @@ import {
   downloadCSV,
   SearchInput,
   TextInput,
-  ListActions,
+  useListContext,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
+import { cloneElement } from "react";
+
 
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
       <SearchInput placeholder="Company Name" source="company_name" alwaysOn />
+      <TextInput label="District" source="district_name#name@_ilike"/>
       <TextInput label="Mobile Number" source="mobile_number" />
       <TextInput label="pincode" source="pincode" />
       <TextInput label="CRN" source="CRN" />
@@ -65,11 +68,17 @@ function getAge({ start, end }) {
   }
   return { years: roundedDownAge, months: age * 12 + m };
 }
-const CandidateActions = (props) => (
-  <TopToolbar {...sanitizeListRestProps(props)}>
-    <ExportButton exporter={exporter} maxResults={100000} />
-  </TopToolbar>
-);
+const ListActions = (props) => {
+  const { className, maxResults, filters, ...rest } = props;
+  const { total } = useListContext();
+
+  return (
+    <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
+      {cloneElement(filters, { context: "button" })}
+      <ExportButton exporter={exporter} maxResults={maxResults} />
+    </TopToolbar>
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -92,11 +101,10 @@ export const RecruiterData = (props) => {
       <List
         {...props}
         title={"Recruiter Data"}
-        actions={<ListActions />}
+        actions={<ListActions  maxResults={100000}/>}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
-        exporter={exporter}
       >
         <div className={classes.tablecss}>
           <Datagrid>
