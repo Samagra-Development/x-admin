@@ -9,29 +9,31 @@ import {
   Filter,
   ExportButton,
   downloadCSV,
-  ListActions,
   TextField,
   SearchInput,
   TextInput,
-  DateInput
+  DateInput,
+  useListContext,
 } from "react-admin";
-import { makeStyles, Typography } from "@material-ui/core";
-import jsonExport from "jsonexport/dist";
+import { cloneElement } from "react";
+import {
+  makeStyles,
+} from "@material-ui/core";
 
 const SearchFilter = (props) => {
   return (
-    <Filter {...props}>
-       <SearchInput
-        placeholder="Name"
-        source="name"
-        alwaysOn
-      />
-      <DateInput label="DOB" source="DOB" />
-      <TextInput label="Whatsapp"
-        source="whatsapp_mobile_number"/>
-      <TextInput label="PinCode"
-        source="pincode"/>
-    </Filter>
+    <div>
+      <Filter {...props}>
+        <SearchInput placeholder="Name" source="name" alwaysOn />
+        <DateInput label="DOB" source="DOB" />
+        <TextInput label="Whatsapp" source="whatsapp_mobile_number" />
+        <TextInput label="PinCode" source="pincode" />
+        <TextInput label="District" source="district_name#name@_ilike"/>
+        <TextInput label="Gender" source="gender#gender_name@_ilike" />
+        <TextInput label="Qualification" source="qualification_detail#qualification_name@_ilike" />
+        <TextInput label="Max Qualification" source="highest_level_qualification#highest_level_qualification_name@_ilike" />
+      </Filter>
+    </div>
   );
 };
 
@@ -81,6 +83,7 @@ const exporter = (records) => {
       "Resume (URL)": "",
     };
   });
+ 
   jsonExport(recordsForExport, (err, csv) => {
     downloadCSV(
       csv,
@@ -104,11 +107,17 @@ function getAge({ start, end }) {
   return { years: roundedDownAge, months: age * 12 + m };
 }
 
-const CandidateActions = (props) => (
-  <TopToolbar {...sanitizeListRestProps(props)}>
-    <ExportButton exporter={exporter} maxResults={100000} />
-  </TopToolbar>
-);
+const ListActions = (props) => {
+  const { className, maxResults, filters, ...rest } = props;
+  const { total } = useListContext();
+
+  return (
+    <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
+      {cloneElement(filters, { context: "button" })}
+      <ExportButton exporter={exporter} maxResults={maxResults} />
+    </TopToolbar>
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -117,74 +126,67 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing.unit * 3,
     overflowX: "auto",
     overflowY: "scroll",
-    marginLeft: "1rem"
+    marginLeft: "1rem",
   },
-  tablecss:{
-    marginRight: "1rem"
-  }
+  tablecss: {
+    marginRight: "1rem",
+  },
 }));
 export const CandidateList = (props) => {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <List
         {...props}
         title={"Candidate Data"}
-        actions={<ListActions />}
+        actions={<ListActions maxResults="100000" />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
-        exporter={exporter}
       >
         <div className={classes.tablecss}>
-        <Datagrid rowClick="show">
-          <TextField label="Name" source="name"/>
-          <FunctionField
-            label="Age"
-            render={(record) => {
-              if (record && record.DOB) {
-                return getAge({
-                  start: record.DOB,
-                  end: null,
-                }).years;
-              }
-            }}
-          />
-          <TextField label="DOB" source="DOB"/>
-          <FunctionField
-            label="Gender"
-            render={(record) => {
-                return record?.gender?.gender_name;
-            }}
-          />
-          <TextField
-            label="Whatsapp"
-            source="whatsapp_mobile_number"
-          />
-          <FunctionField
-            label="District"
-            render={(record) => {
-                return record?.district_name?.name;
-            }}
-          />
-          <TextField
-            label="PinCode"
-            source="pincode"
+          <Datagrid rowClick="show">
+            <TextField label="Name" source="name" />
+            <FunctionField
+              label="Age"
+              render={(record) => {
+                if (record && record.DOB) {
+                  return getAge({
+                    start: record.DOB,
+                    end: null,
+                  }).years;
+                }
+              }}
             />
-          <FunctionField
-            label="Max Qualification"
-            render={(record) => {
-                return record?.highest_level_qualification?.highest_level_qualification_name;
-            }}
-          />
-          <FunctionField
-            label="Qualification"
-            render={(record) => {
+            <TextField label="DOB" source="DOB" />
+            <FunctionField
+              label="Gender"
+              render={(record) => {
+                return record?.gender?.gender_name;
+              }}
+            />
+            <TextField label="Whatsapp" source="whatsapp_mobile_number" />
+            <FunctionField
+              label="District"
+              render={(record) => {
+                return record?.district_name?.name;
+              }}
+            />
+            <TextField label="PinCode" source="pincode" />
+            <FunctionField
+              label="Max Qualification"
+              render={(record) => {
+                return record?.highest_level_qualification
+                  ?.highest_level_qualification_name;
+              }}
+            />
+            <FunctionField
+              label="Qualification"
+              render={(record) => {
                 return record?.qualification_detail?.qualification_name;
-            }}
-          />
-        </Datagrid>
+              }}
+            />
+          </Datagrid>
         </div>
       </List>
     </div>

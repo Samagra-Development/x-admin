@@ -9,13 +9,14 @@ import {
   Filter,
   ExportButton,
   downloadCSV,
-  ListActions,
   SearchInput,
   TextInput,
   FunctionField,
+  useListContext,
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
+import { cloneElement } from "react";
 
 const SearchFilter = (props) => {
   return (
@@ -68,11 +69,17 @@ const exporter = (records) => {
   });
 };
 
-const CandidateActions = (props) => (
-  <TopToolbar {...sanitizeListRestProps(props)}>
-    <ExportButton exporter={exporter} maxResults={100000} />
-  </TopToolbar>
-);
+const ListActions = (props) => {
+  const { className, maxResults, filters, ...rest } = props;
+  const { total } = useListContext();
+
+  return (
+    <TopToolbar className={className} {...sanitizeListRestProps(rest)}>
+      {cloneElement(filters, { context: "button" })}
+      <ExportButton exporter={exporter} maxResults={maxResults} />
+    </TopToolbar>
+  );
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,11 +102,10 @@ export const InterestedCandidateist = (props) => {
       <List
         {...props}
         title={"Interested Candidates"}
-        actions={<ListActions />}
+        actions={<ListActions maxResults={100000} />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
-        exporter={exporter}
       >
         <div className={classes.tablecss}>
           <Datagrid>
