@@ -27,7 +27,7 @@ const SearchFilter = (props) => {
         <SearchInput placeholder="Name" source="name" alwaysOn />
         <DateInput label="DOB" source="DOB" />
         <TextInput label="Whatsapp" source="whatsapp_mobile_number" />
-        <TextInput label="PinCode" source="pincode" />
+        <TextInput label="Pincode" source="pincode" />
         <TextInput label="District" source="district_name#name@_ilike"/>
         <TextInput label="Gender" source="gender#gender_name@_ilike" />
         <TextInput label="Qualification" source="qualification_detail#qualification_name@_ilike" />
