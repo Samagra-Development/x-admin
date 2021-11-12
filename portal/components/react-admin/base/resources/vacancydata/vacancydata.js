@@ -24,13 +24,13 @@ const SearchFilter = (props) => {
     <Filter {...props}>
       <SearchInput placeholder="Vacancy ID" source="id" alwaysOn />
       <TextInput label="Company Name" source="employer_detail#company_name@_ilike" />
-      <TextInput label="Sector" source="sector_preference#sector_preference_name@_ilike" />
-      <TextInput label="job_role" source="job_role" />
+      <TextInput label="Sector Of Job" source="sector_preference#sector_preference_name@_ilike" />
+      <TextInput label="Job Role" source="job_role" />
       <TextInput label="Expected Salary" source="expected_salary#salary_range@_ilike" />
-      <TextInput label="No of candidates to recruit" source="number_of_candidates_required" />
+      <TextInput label="No Of Candidates To Recruit" source="number_of_candidates_required" />
       <TextInput label="Qualification" source="highest_level_qualification#highest_level_qualification_name@_ilike" />
-      <TextInput label="Experience" source="min_work_experience_requirement#work_experience_choices@_ilike" />
-      <TextInput label="Freshers" source="freshers_open_choice" />
+      <TextInput label="Minimum Work Experience Required" source="min_work_experience_requirement#work_experience_choices@_ilike" />
+      {/* <TextInput label="Freshers" source="freshers_open_choice"/> */}
     </Filter>
   );
 };
@@ -142,7 +142,7 @@ export const VacancyData = (props) => {
         <div className={classes.tablecss}>
           <Datagrid>
             <FunctionField
-              label="Name of company"
+              label="Company Name"
               render={(record) => {
                 return record?.employer_detail?.company_name;
               }}
@@ -155,10 +155,10 @@ export const VacancyData = (props) => {
                 return record?.sector_preference?.sector_preference_name;
               }}
             />
-            <TextField label="job_role" source="job_role" />
+            <TextField label="Job Role" source="job_role" />
             ​
             <FunctionField
-              label="expected_salary"
+              label="Expected Salary"
               render={(record) => {
                 return record?.expected_salary?.salary_range;
               }}
@@ -186,13 +186,6 @@ export const VacancyData = (props) => {
               }}
             />
             ​
-            <FunctionField
-              label="Minimum qualification requirement"
-              render={(record) => {
-                return record?.highest_level_qualification
-                  ?.highest_level_qualification_name;
-              }}
-            />
             <FunctionField
               label="Minimum work experience required"
               render={(record) => {
@@ -243,7 +236,7 @@ export const VacancyData = (props) => {
               label="Expected interview date"
               source="interview_date"
             />
-            <ViewIntrested label="Vacancy Intrest" source="id" />
+            <ViewIntrested label="Vacancy Interest" source="id" />
           </Datagrid>
         </div>
       </List>

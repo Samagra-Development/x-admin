@@ -42,7 +42,7 @@ const exporter = (records) => {
       "Mobile Number": record.mobile_number,
       "Company Name": record.company_name,
       "District Name": record.district_name?.name,
-      pincode: record.pincode,
+      "Pincode": record.pincode,
       CRN: record.CRN,
       GSTN: record.GSTN,
     };
