@@ -3,21 +3,12 @@ import {
   List,
   SimpleList,
   Datagrid,
-  DateField,
   TextField,
-  BooleanField,
-  FunctionField,
   Edit,
   SimpleForm,
   TextInput,
-  SelectInput,
   Filter,
   SearchInput,
-  useRedirect,
-  useNotify,
-  FormDataConsumer,
-  AutocompleteInput,
-  ReferenceInput,
 } from "react-admin";
 
 import { useSession } from "next-auth/client";
@@ -25,9 +16,6 @@ import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
 import EditNoDeleteToolbar from "../components/EditNoDeleteToolbar";
 import BackButton from "../components/BackButton";
 import blueGrey from "@material-ui/core/colors/blueGrey";
-import config from "@/components/config";
-import sendSMS from "@/utils/sendSMS";
-import buildGupshup from "@/utils/buildGupshup";
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -73,71 +61,16 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.1rem",
     },
   },
-  fullWidthGrid: {
-    gridTemplateColumns: "1fr",
-    margin: "0 auto",
-  },
   heading: {
     fontSize: "1.4rem",
     lineHeight: "0.5rem",
     fontWeight: 700,
     fontVariant: "all-small-caps",
   },
-  select: {
-    width: "30vw",
-    alignSelf: "center",
-    "& > div > div": {
-      fontSize: "1.1rem",
-      transform: "translate(12px 21px)",
-    },
-  },
-  filterSelect: {
-    width: "15vw",
-    alignSelf: "center",
-    "& > label": {
-      opacity: "0.7",
-      fontSize: "1.1rem",
-    },
-    "& > div": {
-      transform: "translate(0 5px)",
-    },
-    " .MuiInputLabel-shrink": {
-      transform: "translate(12px, 7px) scale(0.75)",
-    },
-  },
-  textInput: {
-    "& > label": {
-      fontSize: "1.1rem",
-    },
-  },
-  selectInput: {
-    minWidth: "unset",
-    "& > label": {
-      fontSize: "1.1rem",
-    },
-    "& > div > div": {
-      maxHeight: "1.1rem",
-    },
-  },
-  warning: {
-    margin: "0",
-    padding: "0",
-    paddingBottom: "1rem",
-    textAlign: "center",
-    width: "100%",
-    fontStyle: "oblique",
-  },
-  fullWidth: {
-    width: "100%",
-  },
   grey: {
     color: blueGrey[300],
   },
 }));
-
-const getChoice = (choices, id) => {
-  return choices?.find((elem) => elem.id === id);
-};
 
 const UserSamikshaFilter = (props) => {
   const classes = useStyles();
@@ -191,43 +124,7 @@ export const UserSamikshaList = (props) => {
 
 export const UserSamikshaEdit = (props) => {
   const classes = useStyles();
-  const notify = useNotify();
-  const redirect = useRedirect();
   const [session] = useSession();
-
-  const getTemplateFromDeliveryStatus = (status) => {
-    const obj = config.statusChoices.find((elem) => elem.id === status);
-    return [obj?.template, obj?.templateId, obj?.variables];
-  };
-
-  const onSuccess = async ({ data }) => {
-    if (data) {
-      notify(
-        "ra.notification.updated",
-        "info",
-        { smart_count: 1 },
-        props.mutationMode === "undoable"
-      );
-      const { delivery_status } = data;
-      const [template, templateId, variables] =
-        getTemplateFromDeliveryStatus(delivery_status);
-      if (template && variables && session.role) {
-        //get each variable (which could be a path, like "ab.cd"), and replace it with
-        //the appropriate value from the data object
-        let replacedVariables = variables.map((keys) =>
-          //turn "ef" or "ab.cd" into ["ef"] and ["ab", "cd"] respectively
-          //and then reduce that to a singular value
-          keys.split(".").reduce((acc, key) => acc[key], data)
-        );
-
-        const message = buildGupshup(template, replacedVariables);
-        const response = await sendSMS(message, templateId, data.phone_number);
-        if (response?.success) notify(response.success, "info");
-        else if (response?.error) notify(response.error, "warning");
-        redirect("list", props.basePath, data.id, data);
-      }
-    }
-  };
 
   const Title = ({ record }) => {
     return (
@@ -237,12 +134,30 @@ export const UserSamikshaEdit = (props) => {
       </span>
     );
   };
+
+  const escapeHtml = (unsafe) => {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+  }
+
+  const transform = data => ({
+    ...data,
+    fullName: escapeHtml(data.fullName),
+    username:escapeHtml(data.username),
+    email:escapeHtml(data.email),
+    mobilePhone:escapeHtml(data.mobilePhone),
+  });
+
   return (
     <div>
       <Edit
-        onSuccess={onSuccess}
         mutationMode={"pessimistic"}
         title={<Title />}
+        transform={transform}
         {...props}
       >
         <SimpleForm toolbar={<EditNoDeleteToolbar />}>
