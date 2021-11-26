@@ -18,12 +18,11 @@ import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 import { cloneElement } from "react";
 
-
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
       <SearchInput placeholder="Company Name" source="company_name" alwaysOn />
-      <TextInput label="District" source="district_name#name@_ilike"/>
+      <TextInput label="District" source="district_name#name@_ilike" />
       <TextInput label="Mobile Number" source="mobile_number" />
       <TextInput label="pincode" source="pincode" />
       <TextInput label="CRN" source="CRN" />
@@ -37,12 +36,12 @@ const exporter = (records) => {
       start: record.DOB,
       end: null,
     }).years;
-    console.log(records);
+    // console.log(records);
     return {
       "Mobile Number": record.mobile_number,
       "Company Name": record.company_name,
       "District Name": record.district_name?.name,
-      "Pincode": record.pincode,
+      Pincode: record.pincode,
       CRN: record.CRN,
       GSTN: record.GSTN,
     };
@@ -101,7 +100,7 @@ export const RecruiterData = (props) => {
       <List
         {...props}
         title={"Recruiter Data"}
-        actions={<ListActions  maxResults={100000}/>}
+        actions={<ListActions maxResults={100000} />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}

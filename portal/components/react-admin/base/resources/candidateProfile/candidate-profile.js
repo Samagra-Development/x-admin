@@ -14,24 +14,92 @@ import {
   TextInput,
   DateInput,
   useListContext,
+  NumberInput,
 } from "react-admin";
 import { cloneElement } from "react";
-import {
-  makeStyles,
-} from "@material-ui/core";
+import { makeStyles, Input } from "@material-ui/core";
+import jsonExport from "jsonexport/dist";
 
 const SearchFilter = (props) => {
+  const AgeInput = ({ source, label }) => {
+    const { filterValues, setFilters } = useListContext();
+    const gte_source = source + "@_gte";
+    const lte_source = source + "@_lte";
+    return (
+      <Input
+        size="small"
+        color="primary"
+        label={label}
+        name={lte_source}
+        type="number"
+        value={
+          filterValues[lte_source]
+            ? getAge({ start: filterValues[lte_source], end: null }).years
+            : 0
+        }
+        onChange={(e) => {
+          const { from, to } = getDob(e.target.value);
+          const newFilterValues = {
+            ...filterValues,
+            [gte_source]: from,
+            [lte_source]: to,
+          };
+          setFilters(newFilterValues);
+        }}
+      >
+        Age
+      </Input>
+    );
+  };
   return (
     <div>
       <Filter {...props}>
         <SearchInput placeholder="Name" source="name" alwaysOn />
-        <DateInput label="DOB" source="DOB" />
+        <AgeInput source="DOB" label="Age" />
         <TextInput label="Whatsapp" source="whatsapp_mobile_number" />
         <TextInput label="Pincode" source="pincode" />
-        <TextInput label="District" source="district_name#name@_ilike"/>
+        <TextInput label="District" source="district_name#name@_ilike" />
         <TextInput label="Gender" source="gender#gender_name@_ilike" />
-        <TextInput label="Qualification" source="qualification_detail#qualification_name@_ilike" />
-        <TextInput label="Max Qualification" source="highest_level_qualification#highest_level_qualification_name@_ilike" />
+        <TextInput
+          label="Work Experience"
+          source="work_experience_details#work_experience_choices@_like"
+        />
+        <TextInput
+          label="Driving Licence"
+          source="driver_license#driver_license_choice@_like"
+        />
+        <TextInput
+          label="Expected Salary"
+          source="expected_salary#salary_range@_ilike"
+        />
+        <TextInput
+          label="English Speaking Skills"
+          source="english_knowledge_choice#english_choice@_like"
+        />
+        <TextInput
+          label="Computer Operation Skills"
+          source="computer_operator#computer_operator_choice@_like"
+        />
+        <TextInput
+          label="Sector 1"
+          source="sector_preference_1#sector_preference_name@_like"
+        />
+        <TextInput
+          label="Sector 2"
+          source="sector_preference_2#sector_preference_name@_like"
+        />
+        <TextInput
+          label="Sector 3"
+          source="sector_preference_3#sector_preference_name@_like"
+        />
+        <TextInput
+          label="Qualification"
+          source="qualification_detail#qualification_name@_ilike"
+        />
+        <TextInput
+          label="Max Qualification"
+          source="highest_level_qualification#highest_level_qualification_name@_ilike"
+        />
       </Filter>
     </div>
   );
@@ -83,7 +151,7 @@ const exporter = (records) => {
       "Resume (URL)": "",
     };
   });
- 
+
   jsonExport(recordsForExport, (err, csv) => {
     downloadCSV(
       csv,
@@ -93,10 +161,10 @@ const exporter = (records) => {
 };
 
 function getAge({ start, end }) {
-  var today = end ? new Date(end) : new Date();
-  var birthDate = new Date(start);
-  var age = today.getFullYear() - birthDate.getFullYear();
-  var m = today.getMonth() - birthDate.getMonth();
+  let today = end ? new Date(end) : new Date();
+  let birthDate = new Date(start);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  let m = today.getMonth() - birthDate.getMonth();
   let roundedDownAge = age;
   if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
     roundedDownAge--;
@@ -105,6 +173,16 @@ function getAge({ start, end }) {
     return { years: "Invalid Date", months: "Invalid Date" };
   }
   return { years: roundedDownAge, months: age * 12 + m };
+}
+
+function getDob(age) {
+  let d = new Date();
+  let year = d.getFullYear();
+  let month = d.getMonth();
+  let day = d.getDate();
+  let from = parseInt(year) - parseInt(age) - 1 + "-" + month + "-" + day;
+  let to = parseInt(year) - parseInt(age) + "-" + month + "-" + day;
+  return { from, to };
 }
 
 const ListActions = (props) => {
@@ -166,6 +244,26 @@ export const CandidateList = (props) => {
               }}
             />
             <TextField label="Whatsapp" source="whatsapp_mobile_number" />
+            <TextField
+              label="Work Experience"
+              source="work_experience_details.work_experience_choices"
+            />
+            <TextField
+              label="Driving Licence"
+              source="driver_license.driver_license_choice"
+            />
+            <TextField
+              label="Expected Salary"
+              source="expected_salary.salary_range"
+            />
+            <TextField
+              label="English Speaking Skills"
+              source="english_knowledge_choice.english_choice"
+            />
+            <TextField
+              label="Computer Operation Skills"
+              source="computer_operator.computer_operator_choice"
+            />
             <FunctionField
               label="District"
               render={(record) => {
@@ -173,6 +271,18 @@ export const CandidateList = (props) => {
               }}
             />
             <TextField label="PinCode" source="pincode" />
+            <TextField
+              label="Sector 1"
+              source="sector_preference_1.sector_preference_name"
+            />
+            <TextField
+              label="Sector 2"
+              source="sector_preference_2.sector_preference_name"
+            />
+            <TextField
+              label="Sector 3"
+              source="sector_preference_3.sector_preference_name"
+            />
             <FunctionField
               label="Max Qualification"
               render={(record) => {

@@ -23,13 +23,48 @@ const SearchFilter = (props) => {
   return (
     <Filter {...props}>
       <SearchInput placeholder="Vacancy ID" source="id" alwaysOn />
-      <TextInput label="Company Name" source="employer_detail#company_name@_ilike" />
-      <TextInput label="Sector Of Job" source="sector_preference#sector_preference_name@_ilike" />
+      <TextInput
+        label="Company Name"
+        source="employer_detail#company_name@_ilike"
+      />
+      <TextInput
+        label="Sector Of Job"
+        source="sector_preference#sector_preference_name@_ilike"
+      />
       <TextInput label="Job Role" source="job_role" />
-      <TextInput label="Expected Salary" source="expected_salary#salary_range@_ilike" />
-      <TextInput label="No Of Candidates To Recruit" source="number_of_candidates_required" />
-      <TextInput label="Qualification" source="highest_level_qualification#highest_level_qualification_name@_ilike" />
-      <TextInput label="Minimum Work Experience Required" source="min_work_experience_requirement#work_experience_choices@_ilike" />
+      <TextInput
+        label="Expected Salary"
+        source="expected_salary#salary_range@_ilike"
+      />
+      <TextInput
+        label="No Of Candidates To Recruit"
+        source="number_of_candidates_required"
+      />
+      <TextInput
+        label="Qualification"
+        source="highest_level_qualification#highest_level_qualification_name@_ilike"
+      />
+      <TextInput
+        label="Minimum Work Experience Required"
+        source="min_work_experience_requirement#work_experience_choices@_ilike"
+      />
+      <TextInput
+        label="Driving Licence"
+        source="driver_license#driver_license_choice@_like"
+      />
+      <TextInput
+        label="English Speaking Skills"
+        source="englishSpeakingRequiredByFreshersOpenChoice#english_speaking_required_choices@_like"
+      />
+      <TextInput
+        label="Computer operating skills"
+        source="englishSpeakingRequiredByIsComputerKnowledgeRequiredChoices#english_speaking_required_choices@_like"
+      />
+      <TextInput
+        label="Age"
+        source="age_criteria_choice#age_range_values@_ilike"
+      />
+      <TextInput label="Gender" source="gender#gender_name@_ilike" />
       {/* <TextInput label="Freshers" source="freshers_open_choice"/> */}
     </Filter>
   );
@@ -113,7 +148,7 @@ export const VacancyData = (props) => {
   const classes = useStyles();
 
   const ViewIntrested = (props) => {
-    console.log("Props:", props);
+    // console.log("Props:", props);
     const { source, label } = props;
     const record = useRecordContext(props);
     const url =
@@ -133,7 +168,7 @@ export const VacancyData = (props) => {
       <List
         {...props}
         title={"Vacancy Data"}
-        actions={<ListActions maxResults={100000}/>}
+        actions={<ListActions maxResults={100000} />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
         pagination={<Pagination perPage={1} style={{ float: "left" }} />}
@@ -162,6 +197,10 @@ export const VacancyData = (props) => {
               render={(record) => {
                 return record?.expected_salary?.salary_range;
               }}
+            />
+            <TextField
+              label="Driving Licence"
+              source="driver_license.driver_license_choice"
             />
             <TextField
               label="Number of candidates to recruit"
@@ -236,7 +275,11 @@ export const VacancyData = (props) => {
               label="Expected interview date"
               source="interview_date"
             />
-            <ViewIntrested label="Vacancy Interest" source="id" />
+            <ViewIntrested
+              label="Vacancy Interest"
+              source="id"
+              sortable={false}
+            />
           </Datagrid>
         </div>
       </List>

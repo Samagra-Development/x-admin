@@ -8,12 +8,12 @@ import config from "@/components/config";
 const LoginWrapper = () => {
   const [selectedPersona, setSelectedPersona] = useState({
     consonant: false,
-      en: "official",
-      hi: "अधिकारी",
-      credentials: "Rozgar Saathi",
-      applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
-      redirectUrl: `admin#/candidate_profile`,
-    });
+    en: "official",
+    hi: "अधिकारी",
+    credentials: "Rozgar Saathi",
+    applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
+    redirectUrl: `admin#/candidate_profile`,
+  });
   if (selectedPersona) {
     return (
       <Layout>
@@ -30,7 +30,7 @@ const LoginWrapper = () => {
           {config.personas.map((persona, index) => (
             <div
               onClick={() => {
-            console.log(persona)
+                // console.log(persona)
 
                 setSelectedPersona(persona);
               }}
