@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SmartphoneIcon from "@material-ui/icons/Smartphone";
 import SchoolIcon from "@material-ui/icons/School";
 import PersonIcon from '@material-ui/icons/Person';
+import PieChartIcon from '@material-ui/icons/PieChart';
 
 const useStyles = makeStyles((theme) => ({
   sidebarItem: {
@@ -40,6 +41,8 @@ const Icon = (props) => {
     return <SchoolIcon className={props.className} />;
   if (props.type === "person")
     return <PersonIcon className={props.className} />;
+  if (props.type === "chart")
+    return <PieChartIcon className={props.className} />;
   return <></>;
 };
 

@@ -158,6 +158,10 @@ const resourceConfig = {
     {id:'Contractual',name:'Contractual'},
     {id:'Others',name:'Others'},
   ],
+  isEnabled:[
+    {id:'false',name:'false'},
+    {id:'true',name:'true'},
+  ],
   deliveryTypeChoices: [
     { id: "hand", name: "Hand Off", filterable: true },
     { id: "pickup", name: "Pick Up", filterable: true },
