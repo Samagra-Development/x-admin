@@ -49,7 +49,7 @@ export default function Login(props) {
         mode: CryptoJS.mode.ECB,
         padding: CryptoJS.pad.Pkcs7,
       }).toString();
-      console.log(name, password);
+
       setInput({
         ...input,
         [name]: password,

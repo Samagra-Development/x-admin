@@ -14,19 +14,19 @@ const resourceConfig = {
       hi: "अधिकारी",
       credentials: "Admin Console",
       applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
-      redirectUrl: `admin#/userSamiksha`,
+      redirectUrl: `home`,
     },
   ],
   homepageCards: [
     {
-    //   title: {
-    //     en: "Donate your smartphone",
-    //     hi: "अपना स्मार्टफ़ोन दान करें",
-    //   },
-    //   target: "/donate",
-    //   icon: "volunteer_activism",
-    //   colour: "primary",
-    // },{
+      //   title: {
+      //     en: "Donate your smartphone",
+      //     hi: "अपना स्मार्टफ़ोन दान करें",
+      //   },
+      //   target: "/donate",
+      //   icon: "volunteer_activism",
+      //   colour: "primary",
+      // },{
       title: {
         en: "Donate a Smartphone as an Individual Donor",
         hi: "व्यक्तिगत दाता",
@@ -115,7 +115,7 @@ const resourceConfig = {
   statusChoices: [
     {
       id: "no-action-taken",
-      name: "Donation in Progress",//No Action Taken
+      name: "Donation in Progress", //No Action Taken
       icon: "warning",
       style: "error",
     },
