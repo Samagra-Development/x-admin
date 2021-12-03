@@ -104,6 +104,7 @@ export default NextAuth({
     },
     async session(session, token) {
       session.jwt = await verifyOrCreate(token.jwt, token.refreshToken);
+      session.refreshToken = token.refreshToken;
       session.role = token.role;
       session.fullName = token.fullName;
       session.username = token.username;

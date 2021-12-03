@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import SmartphoneIcon from "@material-ui/icons/Smartphone";
 import SchoolIcon from "@material-ui/icons/School";
+import PersonIcon from "@material-ui/icons/Person";
 
 const useStyles = makeStyles((theme) => ({
   sidebarItem: {
@@ -37,6 +38,8 @@ const Icon = (props) => {
     return <SmartphoneIcon className={props.className} />;
   if (props.type === "school")
     return <SchoolIcon className={props.className} />;
+  if (props.type === "person")
+    return <PersonIcon className={props.className} />;
   return <></>;
 };
 
