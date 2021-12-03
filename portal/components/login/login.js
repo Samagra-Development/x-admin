@@ -6,7 +6,7 @@ import controls from "./form.config";
 import styles from "../../styles/Login.module.css";
 import axios from "axios";
 import Image from "next/image";
-const CryptoJS = require('crypto-js');
+const CryptoJS = require("crypto-js");
 
 export default function Login(props) {
   const { persona } = props;
@@ -15,6 +15,7 @@ export default function Login(props) {
   const [captchaToken, setCaptchaToken] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
   const [captchaImg, setCaptchaImg] = useState(null);
+  const [passwordEncryp, setPasswordEncryp] = useState(false);
 
   const router = useRouter();
   const [inputValidity, setInputValidity] = useState(
@@ -32,6 +33,32 @@ export default function Login(props) {
       ...inputValidity,
       [e.target.name]: e.target.validity.valid,
     });
+    if (e.target.name == "password") {
+      setPasswordEncryp(false);
+    }
+  };
+
+  const bytesPassword = CryptoJS.enc.Base64.parse(
+    process.env.NEXT_PUBLIC_BASE64_KEY
+  );
+
+  const passwordOnBlurEncrypt = (value, name, ret = false) => {
+    let password = null;
+    if (name == "password" && passwordEncryp == false) {
+      password = CryptoJS.AES.encrypt(value, bytesPassword, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7,
+      }).toString();
+      console.log(name, password);
+      setInput({
+        ...input,
+        [name]: password,
+      });
+      setPasswordEncryp(true);
+    }
+    if (ret) {
+      return password ? password : input.password;
+    }
   };
 
   useEffect(() => {
@@ -52,7 +79,7 @@ export default function Login(props) {
         setCaptchaToken(token);
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
         addToast(err.response?.data?.errors || err.message, {
           appearance: "error",
         });
@@ -63,9 +90,19 @@ export default function Login(props) {
 
   const signUserIn = async (e) => {
     e.preventDefault();
+    const password = passwordOnBlurEncrypt(input.password, "password", true);
     let rightNow = new Date();
+    let visitorId = null;
+    if (window) {
+      const FingerprintJS = import("@fingerprintjs/fingerprintjs")
+        .then((FingerprintJS) => FingerprintJS.load())
+        .then((fp) => fp.get())
+        .then((result) => result.visitorId);
+      // This is the visitor identifier:
+      visitorId = await FingerprintJS;
+    }
 
-    try{  
+    try {
       const result = await axios({
         method: "POST",
         url: `${process.env.NEXT_PUBLIC_CAPTCHA_URL}`,
@@ -74,27 +111,28 @@ export default function Login(props) {
           token: captchaToken,
         },
       });
-    }  catch (err) {
-      addToast('Incorect Captcha/ Captcha कोड गलत है!', { appearance: "error" });
+    } catch (err) {
+      addToast("Incorect Captcha/ Captcha कोड गलत है!", {
+        appearance: "error",
+      });
       setRefreshToken(rightNow.toISOString());
       return false;
     }
 
-    const bytesPassword = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_BASE64_KEY);
-    let encryptedUsername = CryptoJS.AES.encrypt(input.username, bytesPassword, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7
-    })
-    encryptedUsername = encryptedUsername.toString();      
-    const encryptedPassword = CryptoJS.AES.encrypt(input.password, bytesPassword, {
-      mode: CryptoJS.mode.ECB,
-      padding: CryptoJS.pad.Pkcs7
-    }).toString();
+    let encryptedUsername = CryptoJS.AES.encrypt(
+      input.username,
+      bytesPassword,
+      {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7,
+      }
+    ).toString();
 
     const { error, url } = await signIn("fusionauth", {
       loginId: encryptedUsername,
-      password: encryptedPassword,
+      password: password,
       applicationId: persona.applicationId,
+      fpt: visitorId ? visitorId : null,
       redirect: false,
       callbackUrl: `${
         persona.redirectUrl.search("http") < 0
@@ -135,7 +173,9 @@ export default function Login(props) {
             required={control.required}
             placeholder={control.placeholder}
             pattern={control.pattern}
+            value={input[control.name]}
             onChange={handleInput}
+            onBlur={(e) => passwordOnBlurEncrypt(e.target.value, e.target.name)}
           />
         ))}
         <div>

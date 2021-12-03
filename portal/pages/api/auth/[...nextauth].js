@@ -1,31 +1,33 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import axios from "axios";
-const CryptoJS = require('crypto-js');
+import fs from "fs";
+import path from "path";
+import jwt from "jsonwebtoken";
+const CryptoJS = require("crypto-js");
+
+const verifyRefreshToken = (token) => {
+  const cert = fs.readFileSync(path.resolve("", "./jwt.pem"));
+  jwt.verify(token, cert, { algorithms: ["RS256"] }, function (err, payload) {
+    console.log(payload);
+    // if token alg != RS256,  err == invalid signature
+  });
+};
 
 const fusionAuthLogin = async (path, credentials) => {
-  const base64Key = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_BASE64_KEY);
-  let byteEncodedUsername  = CryptoJS.AES.decrypt(credentials.loginId, base64Key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7
-  });
-  let decryptedLoginId = byteEncodedUsername.toString(CryptoJS.enc.Utf8);
-
-  let byteEncodedPassword = CryptoJS.AES.decrypt(credentials.password, base64Key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7
-  });
-  let decryptedPassword = byteEncodedPassword.toString(CryptoJS.enc.Utf8);
-  
   const options = {
     headers: { Authorization: process.env.FUSIONAUTH_API_KEY },
   };
+
   const response = await axios.post(
     `${path}/api/login`,
     {
-      loginId: decryptedLoginId,
-      password: decryptedPassword,
+      loginId: credentials.loginId,
+      password: credentials.password,
       applicationId: credentials.applicationId,
+    },
+    {
+      headers: { fpt: credentials.fpt },
     },
     options
   );
@@ -45,6 +47,7 @@ export default NextAuth({
             process.env.FUSIONAUTH_DOMAIN,
             credentials
           );
+          verifyRefreshToken(response.data.token);
           if (response) {
             return response.data;
           }
@@ -69,6 +72,7 @@ export default NextAuth({
         token.role = profile.user?.registrations?.[0].roles?.[0];
         token.applicationId = profile.user?.registrations?.[0].applicationId;
         token.jwt = profile.token;
+        token.tokens = profile.user.data.tokens;
       }
       return token;
     },
@@ -78,6 +82,7 @@ export default NextAuth({
       session.fullName = token.fullName;
       session.username = token.username;
       session.applicationId = token.applicationId;
+      session.tokens = token.tokens;
       return session;
     },
   },
