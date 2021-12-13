@@ -1,31 +1,59 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import axios from "axios";
-const CryptoJS = require('crypto-js');
+import fs from "fs";
+import pathFile from "path";
+import jwt from "jsonwebtoken";
+const CryptoJS = require("crypto-js");
+
+const verifyOrCreate = async (token, refreshToken) => {
+  const cert = fs.readFileSync(pathFile.resolve("", "./jwt.pem"));
+  let verify = false;
+  return jwt.verify(
+    token,
+    cert,
+    { algorithms: ["RS256"] },
+    async function (err, payload) {
+      if (err) {
+        try {
+          const responce = await axios.get(
+            `${process.env.FUSIONAUTH_DOMAIN}/api/jwt/issue`,
+            {
+              headers: { Authorization: "Bearer " + token },
+              params: {
+                applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
+                refreshToken: refreshToken,
+              },
+            }
+          );
+          if (responce.data) {
+            return responce.data.token;
+          }
+        } catch (err) {
+          throw err;
+        }
+      } else {
+        return token;
+      }
+      // if token alg != RS256,  err == invalid signature
+    }
+  );
+};
 
 const fusionAuthLogin = async (path, credentials) => {
-  const base64Key = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_BASE64_KEY);
-  let byteEncodedUsername  = CryptoJS.AES.decrypt(credentials.loginId, base64Key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7
-  });
-  let decryptedLoginId = byteEncodedUsername.toString(CryptoJS.enc.Utf8);
-
-  let byteEncodedPassword = CryptoJS.AES.decrypt(credentials.password, base64Key, {
-    mode: CryptoJS.mode.ECB,
-    padding: CryptoJS.pad.Pkcs7
-  });
-  let decryptedPassword = byteEncodedPassword.toString(CryptoJS.enc.Utf8);
-  
   const options = {
     headers: { Authorization: process.env.FUSIONAUTH_API_KEY },
   };
+
   const response = await axios.post(
     `${path}/api/login`,
     {
-      loginId: decryptedLoginId,
-      password: decryptedPassword,
+      loginId: credentials.loginId,
+      password: credentials.password,
       applicationId: credentials.applicationId,
+    },
+    {
+      headers: { fpt: credentials.fpt },
     },
     options
   );
@@ -45,7 +73,7 @@ export default NextAuth({
             process.env.FUSIONAUTH_DOMAIN,
             credentials
           );
-          if (response) {
+          if (response.data) {
             return response.data;
           }
         } catch (err) {
@@ -69,15 +97,19 @@ export default NextAuth({
         token.role = profile.user?.registrations?.[0].roles?.[0];
         token.applicationId = profile.user?.registrations?.[0].applicationId;
         token.jwt = profile.token;
+        token.refreshToken = profile.refreshToken;
+        token.tokens = profile.user.data.tokens;
       }
       return token;
     },
     async session(session, token) {
-      session.jwt = token.jwt;
+      session.jwt = await verifyOrCreate(token.jwt, token.refreshToken);
+      session.refreshToken = token.refreshToken;
       session.role = token.role;
       session.fullName = token.fullName;
       session.username = token.username;
       session.applicationId = token.applicationId;
+      session.tokens = token.tokens;
       return session;
     },
   },

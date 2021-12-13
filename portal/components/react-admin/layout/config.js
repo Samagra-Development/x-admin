@@ -1,7 +1,4 @@
-import {
-  UserSamikshaEdit,
-  UserSamikshaList,
-} from "@/resources/userSamiksha";
+import { UserSamikshaEdit, UserSamikshaList } from "@/resources/userSamiksha";
 
 export const resourceConfig = [
   {
@@ -10,6 +7,14 @@ export const resourceConfig = [
     edit: UserSamikshaEdit,
     create: null,
     label: "Samiksha Users",
+    icon: "person",
+  },
+  {
+    name: "users",
+    list: null,
+    edit: null,
+    create: null,
+    label: "Users",
     icon: "person",
   },
 ];
