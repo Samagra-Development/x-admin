@@ -18,13 +18,14 @@ const App = () => {
   useEffect(() => {
     const hasuraHeaders = {};
     hasuraHeaders.Authorization = `Bearer ${session.jwt}`;
-    if (session.role) hasuraHeaders["x-hasura-role"] = session.role;
+    if (session.role) hasuraHeaders["x-hasura-role"] = "school";
 
     let tempClient = new ApolloClient({
       uri: process.env.NEXT_PUBLIC_HASURA_URL,
       cache: new InMemoryCache(),
       headers: hasuraHeaders,
     });
+    console.log("TESTTTINGGGGG",process.env.NEXT_PUBLIC_HASURA_URL);
     async function buildDataProvider() {
       const hasuraProvider = await buildHasuraProvider(
         { client: tempClient },

@@ -91,16 +91,15 @@ const UserSamikshaFilter = (props) => {
  * Donate Device Request List
  * @param {*} props
  */
-export const UserSamikshaList = (props) => {
+export const AttendanceList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
   return (
     <List
       {...props}
       bulkActionButtons={false}
-      title="Samiksha User List"
-      className={isSmall ? classes.smList : classes.list}
-      sort={{ field: "id", order: "DESC" }}
+      title="Samiksha Attendance List"
+      className={isSmall ? classes.smList : classes.list}      
       filters={<UserSamikshaFilter />}
     >
       {isSmall ? (
@@ -113,64 +112,12 @@ export const UserSamikshaList = (props) => {
       ) : (
         <Datagrid rowClick="edit">
           <TextField label="id" source="id" />
-          <TextField label="Full Name" source="name" />
-          <TextField label="Grade" source="grade" />  
-          <TextField label="Father's Name" source="fatherName" />
+          <TextField label="Conducted By" source="taken_by" />          
+          <TextField label="Created At" source="created_at" />
+          <TextField label="Updated At" source="updated_at" />          
+          <TextField label="Date" source="date" />          
         </Datagrid>
       )}
     </List>
-  );
-};
-
-export const UserSamikshaEdit = (props) => {
-  const classes = useStyles();
-  const [session] = useSession();
-
-  const Title = ({ record }) => {
-    return (
-      <span>
-        Edit {"User"}
-        {/* <span className={classes.grey}>#{record.id}</span> */}
-      </span>
-    );
-  };
-
-  const escapeHtml = (unsafe) => {
-    return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
-  }
-
-  const transform = data => ({
-    ...data,
-    fullName: escapeHtml(data.fullName),
-    username:escapeHtml(data.username),
-    email:escapeHtml(data.email),
-    mobilePhone:escapeHtml(data.mobilePhone),
-  });
-
-  return (
-    <div>
-      <Edit
-        mutationMode={"pessimistic"}
-        title={<Title />}
-        transform={transform}
-        {...props}
-      >
-        <SimpleForm toolbar={<EditNoDeleteToolbar />}>
-          <BackButton history={props.history} />
-          <span className={classes.heading}>User Details</span>
-          <div className={classes.grid}>
-            <TextInput label="Full Name" source="fullName" variant="outlined" />
-            <TextInput label="Username" source="username" variant="outlined" />
-            <TextInput label="Email" source="email" variant="outlined" />
-            <TextInput label="Mobile Phone" source="mobilePhone" variant="outlined" />
-          </div>
-        </SimpleForm>
-      </Edit>
-    </div>
   );
 };
