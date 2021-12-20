@@ -63,11 +63,14 @@ export default NextAuth({
     },
     async jwt(token, user, account, profile, isNewUser) {
       // Add access_token to the token right after signin
-      if (account) {
+      const registrationElement = profile?.user?.registrations?.filter(element =>     
+        element?.applicationId == process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID
+      );
+      if (account && registrationElement) {
         token.username = profile.user?.username;
         token.fullName = profile.user?.fullName;
-        token.role = profile.user?.registrations?.[0].roles?.[0];
-        token.applicationId = profile.user?.registrations?.[0].applicationId;
+        token.role = registrationElement[0]?.roles[0];
+        token.applicationId = process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID;
         token.jwt = profile.token;
       }
       return token;
