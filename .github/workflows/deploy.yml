@@ -33,6 +33,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/x-admin/
-            export NEXT_PUBLIC_ENKETO_EXPRESS=${{secrets.NEXT_PUBLIC_ENKETO_EXPRESS}} &&
-            export NEXT_PUBLIC_ASSESSMENTS_MODULE_FORM_URL=${{secrets.NEXT_PUBLIC_ASSESSMENTS_MODULE_FORM_URL}}
             docker-compose up -d --build
