@@ -69,7 +69,6 @@ function AsyncResources({ client }) {
             list={resource.list}
             edit={resource.edit}
             create={resource.create}
-            options={{ formUrl: resource.formUrl ? resource.formUrl : "" }}
           />
         ))}
       </AdminUI>

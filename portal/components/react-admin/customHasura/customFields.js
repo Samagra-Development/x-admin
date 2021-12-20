@@ -1,5 +1,5 @@
 import { buildFields } from "ra-data-hasura";
-import {EXTENDED_TEACHER_RECORD, EXTENDED_SCHOOL_RECORD, EXTENDED_ASSESSMENT_RECORD} from './records';
+import {EXTENDED_TEACHER_RECORD, EXTENDED_SCHOOL_RECORD} from './records';
 /**
  * Extracts just the fields from a GraphQL AST.
  * @param {GraphQL AST} queryAst
@@ -20,12 +20,6 @@ const customBuildFields = (type, fetchType) => {
   } else if(resourceName === "school") {
     if (["GET_LIST","GET_ONE"].includes(fetchType)) {
       const relatedEntities = extractFieldsFromQuery(EXTENDED_SCHOOL_RECORD);
-      defaultFields.push(...relatedEntities);
-    }
-  } else if(resourceName === "assessment") {
-    console.log("assessment resource name");
-    if (["GET_LIST"].includes(fetchType)) {
-      const relatedEntities = extractFieldsFromQuery(EXTENDED_ASSESSMENT_RECORD);
       defaultFields.push(...relatedEntities);
     }
   }
