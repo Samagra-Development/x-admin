@@ -6,6 +6,11 @@ import {
   TeacherEdit,
   TeacherList,
 } from "@/components/react-admin/base/resources/teachers";
+import {
+  AssessmentsCreate,
+  AssessmentsList,
+  AssessmentsEdit,
+} from "@/components/react-admin/base/resources/assessments";
 
 export const resourceConfig = [
   {
@@ -22,5 +27,14 @@ export const resourceConfig = [
     create: null,
     label: "Employees",
     icon: "person",
+  },
+  {
+    name: "assessment",
+    list: AssessmentsList,
+    edit: null,
+    create: AssessmentsCreate,
+    label: "Assessments",
+    icon: "chart",
+    formUrl: "SOE",
   },
 ];

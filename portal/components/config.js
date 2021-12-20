@@ -7,6 +7,7 @@ const resourceConfig = {
       credentials: "e-Samwad",
       applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID,
       redirectUrl: "admin#/teacher",
+      redirectUrlAdmin: "admin#/assessment",
     },
     // {
     //   consonant: false,
@@ -157,6 +158,10 @@ const resourceConfig = {
     {id:'Permanent',name:'Permanent'},
     {id:'Contractual',name:'Contractual'},
     {id:'Others',name:'Others'},
+  ],
+  isEnabled:[
+    {id:'false',name:'false'},
+    {id:'true',name:'true'},
   ],
   deliveryTypeChoices: [
     { id: "hand", name: "Hand Off", filterable: true },
