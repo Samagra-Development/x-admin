@@ -48,7 +48,7 @@ export const AssessmentsList = (props) => {
           className={isSmall ? classes.smList : classes.list}
           filters={<DevicesFilter />}
           exporter={false}
-          filter={{ "id@_gte": 423 }}
+          filter={{ "id@_gte": 898 }}
           sort={{ field: "id", order: "DESC" }}
         >
           {isSmall ? (
