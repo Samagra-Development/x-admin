@@ -40,7 +40,7 @@ export const AssessmentsList = (props) => {
   }, []);
   return (
     <>
-      {role === "admin" ? (
+      {role === "Admin" ? (
         <List
           {...props}
           bulkActionButtons={false}
