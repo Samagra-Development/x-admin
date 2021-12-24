@@ -8,9 +8,11 @@ import {
 } from "@/components/react-admin/base/resources/teachers";
 import {
   AssessmentsCreate,
-  AssessmentsList,
-  AssessmentsEdit,
+  AssessmentsList,  
 } from "@/components/react-admin/base/resources/assessments";
+import {
+  GradeAssessmentList, 
+} from "@/components/react-admin/base/resources/gradeAssessment";
 
 export const resourceConfig = [
   {
@@ -36,5 +38,13 @@ export const resourceConfig = [
     label: "Assessments",
     icon: "chart",
     formUrl: "SOE",
+  },
+  {
+    name: "grade_assessment",
+    list: GradeAssessmentList,
+    edit: null,
+    create: null,
+    label: "Grade Assessments",
+    icon: "chart",    
   },
 ];

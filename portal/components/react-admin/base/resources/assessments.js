@@ -59,7 +59,7 @@ export const AssessmentsList = (props) => {
               linkType="edit"
             />
           ) : (
-            <Datagrid rowClick="edit">
+            <Datagrid>
               <TextField label="ID" source="id" sortable={false} />
               <TextField
                 label="Assessment type"
