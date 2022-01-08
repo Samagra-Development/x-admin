@@ -3,15 +3,19 @@ const controls = [
     name: "username",
     type: "text",
     placeholder: "Username",
-    autocomplete: "off",
+    autoComplete: "off",
     required: true,
   },
   {
     name: "password",
-    type: "password",
+    type: "text",
     placeholder: "Password",
-    autocomplete: "off",
+    autoComplete: "off",
     required: true,
+    style: {
+      WebkitTextSecurity: "disc",
+      "font-family": "text-security-disc",
+    },
   },
 ];
 

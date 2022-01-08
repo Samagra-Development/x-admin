@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   List,
   SimpleList,
@@ -11,11 +11,16 @@ import {
   SearchInput,
 } from "react-admin";
 
-import { useSession } from "next-auth/client";
 import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
 import EditNoDeleteToolbar from "../components/EditNoDeleteToolbar";
 import BackButton from "../components/BackButton";
 import blueGrey from "@material-ui/core/colors/blueGrey";
+import { useSession, signOut } from "next-auth/client";
+import {
+  getOrCreateFingerprint,
+  verifyFingerprint,
+  deleteFingerprint,
+} from "../../../../utils/tokenManager";
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -92,6 +97,10 @@ const UserSamikshaFilter = (props) => {
  * @param {*} props
  */
 export const AttendanceList = (props) => {
+  const [session] = useSession();
+  useEffect(() => {
+    verifyFingerprint(session, signOut);
+  });
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
   return (
@@ -99,7 +108,7 @@ export const AttendanceList = (props) => {
       {...props}
       bulkActionButtons={false}
       title="Samiksha Attendance List"
-      className={isSmall ? classes.smList : classes.list}      
+      className={isSmall ? classes.smList : classes.list}
       filters={<UserSamikshaFilter />}
     >
       {isSmall ? (
@@ -112,10 +121,10 @@ export const AttendanceList = (props) => {
       ) : (
         <Datagrid rowClick="edit">
           <TextField label="id" source="id" />
-          <TextField label="Conducted By" source="taken_by" />          
+          <TextField label="Conducted By" source="taken_by" />
           <TextField label="Created At" source="created_at" />
-          <TextField label="Updated At" source="updated_at" />          
-          <TextField label="Date" source="date" />          
+          <TextField label="Updated At" source="updated_at" />
+          <TextField label="Date" source="date" />
         </Datagrid>
       )}
     </List>
