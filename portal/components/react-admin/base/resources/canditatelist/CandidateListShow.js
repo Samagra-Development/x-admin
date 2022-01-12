@@ -77,7 +77,7 @@ export const CandidateInterestShow = (props) => {
     if (cv && cv.startsWith("http://cdn.samagra.io")) {
       return (
         <div>
-          <a href={record.candidate_profile?.resume_url} rel="noopener" >
+          <a href={`${record.candidate_profile?.resume_url}`} target="_blank">
             CV <PictureAsPdfIcon />
           </a>
         </div>
