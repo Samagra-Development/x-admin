@@ -14,21 +14,10 @@ import {
   TextInput,
   useRecordContext,
   useListContext,
-  BooleanField,
-  ReferenceField,
-  BooleanInput,
-  useMutation,
-  EditButton,
 } from "react-admin";
-import { makeStyles, Typography, useMediaQuery } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 import { cloneElement } from "react";
-import ViewIcon from "@material-ui/icons/Visibility";
-import MoreIcon from "@material-ui/icons/More";
-import SwitchButton from "@material-ui/core/Switch";
-import { Route, Switch } from "react-router";
-import { Drawer } from "@material-ui/core";
-import TagEdit from "./TagEdit";
 
 const SearchFilter = (props) => {
   return (
@@ -46,10 +35,6 @@ const SearchFilter = (props) => {
       <TextInput
         label="Expected Salary"
         source="expected_salary#salary_range@_ilike"
-      />
-      <TextInput
-        label="District"
-        source="employer_detail#district_name#name@_ilike"
       />
       <TextInput
         label="No Of Candidates To Recruit"
@@ -93,7 +78,7 @@ const exporter = (records) => {
         : "",
       pincode: record.employer_detail?.pincode,
       "Vacancy ID": record.id,
-      TimeStamp: record.created_at,
+
       "Sector of job": record.sector_preference?.sector_preference_name,
       job_role: record.employer_detail?.job_role,
       expected_salary: record.expected_salary?.salary_range,
@@ -157,53 +142,25 @@ const useStyles = makeStyles((theme) => ({
   tablecss: {
     marginRight: "1rem",
   },
-  headerCell: {
-    color: "black",
-  },
 }));
 
 export const VacancyData = (props) => {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(true);
 
   const ViewIntrested = (props) => {
+    // console.log("Props:", props);
     const { source, label } = props;
     const record = useRecordContext(props);
     const url =
       `${process.env.NEXT_PUBLIC_URL}/admin#/candidate_vacancy_interest?filter=` +
       encodeURIComponent(`{"vacancy_id":"${record.id}"}`);
     return (
-      <div style={{ textAlign: "center" }}>
+      <div>
         <a href={url} rel="noopener noreferrer">
-          <ViewIcon />
+          View
         </a>
       </div>
     );
-  };
-
-  const IS_Live = (props) => {
-    const record = useRecordContext(props);
-    let live = record.is_live ? "Open" : "Close";
-    return <div style={{ textAlign: "center" }}>{live}</div>;
-  };
-
-  const MoreDetails = () => {
-    const record = useRecordContext(props);
-    const url = `${process.env.NEXT_PUBLIC_URL}/admin#/vacancy_details/${record.id}/show`;
-    return (
-      <div style={{ textAlign: "center" }}>
-        <a href={url} rel="noopener">
-          <MoreIcon />
-        </a>
-      </div>
-    );
-  };
-
-  const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
-
-  const handleClose = () => {
-    setChecked(props.is_live);
-    <Route path="/admin#/vacancy_details"></Route>;
   };
 
   return (
@@ -214,113 +171,118 @@ export const VacancyData = (props) => {
         actions={<ListActions maxResults={100000} />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
-        pagination={
-          <Pagination
-            rowsPerPageOptions={[5, 10, 25, 50]}
-            perPage={1}
-            style={{ float: "left", color: "black" }}
-          />
-        }
+        pagination={<Pagination perPage={1} style={{ float: "left" }} />}
+        // exporter={exporter}
       >
         <div className={classes.tablecss}>
-          {isSmall ? (
-            <Datagrid rowClick="show">
-              <TextField label="Job Role" source="job_role" />
-              ​
-              <FunctionField
-                label="Sector of job"
-                render={(record) => {
-                  return record?.sector_preference?.sector_preference_name;
-                }}
-              />
-              <FunctionField
-                width="120%"
-                label="Expected Salary"
-                render={(record) => {
-                  return record?.expected_salary?.salary_range;
-                }}
-              />
-              <MoreDetails
-                label="Vacancy Details"
-                source="id"
-                sortable={false}
-              />
-            </Datagrid>
-          ) : (
-            <Datagrid classes={classes}>
-              <TextField label="Job Role" source="job_role" />
-              ​
-              <FunctionField
-                label="Sector of job"
-                render={(record) => {
-                  return record?.sector_preference?.sector_preference_name;
-                }}
-              />
-              <FunctionField
-                width="120%"
-                label="Expected Salary"
-                render={(record) => {
-                  return record?.expected_salary?.salary_range;
-                }}
-              />
-              <TextField
-                label="Number of candidates to recruit"
-                source="number_of_candidates_required"
-              />
-              ​
-              <FunctionField
-                label="Minimum qualification requirement"
-                render={(record) => {
-                  return record?.highest_level_qualification
-                    ?.highest_level_qualification_name;
-                }}
-              />
-              ​
-              <FunctionField
-                label="Work Experience"
-                render={(record) => {
-                  return record?.min_work_experience_requirement
-                    ?.work_experience_choices;
-                }}
-              />
-              {/* ​<EditButton />
-              <TextField source="is_live"/> */}
-              <IS_Live label="Is_Live" source="id" sortable={false} />
-              ​<EditButton label="" />
-              <ViewIntrested
-                label="Vacancy Interest"
-                source="id"
-                sortable={false}
-              />
-              <MoreDetails
-                label="Vacancy Details"
-                source="id"
-                sortable={false}
-              />
-            </Datagrid>
-          )}
+          <Datagrid>
+            <FunctionField
+              label="Company Name"
+              render={(record) => {
+                return record?.employer_detail?.company_name;
+              }}
+            />
+            ​
+            <TextField label="Vacancy ID" source="id" />
+            <FunctionField
+              label="Sector of job"
+              render={(record) => {
+                return record?.sector_preference?.sector_preference_name;
+              }}
+            />
+            <TextField label="Job Role" source="job_role" />
+            ​
+            <FunctionField
+              label="Expected Salary"
+              render={(record) => {
+                return record?.expected_salary?.salary_range;
+              }}
+            />
+            <TextField
+              label="Driving Licence"
+              source="driver_license.driver_license_choice"
+            />
+            <TextField
+              label="Number of candidates to recruit"
+              source="number_of_candidates_required"
+            />
+            ​
+            <FunctionField
+              label="Minimum qualification requirement"
+              render={(record) => {
+                return record?.highest_level_qualification
+                  ?.highest_level_qualification_name;
+              }}
+            />
+            <FunctionField
+              label="Are vacancies open for freshers?"
+              render={(record) => {
+                if (record && record.freshers_open_choice === 1) {
+                  return "YES";
+                } else {
+                  return "NO";
+                }
+              }}
+            />
+            ​
+            <FunctionField
+              label="Minimum work experience required"
+              render={(record) => {
+                return record?.min_work_experience_requirement
+                  ?.work_experience_choices;
+              }}
+            />
+            ​
+            <FunctionField
+              label="Requirement of driving license"
+              render={(record) => {
+                return record?.driver_license?.driver_license_choice;
+              }}
+            />
+            ​
+            <FunctionField
+              label="English speaking skills"
+              render={(record) => {
+                return record?.englishSpeakingRequiredByFreshersOpenChoice
+                  ?.english_speaking_required_choices;
+              }}
+            />
+            ​
+            <FunctionField
+              label="Computer operating skills"
+              render={(record) => {
+                return record
+                  ?.englishSpeakingRequiredByIsComputerKnowledgeRequiredChoices
+                  ?.english_speaking_required_choices;
+              }}
+            />
+            ​
+            <FunctionField
+              label="Age criteria"
+              render={(record) => {
+                return record?.age_criteria_choice?.age_range_values;
+              }}
+            />
+            ​
+            <FunctionField
+              label="Gender criteria"
+              render={(record) => {
+                return record?.gender?.gender_name;
+              }}
+            />
+            ​
+            <TextField
+              label="Expected interview date"
+              source="interview_date"
+            />
+            <ViewIntrested
+              label="Vacancy Interest"
+              source="id"
+              sortable={false}
+            />
+          </Datagrid>
         </div>
       </List>
-      <Route path="/vacancy_details/:id">
-        {({ match }) => {
-          const isMatch = match && match.params && match.params.id !== "create";
-
-          return (
-            <Drawer open={isMatch} anchor="right" onClose={handleClose}>
-              {isMatch ? (
-                <TagEdit
-                  className={classes.drawerContent}
-                  id={isMatch ? match.params.id : null}
-                  onCancel={handleClose}
-                  {...props}
-                />
-              ) : (
-                <div className={classes.drawerContent} />
-              )}
-            </Drawer>
-          );
-        }}
-      </Route>
     </div>
   );
 };

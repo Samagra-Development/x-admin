@@ -6,7 +6,7 @@ import clsx from "clsx";
 import UserSidebarHeader from "./sidebarHeader";
 import VerticalCollapse from "./verticalCollapse";
 import VerticalItem from "./verticalItem";
-import resourceConfig from "./config";
+import { resourceConfig } from "./config";
 
 const useStyles = makeStyles((theme) => ({
   listTitle: {
@@ -33,9 +33,9 @@ const CustomSidebar = (props) => {
   const [activePath, setActivePath] = useState(null);
   const { location, resources } = props;
 
-  let filteredResources = resourceConfig();
+  let filteredResources = resourceConfig;
   if (props.resources) {
-    filteredResources = resourceConfig()?.filter(
+    filteredResources = resourceConfig?.filter(
       (configResource) =>
         (resources?.some(
           (resource) => resource?.name === configResource?.name

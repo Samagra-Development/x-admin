@@ -18,7 +18,6 @@ import { makeStyles, Typography } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 import { cloneElement } from "react";
 
-
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
@@ -33,6 +32,11 @@ const SearchFilter = (props) => {
 };
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
+    let age = getAge({
+      start: record.DOB,
+      end: null,
+    }).years;
+    // console.log(records);
     return {
       "Mobile Number": record.mobile_number,
       "Company Name": record.company_name,
@@ -49,7 +53,20 @@ const exporter = (records) => {
     );
   });
 };
-
+function getAge({ start, end }) {
+  var today = end ? new Date(end) : new Date();
+  var birthDate = new Date(start);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  let roundedDownAge = age;
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    roundedDownAge--;
+  }
+  if (today < birthDate) {
+    return { years: "Invalid Date", months: "Invalid Date" };
+  }
+  return { years: roundedDownAge, months: age * 12 + m };
+}
 const ListActions = (props) => {
   const { className, maxResults, filters, ...rest } = props;
   const { total } = useListContext();
@@ -74,13 +91,10 @@ const useStyles = makeStyles((theme) => ({
   tablecss: {
     marginRight: "1rem",
   },
-  headerCell: {
-    color: "black",
-  },
 }));
 export const RecruiterData = (props) => {
+  console.log("Entered Recruiter");
   const classes = useStyles();
-  
   return (
     <div className={classes.root}>
       <List
@@ -89,16 +103,10 @@ export const RecruiterData = (props) => {
         actions={<ListActions maxResults={100000} />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
-        pagination={
-          <Pagination
-            rowsPerPageOptions={[5, 10, 25, 50]}
-            perPage={1}
-            style={{ float: "left" }}
-          />
-        }
+        pagination={<Pagination perPage={1} style={{ float: "left" }} />}
       >
         <div className={classes.tablecss}>
-          <Datagrid classes={classes}>
+          <Datagrid>
             <TextField label="Company Name" source="company_name" />
 
             <TextField label="Mobile Number" source="mobile_number" />
@@ -111,6 +119,8 @@ export const RecruiterData = (props) => {
             />
 
             <TextField label="pincode" source="pincode" />
+
+            <TextField label="CRN" source="CRN" />
 
             <TextField label="GSTN" source="GSTN" />
           </Datagrid>

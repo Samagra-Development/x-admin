@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
-import { signIn, useSession } from "next-auth/client";
+import { signIn } from "next-auth/client";
 import { useRouter } from "next/router";
 import controls from "./form.config";
 import styles from "../../styles/Login.module.css";
 
 export default function Login(props) {
-  const [session] = useSession();
   const { persona } = props;
   const [input, setInput] = useState({});
   const router = useRouter();
@@ -38,12 +37,9 @@ export default function Login(props) {
   const { addToast } = useToasts();
 
   const signUserIn = async (e) => {
-    if (session.role === "Recruiter") {
-      persona.redirectUrl = `admin#/vacancy_details`;
-    }
     e.preventDefault();
-    const { error, url } = await signIn("fusionauth", {
-      loginId: input.username,
+      const { error, url } = await signIn("fusionauth", {
+      loginId: input.username,  
       password: input.password,
       applicationId: persona.applicationId,
       redirect: false,

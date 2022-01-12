@@ -9,8 +9,24 @@ import {
 } from "react-admin";
 import { makeStyles, Typography } from "@material-ui/core";
 
+function getAge({ start, end }) {
+  var today = end ? new Date(end) : new Date();
+  var birthDate = new Date(start);
+  var age = today.getFullYear() - birthDate.getFullYear();
+  var m = today.getMonth() - birthDate.getMonth();
+  let roundedDownAge = age;
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    roundedDownAge--;
+  }
+  if (today < birthDate) {
+    return { years: "Invalid Date", months: "Invalid Date" };
+  }
+  return { years: roundedDownAge, months: age * 12 + m };
+}
+
 export const CandidateShow = (props) => {
   const CustomFileField = ({ record, ...props }) => {
+    const url = generateResumeLink(record?.resume?.url);
     return (
       <div
         style={{
@@ -19,8 +35,8 @@ export const CandidateShow = (props) => {
           borderBottom: "1px dashed black",
         }}
       >
-        {record.resume_url ? (
-          <a href={record.resume_url} target="_blank" rel="noopener noreferrer">
+        {url ? (
+          <a href={url} target="_blank" rel="noopener noreferrer">
             <Typography variant="body2">Resume</Typography>
           </a>
         ) : (
@@ -29,18 +45,33 @@ export const CandidateShow = (props) => {
       </div>
     );
   };
+  const generateResumeLink = (url) => {
+    return url?.replace(/\/(.*?)\:/g, `//${config.odkAggregateUrl}:`);
+  };
 
   return (
+  
     <Show {...props} title="Candiate details">
-      <TabbedShowLayout style={{ marginLeft: "1rem", marginRight: "1rem" }}>
+      <TabbedShowLayout style={{marginLeft:"1rem",marginRight:"1rem"}}>
         <Tab label="Candidate Bio">
-          <TextField label="Name" source="name" />
+          
+          <TextField label="Name"  source="name" />
           <DateField label="DOB" source="DOB" />
-          <TextField label="Age" source="age" />
+          <FunctionField
+            label="Age"
+            render={(record) => {
+              if (record) {
+                return getAge({
+                  start: record.DOB,
+                  end: null,
+                }).years;
+              }
+            }}
+          />
           <FunctionField
             label="Gender"
             render={(record) => {
-              return record?.gender?.gender_name;
+                return record?.gender?.gender_name;
             }}
           />
           <TextField label="Mobile" source="mobile_number" />
@@ -48,39 +79,40 @@ export const CandidateShow = (props) => {
           <FunctionField
             label="District"
             render={(record) => {
-              return record?.district_name?.name;
+                return record?.district_name?.name;
             }}
           />
           <TextField label="Pincode" source="pincode" />
         </Tab>
         <Tab label="Educational Details">
-          <FunctionField
+      
+           <FunctionField
             label="Max Qualification"
             render={(record) => {
-              return record?.highest_level_qualification
-                ?.highest_level_qualification_name;
+                return record?.highest_level_qualification?.highest_level_qualification_name;
             }}
           />
-          <FunctionField
+           <FunctionField
             label="Qualification"
             render={(record) => {
-              return record?.qualification_detail?.qualification_name;
+                return record?.qualification_detail?.qualification_name;
             }}
           />
           <TextField label="Marks" source="final_score_highest_qualification" />
         </Tab>
         <Tab label="Employment History">
-          <FunctionField
+          
+           <FunctionField
             label="Are you currently employed?"
             render={(record) => {
-              return record?.current_employment?.current_employment_status;
+                return record?.current_employment?.current_employment_status;
             }}
           />
-
-          <FunctionField
+          
+           <FunctionField
             label="Have you ever been employed?"
             render={(record) => {
-              return record?.ever_employment?.employment_status;
+                return record?.ever_employment?.employment_status;
             }}
           />
           <FunctionField
@@ -114,43 +146,49 @@ export const CandidateShow = (props) => {
           />
         </Tab>
         <Tab label="Profile and Preferences">
-          <FunctionField
+           <FunctionField
             label="Driving License"
             render={(record) => {
-              return record.driver_license.driver_license_choice;
+                return record.driver_license.driver_license_choice;
             }}
           />
-          <FunctionField
+           <FunctionField
             label="Travel willingness"
             render={(record) => {
-              return record?.district_travel?.district_travel_choice;
+                return record?.district_travel?.district_travel_choice;
             }}
           />
           <FunctionField
             label="PAN CARD"
             render={(record) => {
               return record?.pan_card?.pan_card_choice;
-            }}
+          }}
           />
-
-          <FunctionField
+        
+           <FunctionField
             label="English Speaking Competency"
             render={(record) => {
-              return record?.english_knowledge_choice?.english_choice;
+                return record?.english_knowledge_choice?.english_choice;
             }}
           />
-
-          <FunctionField
+          
+           <FunctionField
             label="Computer Skills"
             render={(record) => {
-              return record?.computer_operator?.computer_operator_choice;
+                return record?.computer_operator?.computer_operator_choice;          
             }}
           />
           <FunctionField
             label="Preferred Sectors"
             render={(record) => {
               if (record) {
-                return `${record.sector_preference_1?.sector_preference_name}, ${record.sector_preference_2?.sector_preference_name}, ${record.sector_preference_3?.sector_preference_name}`;
+                return `${
+                  record.sector_preference_1?.sector_preference_name
+                }, ${
+                  record.sector_preference_2?.sector_preference_name 
+                }, ${
+                  record.sector_preference_3?.sector_preference_name
+                }`;
               }
             }}
           />
@@ -164,11 +202,11 @@ export const CandidateShow = (props) => {
               }
             }}
           />
-
-          <FunctionField
+          
+           <FunctionField
             label="Expected Salary"
             render={(record) => {
-              return record?.expected_salary?.salary_range;
+                return record?.expected_salary?.salary_range;
             }}
           />
 
@@ -176,5 +214,6 @@ export const CandidateShow = (props) => {
         </Tab>
       </TabbedShowLayout>
     </Show>
+       
   );
 };
