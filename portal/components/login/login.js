@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react";
-import { useToasts } from "react-toast-notifications";
-import { signIn, useSession } from "next-auth/client";
-import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+
 import controls from "./form.config";
+import { signIn } from "next-auth/client";
 import styles from "../../styles/Login.module.css";
+import { useRouter } from "next/router";
+import { useToasts } from "react-toast-notifications";
 
 export default function Login(props) {
-  const [session] = useSession();
   const { persona } = props;
   const [input, setInput] = useState({});
   const router = useRouter();
@@ -38,20 +38,20 @@ export default function Login(props) {
   const { addToast } = useToasts();
 
   const signUserIn = async (e) => {
-    if (session.role === "Recruiter") {
-      persona.redirectUrl = `admin#/vacancy_details`;
-    }
+    // if (session.role === "Recruiter") {
+    //   persona.redirectUrl = `admin#/vacancy_details`;
+    // }
+    console.log({ persona });
     e.preventDefault();
     const { error, url } = await signIn("fusionauth", {
       loginId: input.username,
       password: input.password,
       applicationId: persona.applicationId,
       redirect: false,
-      callbackUrl: `${
-        persona.redirectUrl.search("http") < 0
-          ? `${process.env.NEXT_PUBLIC_URL}/${persona.redirectUrl}`
-          : persona.redirectUrl
-      }`,
+      callbackUrl: `${persona.redirectUrl.search("http") < 0
+        ? `${process.env.NEXT_PUBLIC_URL}/${persona.redirectUrl}`
+        : persona.redirectUrl
+        }`,
     });
     if (url) {
       router.push(url);
