@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { AdminContext, AdminUI, Resource, useDataProvider ,useRedirect} from "react-admin";
+import {
+  AdminContext,
+  AdminUI,
+  Resource,
+  useDataProvider,
+  useRedirect,
+} from "react-admin";
 import buildHasuraProvider, { buildFields } from "ra-data-hasura";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { useSession } from "next-auth/client";
@@ -8,7 +14,7 @@ import customTheme from "./theme";
 import customLayout from "./layout/";
 import customFields from "./customHasura/customFields";
 import customVariables from "./customHasura/customVariables";
-import { resourceConfig } from "./layout/config";
+import resourceConfig from "./layout/config";
 import { useRouter } from "next/router";
 
 const App = () => {
@@ -29,7 +35,7 @@ const App = () => {
     });
 
     async function buildDataProvider() {
-      try{
+      try {
         const hasuraProvider = await buildHasuraProvider(
           { client: tempClient },
           {
@@ -38,23 +44,21 @@ const App = () => {
           customVariables
         );
 
-      setDataProvider(() => hasuraProvider);
-      setApolloClient(tempClient);
-      } catch(e){
-        console.log("Error catch:",e)
+        setDataProvider(() => hasuraProvider);
+        setApolloClient(tempClient);
+      } catch (e) {
+        console.log("Error catch:", e);
         if (!router.isFallback) {
-            router.push("/");
-          }
+          router.push("/");
+        }
       }
-      
     }
     buildDataProvider();
   }, [session]);
 
-  if (!dataProvider || !apolloClient){
-  
+  if (!dataProvider || !apolloClient) {
     return null;
-  } 
+  }
   return (
     <AdminContext dataProvider={dataProvider}>
       <AsyncResources client={apolloClient} />
@@ -62,21 +66,24 @@ const App = () => {
   );
 };
 function AsyncResources({ client }) {
+  const [session] = useSession();
   let introspectionResultObjects =
     client.cache?.data?.data?.ROOT_QUERY?.__schema.types
       ?.filter((obj) => obj.kind === "OBJECT")
-      ?.map((elem) => elem.name); 
-  const resources = resourceConfig;
+      ?.map((elem) => elem.name);
+  const resources = resourceConfig();
   let filteredResources = resources;
+
   if (introspectionResultObjects) {
     filteredResources = resources.filter((elem) =>
       introspectionResultObjects.includes(elem.name)
     );
   }
   if (!resources) return null;
+
   return (
     <MuiThemeProvider theme={createMuiTheme(customTheme)}>
-      <AdminUI disablloginPageeTelemetry ={false} layout={customLayout}>
+      <AdminUI disablloginPageeTelemetry={false} layout={customLayout}>
         {filteredResources.map((resource) => (
           <Resource
             key={resource.name}

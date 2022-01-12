@@ -27,6 +27,10 @@ const EXTENDED_Vacancy_RECORD = gql`
       GSTN
       CRN
       pincode
+      district_name {
+        name
+      }
+      mobile_number
     }
     expected_salary {
       salary_range
@@ -59,13 +63,20 @@ const EXTENDED_CANDIDATE_VACANCY_INTREST = gql`
     vacancy_detail {
       employer_detail {
         company_name
+        mobile_number
       }
       sector_preference {
         sector_preference_name
       }
+      expected_salary {
+        salary_range
+      }
+      job_role
     }
     candidate_profile {
+      id
       name
+      age
       gender {
         gender_name
       }
@@ -75,7 +86,7 @@ const EXTENDED_CANDIDATE_VACANCY_INTREST = gql`
       district_name {
         name
       }
-      
+
       highest_level_qualification {
         highest_level_qualification_name
       }
@@ -84,7 +95,6 @@ const EXTENDED_CANDIDATE_VACANCY_INTREST = gql`
       }
       driver_license {
         driver_license_choice
-        
       }
       english_knowledge_choice {
         english_choice
@@ -92,13 +102,13 @@ const EXTENDED_CANDIDATE_VACANCY_INTREST = gql`
       computer_operator {
         computer_operator_choice
       }
-      
     }
   }
 `;
 
 const EXTENDED_CANDIDATE_RECORD = gql`
   {
+    resume_url
     qualification_detail {
       qualification_name
     }
@@ -129,7 +139,6 @@ const EXTENDED_CANDIDATE_RECORD = gql`
     pan_card {
       pan_card_choice
     }
-
     computer_operator {
       computer_operator_choice
     }
