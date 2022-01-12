@@ -12,50 +12,18 @@ import {
   TextField,
   SearchInput,
   TextInput,
-  DateInput,
   useListContext,
-  NumberInput,
 } from "react-admin";
 import { cloneElement } from "react";
 import { makeStyles, Input } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 
 const SearchFilter = (props) => {
-  const AgeInput = ({ source, label }) => {
-    const { filterValues, setFilters } = useListContext();
-    const gte_source = source + "@_gte";
-    const lte_source = source + "@_lte";
-    return (
-      <Input
-        size="small"
-        color="primary"
-        label={label}
-        name={lte_source}
-        type="number"
-        value={
-          filterValues[lte_source]
-            ? getAge({ start: filterValues[lte_source], end: null }).years
-            : 0
-        }
-        onChange={(e) => {
-          const { from, to } = getDob(e.target.value);
-          const newFilterValues = {
-            ...filterValues,
-            [gte_source]: from,
-            [lte_source]: to,
-          };
-          setFilters(newFilterValues);
-        }}
-      >
-        Age
-      </Input>
-    );
-  };
   return (
     <div>
       <Filter {...props}>
         <SearchInput placeholder="Name" source="name" alwaysOn />
-        <AgeInput source="DOB" label="Age" />
+        <TextInput label="Age" source="age" />
         <TextInput label="Whatsapp" source="whatsapp_mobile_number" />
         <TextInput label="Pincode" source="pincode" />
         <TextInput label="District" source="district_name#name@_ilike" />
@@ -69,6 +37,7 @@ const SearchFilter = (props) => {
           source="driver_license#driver_license_choice@_like"
         />
         <TextInput
+          width="50%"
           label="Expected Salary"
           source="expected_salary#salary_range@_ilike"
         />
@@ -175,16 +144,6 @@ function getAge({ start, end }) {
   return { years: roundedDownAge, months: age * 12 + m };
 }
 
-function getDob(age) {
-  let d = new Date();
-  let year = d.getFullYear();
-  let month = d.getMonth();
-  let day = d.getDate();
-  let from = parseInt(year) - parseInt(age) - 1 + "-" + month + "-" + day;
-  let to = parseInt(year) - parseInt(age) + "-" + month + "-" + day;
-  return { from, to };
-}
-
 const ListActions = (props) => {
   const { className, maxResults, filters, ...rest } = props;
   const { total } = useListContext();
@@ -209,9 +168,14 @@ const useStyles = makeStyles((theme) => ({
   tablecss: {
     marginRight: "1rem",
   },
+  headerCell: {
+    color: "black",
+  },
 }));
+
 export const CandidateList = (props) => {
   const classes = useStyles();
+
   return (
     <div className={classes.root}>
       <List
@@ -220,22 +184,19 @@ export const CandidateList = (props) => {
         actions={<ListActions maxResults="100000" />}
         bulkActionButtons={false}
         filters={<SearchFilter />}
-        pagination={<Pagination perPage={1} style={{ float: "left" }} />}
+        pagination={
+          <Pagination
+            rowsPerPageOptions={[5, 10, 25, 50]}
+            perPage={1}
+            style={{ float: "left", color: "black" }}
+          />
+        }
       >
         <div className={classes.tablecss}>
-          <Datagrid rowClick="show">
+          <Datagrid rowClick="show" classes={classes}>
             <TextField label="Name" source="name" />
-            <FunctionField
-              label="Age"
-              render={(record) => {
-                if (record && record.DOB) {
-                  return getAge({
-                    start: record.DOB,
-                    end: null,
-                  }).years;
-                }
-              }}
-            />
+            <TextField label="Age" source="age" />
+
             <TextField label="DOB" source="DOB" />
             <FunctionField
               label="Gender"
@@ -253,7 +214,8 @@ export const CandidateList = (props) => {
               source="driver_license.driver_license_choice"
             />
             <TextField
-              label="Expected Salary"
+              width="80%"
+              label="Expected_Salary"
               source="expected_salary.salary_range"
             />
             <TextField
@@ -279,10 +241,7 @@ export const CandidateList = (props) => {
               label="Sector 2"
               source="sector_preference_2.sector_preference_name"
             />
-            <TextField
-              label="Sector 3"
-              source="sector_preference_3.sector_preference_name"
-            />
+
             <FunctionField
               label="Max Qualification"
               render={(record) => {
@@ -292,6 +251,7 @@ export const CandidateList = (props) => {
             />
             <FunctionField
               label="Qualification"
+              width="120%"
               render={(record) => {
                 return record?.qualification_detail?.qualification_name;
               }}
