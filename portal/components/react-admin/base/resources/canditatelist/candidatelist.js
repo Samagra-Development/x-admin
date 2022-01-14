@@ -1,25 +1,26 @@
-import React from "react";
 import {
-  List,
   Datagrid,
-  Pagination,
-  TopToolbar,
-  sanitizeListRestProps,
-  Filter,
   ExportButton,
-  downloadCSV,
+  Filter,
+  FunctionField,
+  List,
+  Pagination,
   SearchInput,
   TextInput,
-  FunctionField,
+  TopToolbar,
+  downloadCSV,
+  sanitizeListRestProps,
   useListContext,
   useRecordContext,
 } from "react-admin";
-import { makeStyles, Typography, useMediaQuery } from "@material-ui/core";
-import jsonExport from "jsonexport/dist";
-import { cloneElement } from "react";
-import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
-import ViewIcon from "@material-ui/icons/Visibility";
+import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
+
 import MoreIcon from "@material-ui/icons/More";
+import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
+import React from "react";
+import ViewIcon from "@material-ui/icons/Visibility";
+import { cloneElement } from "react";
+import jsonExport from "jsonexport/dist";
 
 const SearchFilter = (props) => {
   return (
@@ -198,6 +199,7 @@ export const InterestedCandidateist = (props) => {
         title={"Interested Candidates"}
         actions={<ListActions maxResults={100000} />}
         bulkActionButtons={false}
+        filter={{ interested: true }}
         filters={<SearchFilter />}
         pagination={
           <Pagination
