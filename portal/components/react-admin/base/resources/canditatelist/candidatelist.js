@@ -220,9 +220,9 @@ export const InterestedCandidateList = (props) => {
               <CallCandidate label="Candidate Mobile Number" source="id" />
 
               <FunctionField
-                label="Job Role"
+                label="District Name"
                 render={(record) => {
-                  return record?.vacancy_detail?.job_role;
+                  return record?.candidate_profile?.district_name?.name;
                 }}
               />
               <MoreDetails
