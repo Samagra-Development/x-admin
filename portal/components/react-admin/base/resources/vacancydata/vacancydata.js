@@ -18,9 +18,10 @@ import {
   useListContext,
   useMutation,
   useRecordContext,
+  ChipField,
 } from "react-admin";
 import { Route, Switch } from "react-router";
-import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
+import { Typography, makeStyles, useMediaQuery, Chip } from "@material-ui/core";
 
 import { Drawer } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/More";
@@ -30,6 +31,8 @@ import TagEdit from "./TagEdit";
 import ViewIcon from "@material-ui/icons/Visibility";
 import { cloneElement } from "react";
 import jsonExport from "jsonexport/dist";
+import config from "@/components/config";
+
 
 const SearchFilter = (props) => {
   return (
@@ -163,6 +166,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const ColoredChipField = props => {
+  const record = useRecordContext(props);
+  let live = record.is_live ? "Active" : "Inactive";
+  let data = config.status.find((elem) => elem.id === live);  
+  return (<Chip style={{backgroundColor:data?.color,color:'#FFF'}} label={live} />);
+};
+
 export const VacancyData = (props) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState(true);
@@ -182,11 +192,11 @@ export const VacancyData = (props) => {
     );
   };
 
-  const IS_Live = (props) => {
-    const record = useRecordContext(props);
-    let live = record.is_live ? "Open" : "Close";
-    return <div style={{ textAlign: "center" }}>{live}</div>;
-  };
+  // const IS_Live = (props) => {
+  //   const record = useRecordContext(props);
+  //   let live = record.is_live ? "Active" : "Rejected";
+  //   return <div style={{ textAlign: "center" }}>{live}</div>;
+  // };
 
   const MoreDetails = () => {
     const record = useRecordContext(props);
@@ -286,7 +296,7 @@ export const VacancyData = (props) => {
               />
               {/* ​<EditButton />
               <TextField source="is_live"/> */}
-              <IS_Live label="Is_Live" source="id" sortable={false} />
+              <ColoredChipField label="Status" source="id"sortable={false} />
               <EditButton label="" />
               <ViewInterested
                 label="Vacancy Interest"
