@@ -1,34 +1,35 @@
-import React from "react";
 import {
-  List,
-  Datagrid,
-  Pagination,
-  FunctionField,
-  TopToolbar,
-  TextField,
-  sanitizeListRestProps,
-  Filter,
-  ExportButton,
-  downloadCSV,
-  SearchInput,
-  TextInput,
-  useRecordContext,
-  useListContext,
   BooleanField,
-  ReferenceField,
   BooleanInput,
-  useMutation,
+  Datagrid,
   EditButton,
+  ExportButton,
+  Filter,
+  FunctionField,
+  List,
+  Pagination,
+  ReferenceField,
+  SearchInput,
+  TextField,
+  TextInput,
+  TopToolbar,
+  downloadCSV,
+  sanitizeListRestProps,
+  useListContext,
+  useMutation,
+  useRecordContext,
 } from "react-admin";
-import { makeStyles, Typography, useMediaQuery } from "@material-ui/core";
-import jsonExport from "jsonexport/dist";
-import { cloneElement } from "react";
-import ViewIcon from "@material-ui/icons/Visibility";
-import MoreIcon from "@material-ui/icons/More";
-import SwitchButton from "@material-ui/core/Switch";
 import { Route, Switch } from "react-router";
+import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
+
 import { Drawer } from "@material-ui/core";
+import MoreIcon from "@material-ui/icons/More";
+import React from "react";
+import SwitchButton from "@material-ui/core/Switch";
 import TagEdit from "./TagEdit";
+import ViewIcon from "@material-ui/icons/Visibility";
+import { cloneElement } from "react";
+import jsonExport from "jsonexport/dist";
 
 const SearchFilter = (props) => {
   return (
@@ -149,7 +150,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "calc(100% - 0px)",
     height: "86vh",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto",
     overflowY: "scroll",
     marginLeft: "1rem",
@@ -166,7 +167,7 @@ export const VacancyData = (props) => {
   const classes = useStyles();
   const [checked, setChecked] = React.useState(true);
 
-  const ViewIntrested = (props) => {
+  const ViewInterested = (props) => {
     const { source, label } = props;
     const record = useRecordContext(props);
     const url =
@@ -226,7 +227,7 @@ export const VacancyData = (props) => {
           {isSmall ? (
             <Datagrid rowClick="show">
               <TextField label="Job Role" source="job_role" />
-              ​
+
               <FunctionField
                 label="Sector of job"
                 render={(record) => {
@@ -249,7 +250,7 @@ export const VacancyData = (props) => {
           ) : (
             <Datagrid classes={classes}>
               <TextField label="Job Role" source="job_role" />
-              ​
+
               <FunctionField
                 label="Sector of job"
                 render={(record) => {
@@ -267,7 +268,7 @@ export const VacancyData = (props) => {
                 label="Number of candidates to recruit"
                 source="number_of_candidates_required"
               />
-              ​
+
               <FunctionField
                 label="Minimum qualification requirement"
                 render={(record) => {
@@ -275,7 +276,7 @@ export const VacancyData = (props) => {
                     ?.highest_level_qualification_name;
                 }}
               />
-              ​
+
               <FunctionField
                 label="Work Experience"
                 render={(record) => {
@@ -286,8 +287,8 @@ export const VacancyData = (props) => {
               {/* ​<EditButton />
               <TextField source="is_live"/> */}
               <IS_Live label="Is_Live" source="id" sortable={false} />
-              ​<EditButton label="" />
-              <ViewIntrested
+              <EditButton label="" />
+              <ViewInterested
                 label="Vacancy Interest"
                 source="id"
                 sortable={false}

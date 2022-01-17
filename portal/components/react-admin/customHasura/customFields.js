@@ -17,7 +17,7 @@ const EXTENDED_RECRUITER_RECORD = gql`
   }
 `;
 
-const EXTENDED_Vacancy_RECORD = gql`
+const EXTENDED_VACANCY_RECORD = gql`
   {
     sector_preference {
       sector_preference_name
@@ -58,7 +58,8 @@ const EXTENDED_Vacancy_RECORD = gql`
     }
   }
 `;
-const EXTENDED_CANDIDATE_VACANCY_INTREST = gql`
+
+const EXTENDED_CANDIDATE_VACANCY_INTEREST = gql`
   {
     vacancy_detail {
       employer_detail {
@@ -169,6 +170,7 @@ const EXTENDED_CANDIDATE_RECORD = gql`
 const customBuildFields = (type, fetchType) => {
   const resourceName = type.name;
   const defaultFields = buildFields(type, fetchType);
+  console.log({ defaultFields });
   if (resourceName === "candidate_profile") {
     if (fetchType === "GET_LIST" || fetchType === "GET_ONE") {
       const relatedEntities = extractFieldsFromQuery(EXTENDED_CANDIDATE_RECORD);
@@ -181,13 +183,13 @@ const customBuildFields = (type, fetchType) => {
     }
   } else if (resourceName === "vacancy_details") {
     if (fetchType === "GET_LIST" || fetchType === "GET_ONE") {
-      const relatedEntities = extractFieldsFromQuery(EXTENDED_Vacancy_RECORD);
+      const relatedEntities = extractFieldsFromQuery(EXTENDED_VACANCY_RECORD);
       defaultFields.push(...relatedEntities);
     }
   } else if (resourceName === "candidate_vacancy_interest") {
     if (fetchType === "GET_LIST" || fetchType === "GET_ONE") {
       const relatedEntities = extractFieldsFromQuery(
-        EXTENDED_CANDIDATE_VACANCY_INTREST
+        EXTENDED_CANDIDATE_VACANCY_INTEREST
       );
       defaultFields.push(...relatedEntities);
     }

@@ -1,21 +1,22 @@
-import React from "react";
 import {
-  TextField,
   FunctionField,
   Show,
   Tab,
   TabbedShowLayout,
+  TextField,
   useRecordContext,
 } from "react-admin";
-import { makeStyles, Typography, useMediaQuery } from "@material-ui/core";
+import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
+
 import PictureAsPdfIcon from "@material-ui/icons/PictureAsPdf";
+import React from "react";
 import ViewIcon from "@material-ui/icons/Visibility";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "calc(100% - 0px)",
     height: "86vh",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto",
     overflowY: "scroll",
     marginLeft: "1rem",
@@ -74,7 +75,8 @@ export const CandidateInterestShow = (props) => {
 
     const cv = record.candidate_profile?.resume_url;
 
-    if (cv && cv.startsWith("http://cdn.samagra.io")) {
+    if (cv) {
+      console.log({ cv });
       return (
         <div>
           <a href={record.candidate_profile?.resume_url} rel="noopener" >

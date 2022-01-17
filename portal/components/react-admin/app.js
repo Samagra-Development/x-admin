@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import {
   AdminContext,
   AdminUI,
@@ -6,16 +5,19 @@ import {
   useDataProvider,
   useRedirect,
 } from "react-admin";
-import buildHasuraProvider, { buildFields } from "ra-data-hasura";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { useSession } from "next-auth/client";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
-import customTheme from "./theme";
-import customLayout from "./layout/";
+import buildHasuraProvider, { buildFields } from "ra-data-hasura";
+import { useEffect, useState } from "react";
+
+import { MuiThemeProvider } from "@material-ui/core";
+import { createTheme } from '@material-ui/core/styles';
 import customFields from "./customHasura/customFields";
+import customLayout from "./layout/";
+import customTheme from "./theme";
 import customVariables from "./customHasura/customVariables";
 import resourceConfig from "./layout/config";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/client";
 
 const App = () => {
   const [dataProvider, setDataProvider] = useState(null);
@@ -82,7 +84,7 @@ function AsyncResources({ client }) {
   if (!resources) return null;
 
   return (
-    <MuiThemeProvider theme={createMuiTheme(customTheme)}>
+    <MuiThemeProvider theme={createTheme(customTheme)}>
       <AdminUI disablloginPageeTelemetry={false} layout={customLayout}>
         {filteredResources.map((resource) => (
           <Resource

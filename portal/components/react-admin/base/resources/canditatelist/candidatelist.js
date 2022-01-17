@@ -81,7 +81,7 @@ const exporter = (records) => {
   jsonExport(recordsForExport, (err, csv) => {
     downloadCSV(
       csv,
-      `intrestedCandidatesList_${new Date(Date.now()).toLocaleDateString()}`
+      `InterestedCandidatesList_${new Date(Date.now()).toLocaleDateString()}`
     );
   });
 };
@@ -102,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "calc(100% - 0px)",
     height: "86vh",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto",
     overflowY: "scroll",
     marginLeft: "1rem",
@@ -114,13 +114,12 @@ const useStyles = makeStyles((theme) => ({
     color: "black",
   },
 }));
-export const InterestedCandidateist = (props) => {
+export const InterestedCandidateList = (props) => {
   const classes = useStyles();
 
   const ShowCandidate = (props) => {
     const record = useRecordContext(props);
-
-    const url = `${process.env.NEXT_PUBLIC_URL}/admin#/candidate_profile/${record.candidate_profile.id}`;
+    const url = `${process.env.NEXT_PUBLIC_URL}/admin#/candidate_profile/${record.candidate_profile.id}/show`;
     return (
       <div style={{ textAlign: "center" }}>
         <a href={url} rel="noopener">
@@ -161,7 +160,7 @@ export const InterestedCandidateist = (props) => {
 
     const cv = record.candidate_profile?.resume_url;
 
-    if (cv && cv.startsWith("http://cdn.samagra.io")) {
+    if (cv) {
       return (
         <div style={{ textAlign: "center" }}>
           <a href={record.candidate_profile?.resume_url} rel="noopener" >
@@ -227,7 +226,7 @@ export const InterestedCandidateist = (props) => {
                 }}
               />
               <MoreDetails
-                label="Candidate Details"
+                label="Details"
                 source="id"
                 sortable={false}
               />
@@ -273,13 +272,13 @@ export const InterestedCandidateist = (props) => {
               <FunctionField
                 label="Expected Salary"
                 render={(record) => {
-                  return record?.vacancy_detail?.expected_salary?.salary_range;
+                  return record?.vacancy_detail?.expected_salary?.salary_range.replaceAll("Rs ", "");
                 }}
               />
 
               <CV label="CV" source="id" />
               <ShowCandidate
-                label="Candidate Details"
+                label="Details"
                 source="id"
                 style={{ alignItems: "center", color: "red" }}
               />

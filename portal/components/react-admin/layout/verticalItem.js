@@ -1,8 +1,9 @@
 import React, { createElement } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+
 import { Link } from "react-router-dom";
-import SmartphoneIcon from "@material-ui/icons/Smartphone";
 import SchoolIcon from "@material-ui/icons/School";
+import SmartphoneIcon from "@material-ui/icons/Smartphone";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   sidebarItem: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.grey.hover,
   },
   listItem: {
-    fontSize: "1.2rem",
+    fontSize: "1.0rem",
     lineHeight: "1em",
     textAlign: "center",
     fontVariant: "all-small-caps",
@@ -54,9 +55,8 @@ const VerticalItem = (props) => {
   return (
     <Link
       to={`/${item.name}`}
-      className={`${classes.sidebarItem} ${
-        activePath?.split("/")?.includes(item.name) ? classes.selected : ""
-      }`}
+      className={`${classes.sidebarItem} ${activePath?.split("/")?.includes(item.name) ? classes.selected : ""
+        }`}
     >
       <Icon className={classes.sidebarIcon} type={item.icon} />
       <span className={classes.listItem}>{sidebarItemName}</span>

@@ -1,14 +1,16 @@
-import React from 'react';
 import {
+    BooleanInput,
     Edit,
-    TextInput,
-    SimpleForm,
-    required,
     SaveButton,
+    SimpleForm,
+    TextInput,
     Toolbar,
+    required,
     translate
 } from 'react-admin';
+
 import Button from '@material-ui/core/Button';
+import React from 'react';
 
 const TagEditToolbar = translate(({ onCancel, translate, ...props }) => (
     <Toolbar {...props}>
@@ -17,12 +19,14 @@ const TagEditToolbar = translate(({ onCancel, translate, ...props }) => (
     </Toolbar>
 ));
 
-const TagEdit = ({ onCancel, ...props }) => (
-    <Edit title=" " {...props}>
+const TagEdit = ({ onCancel, ...props }) => {
+    console.log({ props });
+    return (< Edit title=" " {...props}>
         <SimpleForm toolbar={<TagEditToolbar onCancel={onCancel} />}>
-            <TextInput source="is_live" validate={required()} />
+            <BooleanInput label="Live" source="is_live" validate={required()} />
         </SimpleForm>
-    </Edit>
-);
+    </Edit >
+    );
+}
 
 export default TagEdit;

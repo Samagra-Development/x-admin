@@ -1,7 +1,7 @@
-import { InterestedCandidateist } from "./candidatelist";
 import { CandidateInterestShow } from "./CandidateListShow";
+import { InterestedCandidateList } from "./candidatelist";
 
 export {
-    InterestedCandidateist,
+    InterestedCandidateList,
     CandidateInterestShow
 }

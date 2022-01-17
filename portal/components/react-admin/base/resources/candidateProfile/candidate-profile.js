@@ -1,21 +1,23 @@
-import React from "react";
 import {
-  List,
+  BooleanField,
   Datagrid,
-  Pagination,
-  FunctionField,
-  TopToolbar,
-  sanitizeListRestProps,
-  Filter,
   ExportButton,
-  downloadCSV,
-  TextField,
+  Filter,
+  FunctionField,
+  List,
+  Pagination,
   SearchInput,
+  TextField,
   TextInput,
+  TopToolbar,
+  downloadCSV,
+  sanitizeListRestProps,
   useListContext,
 } from "react-admin";
+import { Input, makeStyles } from "@material-ui/core";
+
+import React from "react";
 import { cloneElement } from "react";
-import { makeStyles, Input } from "@material-ui/core";
 import jsonExport from "jsonexport/dist";
 
 const SearchFilter = (props) => {
@@ -76,11 +78,6 @@ const SearchFilter = (props) => {
 
 const exporter = (records) => {
   const recordsForExport = records.map((record) => {
-    let age = getAge({
-      start: record.DOB,
-      end: null,
-    }).years;
-
     return {
       "Candidate Name": record.name ? record.name : "",
       "Mobile Number": record.mobile_number ? record.mobile_number : "",
@@ -96,7 +93,7 @@ const exporter = (records) => {
         ? record.final_score_highest_qualification
         : "",
       "Date of Birth": record.DOB,
-      Age: age,
+      Age: record.age,
       Gender: record.gender?.gender_name,
       "Have you ever been employed": record.ever_employment?.employment_status,
       "Job Role": record.job_role ? record.job_role : "",
@@ -129,21 +126,6 @@ const exporter = (records) => {
   });
 };
 
-function getAge({ start, end }) {
-  let today = end ? new Date(end) : new Date();
-  let birthDate = new Date(start);
-  let age = today.getFullYear() - birthDate.getFullYear();
-  let m = today.getMonth() - birthDate.getMonth();
-  let roundedDownAge = age;
-  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    roundedDownAge--;
-  }
-  if (today < birthDate) {
-    return { years: "Invalid Date", months: "Invalid Date" };
-  }
-  return { years: roundedDownAge, months: age * 12 + m };
-}
-
 const ListActions = (props) => {
   const { className, maxResults, filters, ...rest } = props;
   const { total } = useListContext();
@@ -157,17 +139,6 @@ const ListActions = (props) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "calc(100% - 0px)",
-    height: "86vh",
-    marginTop: theme.spacing.unit * 3,
-    overflowX: "auto",
-    overflowY: "scroll",
-    marginLeft: "1rem",
-  },
-  tablecss: {
-    marginRight: "1rem",
-  },
   headerCell: {
     color: "black",
   },
@@ -209,23 +180,19 @@ export const CandidateList = (props) => {
               label="Work Experience"
               source="work_experience_details.work_experience_choices"
             />
-            <TextField
-              label="Driving Licence"
-              source="driver_license.driver_license_choice"
+            <FunctionField
+              label="Expected Salary"
+              render={(record) => record.expected_salary.salary_range.replaceAll("Rs ", "")}
             />
-            <TextField
-              width="80%"
-              label="Expected_Salary"
-              source="expected_salary.salary_range"
-            />
-            <TextField
-              label="English Speaking Skills"
-              source="english_knowledge_choice.english_choice"
-            />
-            <TextField
-              label="Computer Operation Skills"
-              source="computer_operator.computer_operator_choice"
-            />
+            <FunctionField source="driver_license.driver_license_choice" label="DL" render={(record, source) =>
+              <BooleanField record={{ ...record, "driver_license.driver_license_choice": record.driver_license.driver_license_choice === "Yes" }} source={source} />} />
+
+            <FunctionField source="english_knowledge_choice.english_choice" label="English" render={(record, source) =>
+              <BooleanField record={{ ...record, "english_knowledge_choice.english_choice": record.english_knowledge_choice.english_choice === "Yes" }} source={source} />} />
+
+            <FunctionField source="computer_operator.computer_operator_choice" label="Computer" render={(record, source) =>
+              <BooleanField record={{ ...record, "computer_operator.computer_operator_choice": record.computer_operator.computer_operator_choice === "Yes" }} source={source} />} />
+
             <FunctionField
               label="District"
               render={(record) => {

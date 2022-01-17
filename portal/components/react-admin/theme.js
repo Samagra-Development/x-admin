@@ -35,12 +35,16 @@ const customTheme = merge({}, defaultTheme, {
   typography: {
     // Use the system font instead of the default Roboto font.
     fontFamily: [
-      "Bahnschrift",
-      "-apple-system",
-      "BlinkMacSystemFont",
+      '-apple-system',
+      'BlinkMacSystemFont',
       '"Segoe UI"',
-      "Arial",
-      "sans-serif",
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
     ].join(","),
     body1: {
       fontSize: "1.4rem",
@@ -70,7 +74,7 @@ const customTheme = merge({}, defaultTheme, {
         color: "#00000058",
         fontSize: "0.8rem",
         fontWeight: "bold",
-        borderBottom: "1px solid lavender",
+        borderBottom: "1px solid",
         textTransform: "uppercase",
         backgroundColor: "#F8FAFC",
       },
@@ -93,20 +97,20 @@ const customTheme = merge({}, defaultTheme, {
         fontSize: "0.9rem",
       },
     },
-    MuiTableBody: {
-      root: {
-        "& > tr:nth-child(odd)": {
-          backgroundColor: lavender.main,
-        },
-      },
-    },
-    MuiList: {
-      root: {
-        "& > a:nth-child(odd) > div": {
-          backgroundColor: lavender.main,
-        },
-      },
-    },
+    // MuiTableBody: {
+    //   root: {
+    //     "& > tr:nth-child(odd)": {
+    //       backgroundColor: lavender.main,
+    //     },
+    //   },
+    // },
+    // MuiList: {
+    //   root: {
+    //     "& > a:nth-child(odd) > div": {
+    //       backgroundColor: lavender.main,
+    //     },
+    //   },
+    // },
   },
 });
 

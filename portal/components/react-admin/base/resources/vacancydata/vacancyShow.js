@@ -1,16 +1,17 @@
-import React from "react";
 import {
-  TextField,
   FunctionField,
   Show,
   Tab,
   TabbedShowLayout,
+  TextField,
   useRecordContext,
 } from "react-admin";
+
+import React from "react";
 import ViewIcon from "@material-ui/icons/Visibility";
 
 export const VacancyDataShow = (props) => {
-  const ViewIntrested = (props) => {
+  const ViewInterested = (props) => {
     const { source, label } = props;
     const record = useRecordContext(props);
     const url =
@@ -18,7 +19,7 @@ export const VacancyDataShow = (props) => {
       encodeURIComponent(`{"vacancy_id":"${record.id}"}`);
     return (
       <div>
-        View Intrested Candidate list
+        View Interested Candidate list
         <div>
           <a href={url} rel="noopener noreferrer">
             <ViewIcon />
@@ -46,7 +47,7 @@ export const VacancyDataShow = (props) => {
       <TabbedShowLayout style={{ marginLeft: "1rem", marginRight: "1rem" }}>
         <Tab label="Vacancy Details">
           <TextField label="Job Role" source="job_role" />
-          ​
+
           <FunctionField
             label="Sector of job"
             render={(record) => {
@@ -78,7 +79,7 @@ export const VacancyDataShow = (props) => {
             label="Number of candidates to recruit"
             source="number_of_candidates_required"
           />
-          ​
+
           <FunctionField
             label="Are vacancies open for freshers?"
             render={(record) => {
@@ -90,14 +91,14 @@ export const VacancyDataShow = (props) => {
             }}
           />
         </Tab>
-        <Tab label="General requirments">
+        <Tab label="General requirements">
           <FunctionField
             label="Requirement of driving license"
             render={(record) => {
               return record?.driver_license?.driver_license_choice;
             }}
           />
-          ​
+
           <FunctionField
             label="English speaking skills"
             render={(record) => {
@@ -105,7 +106,7 @@ export const VacancyDataShow = (props) => {
                 ?.english_speaking_required_choices;
             }}
           />
-          ​
+
           <FunctionField
             label="Computer operating skills"
             render={(record) => {
@@ -114,14 +115,14 @@ export const VacancyDataShow = (props) => {
                 ?.english_speaking_required_choices;
             }}
           />
-          ​
+
           <FunctionField
             label="Age criteria"
             render={(record) => {
               return record?.age_criteria_choice?.age_range_values;
             }}
           />
-          ​
+
           <FunctionField
             label="Gender criteria"
             render={(record) => {
@@ -129,7 +130,7 @@ export const VacancyDataShow = (props) => {
             }}
           />
           <CallRecruiter label="Recruiter Mobile Number" source="id" />
-          <ViewIntrested
+          <ViewInterested
             label="Vacancy Interest"
             source="id"
             sortable={false}
