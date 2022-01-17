@@ -10,7 +10,7 @@ import buildHasuraProvider, { buildFields } from "ra-data-hasura";
 import { useEffect, useState } from "react";
 
 import { MuiThemeProvider } from "@material-ui/core";
-import { createTheme } from '@material-ui/core/styles';
+import { createMuiTheme } from '@material-ui/core/styles';
 import customFields from "./customHasura/customFields";
 import customLayout from "./layout/";
 import customTheme from "./theme";
@@ -84,7 +84,7 @@ function AsyncResources({ client }) {
   if (!resources) return null;
 
   return (
-    <MuiThemeProvider theme={createTheme(customTheme)}>
+    <MuiThemeProvider theme={createMuiTheme(customTheme)}>
       <AdminUI disablloginPageeTelemetry={false} layout={customLayout}>
         {filteredResources.map((resource) => (
           <Resource
