@@ -22,7 +22,8 @@ import {
 } from "react-admin";
 import { Route, Switch } from "react-router";
 import { Typography, makeStyles, useMediaQuery, Chip } from "@material-ui/core";
-
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/client";
 import { Drawer } from "@material-ui/core";
 import MoreIcon from "@material-ui/icons/More";
 import React from "react";
@@ -175,7 +176,16 @@ const ColoredChipField = props => {
 
 export const VacancyData = (props) => {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(true);
+
+  const [session] = useSession();
+  const [role, setRole] = useState(null);
+  
+  useEffect(() => {
+    if (session) {
+      setRole(session.role);
+    }
+  }, []);
+  const [checked, setChecked] = useState(true);
 
   const ViewInterested = (props) => {
     const { source, label } = props;
@@ -297,7 +307,7 @@ export const VacancyData = (props) => {
               {/* ​<EditButton />
               <TextField source="is_live"/> */}
               <ColoredChipField label="Status" source="id"sortable={false} />
-              <EditButton label="" />
+              {role === "admin" &&  <EditButton label="" />}             
               <ViewInterested
                 label="Vacancy Interest"
                 source="id"
