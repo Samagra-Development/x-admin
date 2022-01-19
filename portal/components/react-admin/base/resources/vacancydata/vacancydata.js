@@ -34,7 +34,6 @@ import { cloneElement } from "react";
 import jsonExport from "jsonexport/dist";
 import config from "@/components/config";
 
-
 const SearchFilter = (props) => {
   return (
     <Filter {...props}>
@@ -167,11 +166,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ColoredChipField = props => {
+const ColoredChipField = (props) => {
   const record = useRecordContext(props);
   let live = record.is_live ? "Active" : "Inactive";
-  let data = config.status.find((elem) => elem.id === live);  
-  return (<Chip style={{backgroundColor:data?.color,color:'#FFF'}} label={live} />);
+  let data = config.status.find((elem) => elem.id === live);
+  return (
+    <Chip
+      style={{ backgroundColor: data?.color, color: "#FFF" }}
+      label={live}
+    />
+  );
 };
 
 export const VacancyData = (props) => {
@@ -179,7 +183,7 @@ export const VacancyData = (props) => {
 
   const [session] = useSession();
   const [role, setRole] = useState(null);
-  
+
   useEffect(() => {
     if (session) {
       setRole(session.role);
@@ -269,6 +273,31 @@ export const VacancyData = (props) => {
             </Datagrid>
           ) : (
             <Datagrid classes={classes}>
+              <TextField label="Id" source="id" />
+              <TextField
+                label="Company Name"
+                source="employer_detail.company_name"
+              />
+              {/* <FunctionField
+                source="freshers_open_choice"
+                label="Vacancy Open To Freshers"
+                render={(record, source) => {
+                  return (
+                    <>                    
+                    <BooleanField                    
+                      record={{
+                        ...record,
+                        freshers_open_choice:
+                          record.freshers_open_choice === "No",
+                      }}
+                      source={record.freshers_open_choice}
+                    />
+                    {console.log(record)}
+                    </>
+                  );
+                }}
+              /> */}
+
               <TextField label="Job Role" source="job_role" />
 
               <FunctionField
@@ -306,8 +335,8 @@ export const VacancyData = (props) => {
               />
               {/* ​<EditButton />
               <TextField source="is_live"/> */}
-              <ColoredChipField label="Status" source="id"sortable={false} />
-              {role === "admin" &&  <EditButton label="" />}             
+              <ColoredChipField label="Status" source="id" sortable={false} />
+              {role === "admin" && <EditButton label="" />}
               <ViewInterested
                 label="Vacancy Interest"
                 source="id"
