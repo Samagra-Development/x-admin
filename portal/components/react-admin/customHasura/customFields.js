@@ -73,6 +73,8 @@ const EXTENDED_CANDIDATE_VACANCY_INTEREST = gql`
         salary_range
       }
       job_role
+      id
+      freshers_open_choice
     }
     candidate_profile {
       id

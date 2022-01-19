@@ -278,26 +278,16 @@ export const VacancyData = (props) => {
                 label="Company Name"
                 source="employer_detail.company_name"
               />
-              {/* <FunctionField
-                source="freshers_open_choice"
-                label="Vacancy Open To Freshers"
-                render={(record, source) => {
-                  return (
-                    <>                    
-                    <BooleanField                    
-                      record={{
-                        ...record,
-                        freshers_open_choice:
-                          record.freshers_open_choice === "No",
-                      }}
-                      source={record.freshers_open_choice}
-                    />
-                    {console.log(record)}
-                    </>
-                  );
+              <FunctionField
+                label="Vacancies open for freshers"
+                render={(record) => {
+                  if (record && record.freshers_open_choice === 1) {
+                    return "YES";
+                  } else {
+                    return "NO";
+                  }
                 }}
-              /> */}
-
+              />
               <TextField label="Job Role" source="job_role" />
 
               <FunctionField

@@ -234,6 +234,12 @@ export const InterestedCandidateList = (props) => {
           ) : (
             <Datagrid classes={classes}>
               <FunctionField
+                label="Vacancy ID"
+                render={(record) => {                  
+                  return record?.vacancy_detail?.id;
+                }}
+              />              
+              <FunctionField
                 label="Name of candidate"
                 render={(record) => {
                   return record?.candidate_profile?.name;
@@ -253,7 +259,16 @@ export const InterestedCandidateList = (props) => {
                   return record?.vacancy_detail?.employer_detail?.company_name;
                 }}
               />
-
+              <FunctionField
+                label="Vacancies open for freshers"
+                render={(record) => {
+                  if (record && record.freshers_open_choice === 1) {
+                    return "YES";
+                  } else {
+                    return "NO";
+                  }
+                }}
+              />
               <FunctionField
                 label="Vacancy Sector"
                 render={(record) => {
