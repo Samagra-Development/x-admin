@@ -6,7 +6,7 @@ const resourceConfig = {
       hi: "अधिकारी",
       credentials: "Shiksha Saathi",
       applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
-      redirectUrl: `admin#/candidate_profile`,
+      redirectUrl: `admin#/vacancy_details`      
     },
   ],
   homepageCards: [
