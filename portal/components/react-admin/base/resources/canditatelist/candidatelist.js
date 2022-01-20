@@ -218,13 +218,12 @@ export const InterestedCandidateList = (props) => {
                 }}
               />
               <CallCandidate label="Candidate Mobile Number" source="id" />
-
               <FunctionField
-                label="District Name"
+                label="Job Role"
                 render={(record) => {
-                  return record?.candidate_profile?.district_name?.name;
+                  return record?.vacancy_detail?.job_role;
                 }}
-              />
+              />              
               <MoreDetails
                 label="Details"
                 source="id"

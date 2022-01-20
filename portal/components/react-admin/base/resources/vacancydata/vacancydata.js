@@ -251,12 +251,9 @@ export const VacancyData = (props) => {
           {isSmall ? (
             <Datagrid rowClick="show">
               <TextField label="Job Role" source="job_role" />
-
-              <FunctionField
-                label="Sector of job"
-                render={(record) => {
-                  return record?.sector_preference?.sector_preference_name;
-                }}
+              <TextField
+                label="Number of Openings"
+                source="number_of_candidates_required"
               />
               <FunctionField
                 width="120%"
@@ -304,7 +301,7 @@ export const VacancyData = (props) => {
                 }}
               />
               <TextField
-                label="Number of candidates to recruit"
+                label="Number of Openings"
                 source="number_of_candidates_required"
               />
 
