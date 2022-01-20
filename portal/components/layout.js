@@ -37,22 +37,21 @@ const Layout = ({ children, home }) => {
   return (
     <>
       <Head>
-      
         <title></title>
         <link rel="preload" href="/Bahnschrift.otf" as="font" crossOrigin="" />
       </Head>
       <div className={styles.container}>
-      <div className={styles.logo}>
-            <Image
-              src="/DPlogo.png"
-              alt="Haryana Govt Logo"
-              width={120}
-              height={127.5}
-            />
-          </div>
+        <div className={styles.logo}>
+          <Image
+            src="/DPlogo.png"
+            alt="Haryana Govt Logo"
+            width={120}
+            height={127.5}
+          />
+        </div>
         <header className={styles.header}>
-          <h1 className={styles.title}>Rozgar Saathi </h1>
-         </header>
+          <h1 className={styles.title}>Rozgar Saathi</h1>
+        </header>
         <main
           onTransitionEnd={() => {
             transitionEnd();
@@ -61,9 +60,6 @@ const Layout = ({ children, home }) => {
         >
           {activeChildren}
         </main>
-        {/* <footer className={styles.footer}> */}
-        
-        {/* </footer> */}
       </div>
     </>
   );
