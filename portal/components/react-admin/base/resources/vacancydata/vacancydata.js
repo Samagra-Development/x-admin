@@ -64,7 +64,7 @@ const SearchFilter = (props) => {
         source="highest_level_qualification#highest_level_qualification_name@_ilike"
       />
       <TextInput
-        label="Minimum Work Experience Required"
+        label="Work Experience"
         source="min_work_experience_requirement#work_experience_choices@_ilike"
       />
       <TextInput
