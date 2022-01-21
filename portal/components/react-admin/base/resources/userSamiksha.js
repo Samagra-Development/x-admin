@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   List,
   SimpleList,
@@ -11,11 +11,16 @@ import {
   SearchInput,
 } from "react-admin";
 
-import { useSession } from "next-auth/client";
 import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
 import EditNoDeleteToolbar from "../components/EditNoDeleteToolbar";
 import BackButton from "../components/BackButton";
 import blueGrey from "@material-ui/core/colors/blueGrey";
+import { useSession, signOut } from "next-auth/client";
+import {
+  getOrCreateFingerprint,
+  verifyFingerprint,
+  deleteFingerprint,
+} from "../../../../utils/tokenManager";
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -92,6 +97,10 @@ const UserSamikshaFilter = (props) => {
  * @param {*} props
  */
 export const UserSamikshaList = (props) => {
+  const [session] = useSession();
+  useEffect(() => {
+    verifyFingerprint(session, signOut);
+  });
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
   return (
@@ -114,7 +123,7 @@ export const UserSamikshaList = (props) => {
         <Datagrid rowClick="edit">
           <TextField label="id" source="id" />
           <TextField label="Full Name" source="name" />
-          <TextField label="Grade" source="grade" />  
+          <TextField label="Grade" source="grade" />
           <TextField label="Father's Name" source="fatherName" />
         </Datagrid>
       )}
@@ -125,6 +134,10 @@ export const UserSamikshaList = (props) => {
 export const UserSamikshaEdit = (props) => {
   const classes = useStyles();
   const [session] = useSession();
+
+  useEffect(() => {
+    verifyFingerprint(session, signOut);
+  });
 
   const Title = ({ record }) => {
     return (
@@ -137,19 +150,19 @@ export const UserSamikshaEdit = (props) => {
 
   const escapeHtml = (unsafe) => {
     return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
-  }
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  };
 
-  const transform = data => ({
+  const transform = (data) => ({
     ...data,
     fullName: escapeHtml(data.fullName),
-    username:escapeHtml(data.username),
-    email:escapeHtml(data.email),
-    mobilePhone:escapeHtml(data.mobilePhone),
+    username: escapeHtml(data.username),
+    email: escapeHtml(data.email),
+    mobilePhone: escapeHtml(data.mobilePhone),
   });
 
   return (
@@ -167,7 +180,11 @@ export const UserSamikshaEdit = (props) => {
             <TextInput label="Full Name" source="fullName" variant="outlined" />
             <TextInput label="Username" source="username" variant="outlined" />
             <TextInput label="Email" source="email" variant="outlined" />
-            <TextInput label="Mobile Phone" source="mobilePhone" variant="outlined" />
+            <TextInput
+              label="Mobile Phone"
+              source="mobilePhone"
+              variant="outlined"
+            />
           </div>
         </SimpleForm>
       </Edit>
