@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
-import { signIn } from "next-auth/client";
+import { getSession, signIn } from "next-auth/client";
 import { useRouter } from "next/router";
 import controls from "./form.config";
 import styles from "../../styles/Login.module.css";
@@ -144,8 +144,9 @@ export default function Login(props) {
       router.push(url);
     }
     if (error) {
+      const session = await getSession();
       setRefreshToken(rightNow.toISOString());
-      deleteFingerprint(window);
+      deleteFingerprint(session);
       addToast(error, { appearance: "error" });
     }
   };

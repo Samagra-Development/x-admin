@@ -2,12 +2,14 @@ const FingerprintJS = import("@fingerprintjs/fingerprintjs");
 import * as localForage from "localforage";
 import axios from "axios";
 
-const fusionAuthLogout = async (fingerprint) => {
+const fusionAuthLogout = async (fingerprint, session) => {
+  console.log("TOKEN", session.jwt);
   const response = await axios
-    .post(`${process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID}/api/logout`, {
-      headers: { fpt: fingerprint },
+    .get(`https://auth.saksham.staging.samagra.io/api/logout`, {
+      headers: { fpt: fingerprint, Authorization: `Bearer ${session.jwt}` },
     })
     .catch((e) => {
+      console.log(e);
       return "Not implemented";
     });
   return response;
@@ -47,8 +49,11 @@ export const verifyFingerprint = async (session, signOut) => {
   }
 };
 
-export const deleteFingerprint = async (window) => {
+export const deleteFingerprint = async (session) => {
   const fingerprint = await localForage.getItem("fingerprint");
   await localForage.removeItem("fingerprint");
-  await fusionAuthLogout(fingerprint);
+  console.log("Fingerprint deleted");
+  console.log(fingerprint);
+  console.log({ session });
+  await fusionAuthLogout(fingerprint, session);
 };
