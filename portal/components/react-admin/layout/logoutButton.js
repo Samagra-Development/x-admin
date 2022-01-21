@@ -2,7 +2,8 @@ import React from "react";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core";
-import { signOut } from "next-auth/client";
+import { getSession, signOut } from "next-auth/client";
+import { deleteFingerprint } from "@/utils/tokenManager";
 
 const useStyles = makeStyles((theme) => ({
   logOutButton: {
@@ -19,12 +20,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Logout = () => {
-  const classes = useStyles();
+  const classes = useStyles();  
   return (
     <Button
       className={classes.logOutButton}
-      onClick={() => {
-        signOut();
+      onClick={async() => {
+        const session = await getSession();
+        console.log("Logging out");
+        await deleteFingerprint(session);       
+        signOut(); 
       }}
     >
       <PowerSettingsNewIcon className={classes.logOutIcon} />

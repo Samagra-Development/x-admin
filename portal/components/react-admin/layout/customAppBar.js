@@ -1,5 +1,5 @@
 // in src/MyAppBar.js
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSidebarVisibility } from "react-admin";
 import AppBar from "@material-ui/core/AppBar";
@@ -9,6 +9,12 @@ import UserMenu from "./customUserMenu";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSession, signOut } from "next-auth/client";
+import {
+  getOrCreateFingerprint,
+  verifyFingerprint,
+  deleteFingerprint,
+} from "../../../utils/tokenManager";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -39,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const AppBarCustom = (props) => {
+  const [session, loading] = useSession();
   const classes = useStyles();
   const dispatch = useDispatch();
   const open = useSelector((state) => state.admin.ui.sidebarOpen);
@@ -46,6 +53,11 @@ const AppBarCustom = (props) => {
     if (open) dispatch(setSidebarVisibility(false));
     else dispatch(setSidebarVisibility(true));
   };
+
+  useEffect(() => {
+    verifyFingerprint(session, signOut);
+  });
+
   return (
     <>
       <AppBar id="toolbar" className={classes.appBarStyle} color="default">
