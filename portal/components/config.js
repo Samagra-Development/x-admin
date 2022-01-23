@@ -14,7 +14,7 @@ const resourceConfig = {
       hi: "अधिकारी",
       credentials: "Admin Console",
       applicationId: process.env.NEXT_PUBLIC_FUSIONAUTH_STATE_APP_ID,
-      redirectUrl: `home`,
+      redirectUrl: `admin`,
     },
   ],
   homepageCards: [

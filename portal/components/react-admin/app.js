@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { AdminContext, AdminUI, Resource, useDataProvider } from "react-admin";
 import buildHasuraProvider, { buildFields } from "ra-data-hasura";
 import { ApolloClient, InMemoryCache } from "@apollo/client";
-import { useSession } from "next-auth/client";
+import { useSession, signOut } from "next-auth/client";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core";
 import customTheme from "./theme";
 import customLayout from "./layout/";
 import customFields from "./customHasura/customFields";
 import customVariables from "./customHasura/customVariables";
 import { resourceConfig } from "./layout/config";
+import { verifyFingerprint } from "../../utils/tokenManager";
 
 const App = () => {
   const [dataProvider, setDataProvider] = useState(null);
@@ -18,23 +19,27 @@ const App = () => {
   useEffect(() => {
     const hasuraHeaders = {};
     hasuraHeaders.Authorization = `Bearer ${session.jwt}`;
-    if (session.role) hasuraHeaders["x-hasura-role"] = session.role;
+    if (session.role) hasuraHeaders["x-hasura-role"] = "school";
 
     let tempClient = new ApolloClient({
       uri: process.env.NEXT_PUBLIC_HASURA_URL,
       cache: new InMemoryCache(),
       headers: hasuraHeaders,
     });
+    // console.log("TESTTTINGGGGG",process.env.NEXT_PUBLIC_HASURA_URL);
     async function buildDataProvider() {
-      const hasuraProvider = await buildHasuraProvider(
-        { client: tempClient },
-        {
-          buildFields: customFields,
-        },
-        customVariables
-      );
-      setDataProvider(() => hasuraProvider);
-      setApolloClient(tempClient);
+      const vf = await verifyFingerprint(session, signOut);
+      if (vf) {
+        const hasuraProvider = await buildHasuraProvider(
+          { client: tempClient },
+          {
+            buildFields: customFields,
+          },
+          customVariables
+        );
+        setDataProvider(() => hasuraProvider);
+        setApolloClient(tempClient);
+      }
     }
     buildDataProvider();
   }, [session]);

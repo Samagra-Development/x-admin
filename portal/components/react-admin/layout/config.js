@@ -1,14 +1,23 @@
-import { UserSamikshaEdit, UserSamikshaList } from "@/resources/userSamiksha";
+import { UserSamikshaList } from "@/resources/userSamiksha";
+import { AttendanceList } from "../base/resources/attendance";
 
 export const resourceConfig = [
   {
-    name: "userSamiksha",
+    name: "student",
     list: UserSamikshaList,
-    edit: UserSamikshaEdit,
+    edit: null,
     create: null,
-    label: "Samiksha Users",
+    label: "Samiksha Students",
     icon: "person",
   },
+  {
+    name: "attendance",
+    list: AttendanceList,
+    edit: null,
+    create: null,
+    label: "Samiksha Attendance",
+    icon: "person",
+  },  
   {
     name: "users",
     list: null,

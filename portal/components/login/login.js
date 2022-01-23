@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
-import { signIn } from "next-auth/client";
+import { getSession, signIn } from "next-auth/client";
 import { useRouter } from "next/router";
 import controls from "./form.config";
 import styles from "../../styles/Login.module.css";
 import axios from "axios";
 import Image from "next/image";
 const CryptoJS = require("crypto-js");
+const FingerprintJS = import("@fingerprintjs/fingerprintjs");
+import {
+  getOrCreateFingerprint,
+  verifyFingerprint,
+  deleteFingerprint,
+} from "../../utils/tokenManager";
+import "../../node_modules/text-security/text-security.css";
 
 export default function Login(props) {
   const { persona } = props;
@@ -44,7 +51,7 @@ export default function Login(props) {
 
   const passwordOnBlurEncrypt = (value, name, ret = false) => {
     let password = null;
-    if (name == "password" && passwordEncryp == false) {
+    if (name == "password" && passwordEncryp == false && value != "") {
       password = CryptoJS.AES.encrypt(value, bytesPassword, {
         mode: CryptoJS.mode.ECB,
         padding: CryptoJS.pad.Pkcs7,
@@ -93,15 +100,6 @@ export default function Login(props) {
     const password = passwordOnBlurEncrypt(input.password, "password", true);
     let rightNow = new Date();
     let visitorId = null;
-    if (window) {
-      const FingerprintJS = import("@fingerprintjs/fingerprintjs")
-        .then((FingerprintJS) => FingerprintJS.load())
-        .then((fp) => fp.get())
-        .then((result) => result.visitorId);
-      // This is the visitor identifier:
-      visitorId = await FingerprintJS;
-    }
-
     try {
       const result = await axios({
         method: "POST",
@@ -128,11 +126,13 @@ export default function Login(props) {
       }
     ).toString();
 
+    const fpt = await getOrCreateFingerprint(window);
+
     const { error, url } = await signIn("fusionauth", {
       loginId: encryptedUsername,
       password: password,
       applicationId: persona.applicationId,
-      fpt: visitorId ? visitorId : null,
+      fpt: fpt,
       redirect: false,
       callbackUrl: `${
         persona.redirectUrl.search("http") < 0
@@ -144,7 +144,9 @@ export default function Login(props) {
       router.push(url);
     }
     if (error) {
+      const session = await getSession();
       setRefreshToken(rightNow.toISOString());
+      deleteFingerprint(session);
       addToast(error, { appearance: "error" });
     }
   };
@@ -166,16 +168,16 @@ export default function Login(props) {
       <form className={styles.form}>
         {controls.map((control) => (
           <input
+            {...control}
             key={control.name}
-            type={control.type}
-            name={control.name}
-            autoComplete={control.autocomplete}
-            required={control.required}
-            placeholder={control.placeholder}
-            pattern={control.pattern}
-            value={input[control.name]}
+            value={input[control.name] ? input[control.name] : ""}
             onChange={handleInput}
-            onBlur={(e) => passwordOnBlurEncrypt(e.target.value, e.target.name)}
+            onBlur={(e) => {
+              passwordOnBlurEncrypt(e.target.value, e.target.name);
+              e.target.setAttribute("readonly", true);
+            }}
+            readOnly
+            onClick={(e) => e.target.removeAttribute("readonly")}
           />
         ))}
         <div>
