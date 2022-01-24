@@ -26,7 +26,7 @@ const App = () => {
       cache: new InMemoryCache(),
       headers: hasuraHeaders,
     });
-    // console.log("TESTTTINGGGGG",process.env.NEXT_PUBLIC_HASURA_URL);
+    console.log("TESTTTINGGGGG",process.env.NEXT_PUBLIC_HASURA_URL);
     async function buildDataProvider() {
       const vf = await verifyFingerprint(session, signOut);
       if (vf) {
