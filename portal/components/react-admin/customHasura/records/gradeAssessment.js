@@ -14,5 +14,8 @@ export const EXTENDED_GRADE_ASSESSMENT_RECORD = gql`
         name
       }
     }
+    school {
+      udise
+    }
   }
 `;

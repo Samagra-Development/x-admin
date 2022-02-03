@@ -25,20 +25,10 @@ const SearchFilter = (props) => (
   <Filter {...props}>
     <SearchInput
       placeholder="Search by School(UDISE)"
-      source="school_id"
+      source="school#udise"
       className="searchBar"
       alwaysOn
-    />
-    <ReferenceInput
-      label="By School Name"
-      source="school_id"
-      reference="school"
-      sort={{ field: "name", order: "ASC" }}
-      filterToQuery={(searchText) => ({ name: searchText })}
-      className="filterInput"
-    >
-      <AutocompleteInput optionText={schoolRenderer} className="selectInput" />
-    </ReferenceInput>
+    /> 
     <SelectInput
       label="By Grade Number"
       source="grade_number"
@@ -104,13 +94,7 @@ export const GradeAssessmentList = (props) => {
         <Datagrid size="small">
           <TextField source="id" />          
           <TextField source="assessment.assessment_type.name" label="Type"/>         
-          <ReferenceField
-            label="School(UDISE)"
-            source="school_id"
-            reference="school"
-          >
-            <TextField source="udise" />
-          </ReferenceField>
+          <TextField source="school.udise" label="School(UDISE)"/>
           <TextField source="section" />
           <TextField source="grade_number" />
           <TextField source="streams_id" label="Stream" />
