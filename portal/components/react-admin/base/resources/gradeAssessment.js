@@ -48,7 +48,12 @@ const SearchFilter = (props) => (
       ]}
       className="filterInput"
     />
-    <DateInput label="By Date" source="created" />
+    <TextInput
+      placeholder="Assessment Type"
+      source="assessment#assessment_type#name"      
+      className="filterInput"
+      label="Assessment Type"
+    />
   </Filter>
 );
 
