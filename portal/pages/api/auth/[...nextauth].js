@@ -85,6 +85,16 @@ export default NextAuth({
   session: {
     jwt: true,
   },
+  cookies: {    
+    callbackUrl: {
+      name: `__Secure-next-auth.callback-url`,
+      options: {
+        sameSite: 'lax',
+        path: '/',
+        secure: true
+      }
+    }    
+  },
   callbacks: {
     redirect(url, baseUrl) {
       return url;
