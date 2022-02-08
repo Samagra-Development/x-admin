@@ -12,6 +12,8 @@ import {
   sanitizeListRestProps,
   useListContext,
   useRecordContext,
+  TextField,
+  SelectInput,
 } from "react-admin";
 import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
 
@@ -50,6 +52,13 @@ const SearchFilter = (props) => {
       <TextInput
         label="Recruiter Mobile Number"
         source="vacancy_detail#employer_detail#mobile_number@_ilike"
+      />
+      <SelectInput
+        label="Interested"
+        source="interested"
+        choices={[          
+          { id: "true", name: "Interested" }          
+        ]}
       />
     </Filter>
   );
@@ -129,6 +138,12 @@ export const InterestedCandidateList = (props) => {
     );
   };
 
+  const IsInterested = (props) => {
+    const record = useRecordContext(props);
+    let live = record.interested ? "True" : "Null";
+    return <div>{live}</div>;
+  };
+
   const CallCandidate = (props) => {
     const record = useRecordContext(props);
 
@@ -163,7 +178,7 @@ export const InterestedCandidateList = (props) => {
     if (cv) {
       return (
         <div style={{ textAlign: "center" }}>
-          <a href={record.candidate_profile?.resume_url} rel="noopener" >
+          <a href={record.candidate_profile?.resume_url} rel="noopener">
             <PictureAsPdfIcon />
           </a>
         </div>
@@ -198,7 +213,7 @@ export const InterestedCandidateList = (props) => {
         title={"Interested Candidates"}
         actions={<ListActions maxResults={100000} />}
         bulkActionButtons={false}
-        filter={{ interested: true }}
+        filter={{ "interested@_is_null,interested": true }}
         filters={<SearchFilter />}
         pagination={
           <Pagination
@@ -223,21 +238,18 @@ export const InterestedCandidateList = (props) => {
                 render={(record) => {
                   return record?.vacancy_detail?.job_role;
                 }}
-              />              
-              <MoreDetails
-                label="Details"
-                source="id"
-                sortable={false}
               />
+              <MoreDetails label="Details" source="id" sortable={false} />
             </Datagrid>
           ) : (
             <Datagrid classes={classes}>
               <FunctionField
                 label="Vacancy ID"
-                render={(record) => {                  
+                render={(record) => {
                   return record?.vacancy_detail?.id;
                 }}
-              />              
+              />
+              <IsInterested source="interested" label="Interested" />
               <FunctionField
                 label="Name of candidate"
                 render={(record) => {
@@ -286,7 +298,10 @@ export const InterestedCandidateList = (props) => {
               <FunctionField
                 label="Expected Salary"
                 render={(record) => {
-                  return record?.vacancy_detail?.expected_salary?.salary_range.replaceAll("Rs ", "");
+                  return record?.vacancy_detail?.expected_salary?.salary_range.replaceAll(
+                    "Rs ",
+                    ""
+                  );
                 }}
               />
 
