@@ -13,7 +13,7 @@ import {
   useListContext,
   useRecordContext,
   TextField,
-  SelectInput,
+  BooleanInput,
 } from "react-admin";
 import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
 
@@ -52,14 +52,9 @@ const SearchFilter = (props) => {
       <TextInput
         label="Recruiter Mobile Number"
         source="vacancy_detail#employer_detail#mobile_number@_ilike"
-      />
-      <SelectInput
-        label="Interested"
-        source="interested"
-        choices={[          
-          { id: "true", name: "Interested" }          
-        ]}
-      />
+      />      
+      <BooleanInput label="Interested" source="interested" defaultChecked={true} />
+      <BooleanInput label="Not Responded" source="interested@_is_null" defaultChecked={true} />      
     </Filter>
   );
 };
