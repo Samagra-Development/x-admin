@@ -65,6 +65,7 @@ const EXTENDED_CANDIDATE_VACANCY_INTEREST = gql`
       employer_detail {
         company_name
         mobile_number
+        name
       }
       sector_preference {
         sector_preference_name

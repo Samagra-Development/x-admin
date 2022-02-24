@@ -291,6 +291,12 @@ export const InterestedCandidateList = (props) => {
               />
               <CallRecruiter label="Recruiter Mobile Number" source="id" />
               <FunctionField
+                label="Recuiter Name"
+                render={(record) => {
+                  return record.vacancy_detail?.employer_detail?.name;
+                }}
+              />              
+              <FunctionField
                 label="Expected Salary"
                 render={(record) => {
                   return record?.vacancy_detail?.expected_salary?.salary_range.replaceAll(
