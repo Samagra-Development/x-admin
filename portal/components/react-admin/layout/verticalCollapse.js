@@ -9,7 +9,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import VerticalItem from "./verticalItem";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import SmartphoneIcon from "@material-ui/icons/Smartphone";
+import SchoolIcon from "@material-ui/icons/School";
+import PersonIcon from "@material-ui/icons/Person";
+import PieChartIcon from "@material-ui/icons/PieChart";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,23 +24,44 @@ const useStyles = makeStyles((theme) => ({
           ? "rgba(255,255,255,.015)"
           : "rgba(0,0,0,.05)",
     },
-    item: (props) => ({
-      height: 40,
-      width: "calc(100% - 16px)",
-      borderRadius: "0 20px 20px 0",
-      paddingRight: 12,
-      flex: 1,
-      paddingLeft: props.itemPadding > 60 ? 60 : props.itemPadding,
-      color: theme.palette.text.primary,
-      "&.active > .list-item-text > span": {
-        fontWeight: 600,
-      },
-      "& .list-item-icon": {
-        marginRight: 16,
-      },
-    }),
+  },
+  listItem: {
+    fontSize: "1.2rem",
+    lineHeight: "1em",
+    textAlign: "center",
+    fontVariant: "all-small-caps",
+    marginLeft: "1rem",
+    fontWeight: "700",
+    color: theme.palette.grey.light,
+  },
+  sidebarIcon: {
+    color: "#626D74",
+    fontSize: "1.2rem",
+  },
+  sidebarItem: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    padding: "16px 0px 16px 16px",
+  },
+  "&:focus, &:active": {
+    backgroundColor: "inherit",
+  },
+  selected: {
+    backgroundColor: theme.palette.grey.hover,
   },
 }));
+const Icon = (props) => {
+  if (props.type === "smartphone")
+    return <SmartphoneIcon className={props.className} />;
+  if (props.type === "school")
+    return <SchoolIcon className={props.className} />;
+  if (props.type === "person")
+    return <PersonIcon className={props.className} />;
+  if (props.type === "chart")
+    return <PieChartIcon className={props.className} />;
+  return <></>;
+};
 
 const isUrlInChildren = (parent, url) => {
   if (!parent.children) {
@@ -86,23 +111,17 @@ function VerticalCollapse({ activePath, ...props }) {
   }
 
   return (
-    <ul className={clsx(classes.root, open && "open")}>
-      <ListItem
+    <>
+      <div
         button
-        disableRipple
-        style={{ color: "white", paddingTop: "0px", paddingBottom: "0px" }}
-        className={clsx(classes.item, "list-item")}
         onClick={handleClick}
         component="li"
         to={`/${item.name}`}
         role="button"
       >
-        {/* {item.icon && createElement(CustomIcons[item.icon])}      */}
-        <ListItemText
-          style={{ paddingLeft: "16px" }}
-          primary={item.name}
-          classes={{ primary: "text-14" }}
-        />
+        <Icon className={classes.sidebarIcon} type={item.icon} />
+
+        <span className={classes.listItem}>{item.label}</span>
 
         <IconButton
           disableRipple
@@ -112,7 +131,7 @@ function VerticalCollapse({ activePath, ...props }) {
         >
           {createElement(!open ? KeyboardArrowDownIcon : KeyboardArrowUpIcon)}
         </IconButton>
-      </ListItem>
+      </div>
 
       {item.children && (
         <Collapse
@@ -144,7 +163,7 @@ function VerticalCollapse({ activePath, ...props }) {
           })}
         </Collapse>
       )}
-    </ul>
+    </>
   );
 }
 

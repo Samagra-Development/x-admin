@@ -72,7 +72,14 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
           if (item.title)
             return (
               <ListSubheader key={index}>
-                <span className={classes.listTitle}>{item.label}</span>
+                
+              
+              <VerticalCollapse
+            activePath={activePath}
+            key={index}
+            item={item}
+            nestedLevel={0}
+          />
               </ListSubheader>
             );
           if (item.children) {

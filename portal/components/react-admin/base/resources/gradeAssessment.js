@@ -11,7 +11,8 @@ import {
   ReferenceInput,
   AutocompleteInput,
   DateInput,
-  Filter  
+  Filter ,
+  TextInput
 } from "react-admin";
 import { useMediaQuery } from "@material-ui/core";
 import { useStyles } from "../styles"

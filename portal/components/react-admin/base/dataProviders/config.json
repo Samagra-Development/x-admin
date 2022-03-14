@@ -1,0 +1,116 @@
+{
+  "localForage": {
+    "name": "Dashboard-App",
+    "version": 1.0,
+    "size": 4980736,
+    "storeName": "local_sql",
+    "description": "Local Storage for Cache"
+  },
+  "enterpriseGupShupURL": "https://enterprise.smsgupshup.com/GatewayAPI/rest?",
+  "conversationTypeChoices" : [
+    { "id": "form", "name": "Form" },
+    { "id": "template", "name": "Broadcast" },
+    { "id": "menu", "name": "Menu"}
+  ],
+  "conversationChannelChoices": [
+    { "id": "SMS", "name": "SMS" },
+    { "id": "whatsapp", "name": "WhatsApp" },
+    { "id": "telegram", "name": "Telegram" }
+  ],  
+  "conversationProviderChoices": [
+    { "id": "gupshup", "name": "GupShup"},
+    { "id": "CDAC", "name": "CDAC"}
+  ],
+  "applicationIdMap": [
+    { "id": "77638847-db34-4331-b369-5768fdfededd", "name": "Samarth Console"},
+    { "id": "f0ddb3f6-091b-45e4-8c0f-889f89d4f5da", "name": "eSamwad"},
+    { "id": "1ae074db-32f3-4714-a150-cc8a370eafd1", "name": "Shiksha Saathi"}
+  ],
+  "fusionAuth": {
+    "fusionAuthURL": "http://68.183.82.101:3390/relayer",
+    "fusionAuthAPIKey": "YFpyHxhW0-NoKRwQrXgCU5QIAQq8nBNhE--i5_n3pTU",
+    "fusionAuthApplicationId": "77638847-db34-4331-b369-5768fdfededd",
+    "authServerBasePath": "http://68.183.82.101:3390"
+  },
+  "fusionAuthES": {
+    "fusionAuthURL": "http://68.183.82.101:3390/relayer",
+    "fusionAuthAPIKey": "YFpyHxhW0-NoKRwQrXgCU5QIAQq8nBNhE--i5_n3pTU",
+    "fusionAuthApplicationId": "f0ddb3f6-091b-45e4-8c0f-889f89d4f5da"
+  },
+  "fusionAuthSS": {
+    "fusionAuthURL": "http://68.183.82.101:3390/relayer",
+    "fusionAuthAPIKey": "YFpyHxhW0-NoKRwQrXgCU5QIAQq8nBNhE--i5_n3pTU",
+    "fusionAuthApplicationId": "1ae074db-32f3-4714-a150-cc8a370eafd1"
+  },
+  "fusionAuthTest": {
+    "fusionAuthURL": "http://luezoid.com:3390/relayer",
+    "fusionAuthAPIKey": "YFpyHxhW0-NoKRwQrXgCU5QIAQq8nBNhE--i5_n3pTU",
+    "fusionAuthApplicationId": "721e3fc9-e32a-4c27-8465-af9af52cc005"
+  },
+  "fusionAuthCampaignManager": {
+    "fusionAuthURL": "http://134.209.150.161:9011",
+    "fusionAuthAPIKey": "vTOkuZWc_u2GmU04SFBkUrgdaIVZmfrNz2EcRDPjVuk",
+    "fusionAuthApplicationId": "77638847-db34-4331-b369-5768fdfededd"
+  },  
+  "theme": "initial-theme", 
+  "jsonServer": {
+    "serverUrl": "http://159.89.167.11:8080"
+  },
+  "appMeta": {
+    "name": "Samarth Application Control Console",
+    "loginPage": {
+      "titleName": "Samarth",
+      "titleState": ", Himachal Pradesh",
+      "subTitle": "Administration Console"
+    }
+  },
+  "style": {
+    "hideJSONEditorHeader": false
+  },
+  "languages": [
+    {
+      "id": "en",
+      "title": "English",
+      "flag": "us"
+    }
+  ],
+  "resourceTree": [
+    {
+      "name": "admin",
+      "children": [
+        {
+          "name": "campaign_manager",
+          "children": [
+            {
+              "name": "campaign_creator",
+              "resources": [
+                {
+                  "name": "application",
+                  "permissions": ["post", "put", "patch", "get"]
+                }
+              ]
+            },
+            {
+              "name": "campaign_user_manager",
+              "resources": [
+                {
+                  "name": "user",
+                  "permissions": ["get", "patch", "put"]
+                }
+              ]
+            },
+            {
+              "name": "campaign_bot_manager",
+              "resources": [
+                {
+                  "name": "bot",
+                  "permissions": ["get", "put", "patch", "post"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

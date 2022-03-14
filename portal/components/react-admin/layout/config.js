@@ -13,7 +13,9 @@ import {
 import {
   GradeAssessmentList, 
 } from "@/components/react-admin/base/resources/gradeAssessment";
-
+import{
+  EsamwadList
+} from "@/components/react-admin/base/resources/esamwad"
 export const resourceConfig = [
   {
     name: "school",
@@ -22,7 +24,8 @@ export const resourceConfig = [
     create: null,
     label: "School Information",
     icon: "school",
-  },{
+  },
+  {
     name: "teacher",
     list: TeacherList,
     edit: TeacherEdit,
@@ -46,5 +49,19 @@ export const resourceConfig = [
     create: null,
     label: "Grade Assessments",
     icon: "chart",    
+  },
+  {
+    title: "eSamwad User",
+    label: "eSamwad",
+    icon: "chart",
+    children: [
+      {
+        name: "users",
+        list: EsamwadList,
+        edit: null,
+        create: null,
+        label: "eSamwad User",
+      },
+    ],
   },
 ];
