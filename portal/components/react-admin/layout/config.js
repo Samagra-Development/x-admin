@@ -8,9 +8,8 @@ import {
 } from "@/resources/request-device";
 import {
   CandidateShow,
-
-  CandidateList
-} from "@/components/react-admin/base/resources/candidateProfile/index"
+  CandidateList,
+} from "@/components/react-admin/base/resources/candidateProfile/index";
 export const resourceConfig = [
   {
     name: "candidate_profile",

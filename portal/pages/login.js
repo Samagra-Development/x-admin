@@ -8,12 +8,12 @@ import config from "@/components/config";
 const LoginWrapper = () => {
   const [selectedPersona, setSelectedPersona] = useState({
     consonant: false,
-      en: "official",
-      hi: "अधिकारी",
-      credentials: "Shiksha Saathi",
-      applicationId: "2875657e-71aa-4ec0-93fb-b21611998b21",
-      redirectUrl: `admin#/candidate_profile`,
-    });
+    en: "official",
+    hi: "अधिकारी",
+    credentials: "Shiksha Saathi",
+    applicationId: "2875657e-71aa-4ec0-93fb-b21611998b21",
+    redirectUrl: `admin#/candidate_profile`,
+  });
   if (selectedPersona) {
     return (
       <Layout>
@@ -30,8 +30,7 @@ const LoginWrapper = () => {
           {config.personas.map((persona, index) => (
             <div
               onClick={() => {
-            console.log(persona)
-
+                
                 setSelectedPersona(persona);
               }}
               key={index}

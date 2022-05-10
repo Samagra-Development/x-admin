@@ -56,7 +56,9 @@ const Layout = ({ children, home }) => {
         >
           {activeChildren}
         </main>
-        <span className={styles.credit}>For more details, contact 1800-180-8190 </span>
+        <span className={styles.credit}>
+          For more details, contact 1800-180-8190{" "}
+        </span>
         <footer className={styles.footer}>
           <div className={styles.logo}>
             <Image

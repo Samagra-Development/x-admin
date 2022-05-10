@@ -397,7 +397,13 @@ export const DonateDeviceRequestEdit = (props) => {
               source="delivery_status"
               choices={config.statusChoices}
               label="Delivery Status"
-              disabled={!(session.role || session.applicationId === process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID)}
+              disabled={
+                !(
+                  session.role ||
+                  session.applicationId ===
+                    process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID
+                )
+              }
             />
             <FormDataConsumer>
               {({ formData, ...rest }) =>
