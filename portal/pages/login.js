@@ -1,5 +1,4 @@
-import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
 import Layout from "../components/layout";
 import Login from "../components/login/login";
 import styles from "../styles/Login.module.css";
@@ -8,12 +7,12 @@ import config from "@/components/config";
 const LoginWrapper = () => {
   const [selectedPersona, setSelectedPersona] = useState({
     consonant: false,
-      en: "official",
-      hi: "अधिकारी",
-      credentials: "Shiksha Saathi",
-      applicationId: "2875657e-71aa-4ec0-93fb-b21611998b21",
-      redirectUrl: `admin#/candidate_profile`,
-    });
+    en: "official",
+    hi: "अधिकारी",
+    credentials: "Shiksha Saathi",
+    applicationId: "2875657e-71aa-4ec0-93fb-b21611998b21",
+    redirectUrl: `admin#/candidate_profile`,
+  });
   if (selectedPersona) {
     return (
       <Layout>
@@ -30,7 +29,7 @@ const LoginWrapper = () => {
           {config.personas.map((persona, index) => (
             <div
               onClick={() => {
-            console.log(persona)
+                console.log(persona);
 
                 setSelectedPersona(persona);
               }}

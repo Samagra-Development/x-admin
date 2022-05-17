@@ -4,19 +4,16 @@ import {
   SimpleList,
   Datagrid,
   TextField,
-  BooleanField,
   FunctionField,
   Edit,
   SimpleForm,
-  NullableBooleanInput,
-  Filter,
-  SearchInput,
 } from "react-admin";
 
-import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
+import { makeStyles, useMediaQuery } from "@material-ui/core";
 import EditNoDeleteToolbar from "../components/EditNoDeleteToolbar";
 import BackButton from "../components/BackButton";
 import blueGrey from "@material-ui/core/colors/blueGrey";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   searchBar: {
@@ -93,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
  * Donate Device Request List
  * @param {*} props
  */
-export const RequestDeviceList = (props) => {
+const RequestDeviceList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
   return (
@@ -136,7 +133,7 @@ export const RequestDeviceList = (props) => {
   );
 };
 
-export const RequestDeviceEdit = (props) => {
+const RequestDeviceEdit = (props) => {
   const classes = useStyles();
   const Title = ({ record }) => {
     return (
@@ -207,3 +204,10 @@ export const RequestDeviceEdit = (props) => {
     </div>
   );
 };
+
+RequestDeviceEdit.propTypes = {
+  record: PropTypes.object,
+  history: PropTypes.any,
+};
+
+export { RequestDeviceList, RequestDeviceEdit };

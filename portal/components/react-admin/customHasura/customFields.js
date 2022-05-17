@@ -41,7 +41,7 @@ const EXTENDED_CANDIDATE_RECORD = gql`
     pan_card {
       pan_card_choice
     }
-    
+
     computer_operator {
       computer_operator_choice
     }
@@ -73,7 +73,7 @@ const customBuildFields = (type, fetchType) => {
   const resourceName = type.name;
   const defaultFields = buildFields(type, fetchType);
   if (resourceName === "candidate_profile") {
-    if (fetchType === "GET_LIST" ||fetchType === "GET_ONE") {
+    if (fetchType === "GET_LIST" || fetchType === "GET_ONE") {
       const relatedEntities = extractFieldsFromQuery(EXTENDED_CANDIDATE_RECORD);
       defaultFields.push(...relatedEntities);
     }

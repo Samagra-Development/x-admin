@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "../../styles/Track.module.css";
 import controls from "./track.config";
 import axios from "axios";

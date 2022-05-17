@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import VerticalItem from "./verticalItem";
 import { KeyboardArrowDownIcon, KeyboardArrowUpIcon } from "@material-ui/icons";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -146,5 +147,12 @@ function VerticalCollapse({ activePath, ...props }) {
     </ul>
   );
 }
+
+VerticalCollapse.propTypes = {
+  item: PropTypes.object,
+  nestedLevel: PropTypes.number,
+  activePath: PropTypes.string,
+  publicity: PropTypes.any,
+};
 
 export default VerticalCollapse;

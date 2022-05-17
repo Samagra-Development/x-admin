@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useToasts } from "react-toast-notifications";
 import { signIn } from "next-auth/client";
 import { useRouter } from "next/router";
 import controls from "./form.config";
 import styles from "../../styles/Login.module.css";
+import PropTypes from "prop-types";
 
-export default function Login(props) {
+const Login = (props) => {
   const { persona } = props;
   const [input, setInput] = useState({});
   const router = useRouter();
@@ -38,10 +39,13 @@ export default function Login(props) {
 
   const signUserIn = async (e) => {
     e.preventDefault();
-    console.log("person:",persona)
-    console.log("Env Variables",`${process.env.NEXT_PUBLIC_URL}/${persona.redirectUrl}`)
+    console.log("person:", persona);
+    console.log(
+      "Env Variables",
+      `${process.env.NEXT_PUBLIC_URL}/${persona.redirectUrl}`
+    );
     const { error, url } = await signIn("fusionauth", {
-      loginId: input.username,  
+      loginId: input.username,
       password: input.password,
       applicationId: persona.applicationId,
       redirect: false,
@@ -92,4 +96,17 @@ export default function Login(props) {
       </form>
     </div>
   );
-}
+};
+
+Login.propTypes = {
+  persona: PropTypes.shape({
+    consonant: PropTypes.bool,
+    en: PropTypes.string,
+    hi: PropTypes.string,
+    credentials: PropTypes.string,
+    applicationId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    redirectUrl: PropTypes.string,
+  }).isRequired,
+};
+
+export default Login;

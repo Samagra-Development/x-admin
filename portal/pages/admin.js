@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { useSession } from "next-auth/client";
 import Login from "./login";
+import React from "react";
 
 const ReactAdmin = dynamic(() => import("../components/react-admin/app"), {
   ssr: false,

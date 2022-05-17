@@ -6,6 +6,7 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import Popover from "@material-ui/core/Popover";
 import { useSession } from "next-auth/client";
 import CustomLogoutButton from "./logoutButton";
+import PropTypes from "prop-types";
 
 const UserMenu = ({ logout }) => {
   const [session, loading] = useSession();
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserMenuComponent = ({ user, logout }) => {
+const UserMenuComponent = ({ user }) => {
   const [userMenu, setUserMenu] = React.useState(null);
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
@@ -80,6 +81,14 @@ const UserMenuComponent = ({ user, logout }) => {
       </Popover>
     </div>
   );
+};
+
+UserMenu.propTypes = {
+  logout: PropTypes.any,
+};
+
+UserMenuComponent.propTypes = {
+  user: PropTypes.object,
 };
 
 export default UserMenu;

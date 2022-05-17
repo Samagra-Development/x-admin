@@ -9,6 +9,7 @@ import {
 import { makeStyles, useMediaQuery } from "@material-ui/core";
 import CustomSidebar from "./customSidebar";
 import AppBar from "./customAppBar";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   wrapper: {
@@ -79,6 +80,15 @@ const CustomLayout = (props) => {
       <Notification />
     </main>
   );
+};
+
+CustomLayout.propTypes = {
+  children: PropTypes.element,
+  logout: PropTypes.any,
+  open: PropTypes.bool,
+  title: PropTypes.string,
+  sidebarOpen: PropTypes.bool,
+  resources: PropTypes.arrayOf(PropTypes.object),
 };
 
 const mapStateToProps = (state) => ({

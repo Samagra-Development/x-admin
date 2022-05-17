@@ -1,16 +1,7 @@
 import {
-  DonateDeviceRequestEdit,
-  DonateDeviceRequestList,
-} from "@/resources/donate-device";
-import {
-  RequestDeviceEdit,
-  RequestDeviceList,
-} from "@/resources/request-device";
-import {
   CandidateShow,
-
-  CandidateList
-} from "@/components/react-admin/base/resources/candidateProfile/index"
+  CandidateList,
+} from "@/components/react-admin/base/resources/candidateProfile/index";
 export const resourceConfig = [
   {
     name: "candidate_profile",

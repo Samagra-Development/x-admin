@@ -19,9 +19,9 @@ import {
   AutocompleteInput,
   ReferenceInput,
 } from "react-admin";
-
+import PropTypes from "prop-types";
 import { useSession } from "next-auth/client";
-import { Typography, makeStyles, useMediaQuery } from "@material-ui/core";
+import { makeStyles, useMediaQuery } from "@material-ui/core";
 import EditNoDeleteToolbar from "../components/EditNoDeleteToolbar";
 import BackButton from "../components/BackButton";
 import blueGrey from "@material-ui/core/colors/blueGrey";
@@ -183,7 +183,7 @@ const DevicesFilter = (props) => {
  * Donate Device Request List
  * @param {*} props
  */
-export const DonateDeviceRequestList = (props) => {
+const DonateDeviceRequestList = (props) => {
   const isSmall = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const classes = useStyles();
   return (
@@ -244,7 +244,7 @@ export const DonateDeviceRequestList = (props) => {
   );
 };
 
-export const DonateDeviceRequestEdit = (props) => {
+const DonateDeviceRequestEdit = (props) => {
   const classes = useStyles();
   const notify = useNotify();
   const redirect = useRedirect();
@@ -291,6 +291,11 @@ export const DonateDeviceRequestEdit = (props) => {
         <span className={classes.grey}>#{record.device_tracking_key}</span>
       </span>
     );
+  };
+
+  Title.propTypes = {
+    record: PropTypes.object,
+    history: PropTypes.any,
   };
   return (
     <div>
@@ -397,7 +402,13 @@ export const DonateDeviceRequestEdit = (props) => {
               source="delivery_status"
               choices={config.statusChoices}
               label="Delivery Status"
-              disabled={!(session.role || session.applicationId === process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID)}
+              disabled={
+                !(
+                  session.role ||
+                  session.applicationId ===
+                    process.env.NEXT_PUBLIC_FUSIONAUTH_SCHOOL_APP_ID
+                )
+              }
             />
             <FormDataConsumer>
               {({ formData, ...rest }) =>
@@ -455,3 +466,11 @@ export const DonateDeviceRequestEdit = (props) => {
     </div>
   );
 };
+
+DonateDeviceRequestEdit.propTypes = {
+  mutationMode: PropTypes.string,
+  basePath: PropTypes.string,
+  history: PropTypes.any,
+};
+
+export { DonateDeviceRequestEdit, DonateDeviceRequestList };

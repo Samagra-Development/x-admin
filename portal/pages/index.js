@@ -1,15 +1,13 @@
-import Image from "next/image";
-import Link from "next/link";
-import Layout from "../components/layout";
 import styles from "../styles/Home.module.css";
-import config from "@/components/config";
-import Login from  "./login"
+import Login from "./login";
+import React from "react";
+
 const Home = () => {
   return (
     // <Layout>
-      <div className={styles.grid}>
-        <Login></Login>
-        {/* {config.homepageCards.map((card, index) => {
+    <div className={styles.grid}>
+      <Login></Login>
+      {/* {config.homepageCards.map((card, index) => {
           return (
             <Link key={index} href={card.target} passHref>
               <div className="card logo-card card-center">
@@ -29,7 +27,7 @@ const Home = () => {
             </Link>
           );
         })} */}
-      </div>
+    </div>
     // </Layout>
   );
 };

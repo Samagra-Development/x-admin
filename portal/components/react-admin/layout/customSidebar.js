@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { ListSubheader } from "@material-ui/core";
-import clsx from "clsx";
 import UserSidebarHeader from "./sidebarHeader";
 import VerticalCollapse from "./verticalCollapse";
 import VerticalItem from "./verticalItem";
 import { resourceConfig } from "./config";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   listTitle: {
@@ -98,5 +98,16 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     </>
   );
 });
+
+CustomSidebar.propTypes = {
+  location: PropTypes.string,
+  activePath: PropTypes.string,
+  resources: PropTypes.arrayOf(PropTypes.object),
+};
+
+SidebarWrapper.propTypes = {
+  activePath: PropTypes.string,
+  filteredResources: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default withRouter((props) => <CustomSidebar {...props} />);

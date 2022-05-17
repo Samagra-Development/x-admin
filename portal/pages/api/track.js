@@ -8,7 +8,7 @@ const handler = async (req, res) => {
       const { id } = req.body;
       const responseObject = await startFetchTrackDevice(id);
       if (responseObject?.errors) {
-        console.log("ERROR:",responseObject?.errors?.[0]?.message)
+        console.log("ERROR:", responseObject?.errors?.[0]?.message);
         res
           .status(500)
           .json({ error: responseObject?.errors?.[0]?.message, success: null });

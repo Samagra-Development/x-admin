@@ -4,6 +4,7 @@ import Layout from "../components/layout";
 import Login from "./login";
 import styles from "../styles/Home.module.css";
 import config from "@/components/config";
+import React from "react";
 
 const School = () => {
   const [session, loading] = useSession();
