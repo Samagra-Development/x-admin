@@ -1,168 +1,216 @@
+import ClassMapping from "../datasources/ClassMapping";
+import SchoolSupportMapping from "../datasources/SchoolSupportMapping";
 import SubjectsMapping from "../datasources/SubjectsMapping";
+import TeachingMethodMapping from "../datasources/TeachingMethodMapping";
+import VisitTypeMapping from "../datasources/VisitTypeMapping";
+import StudentAwarenessMapping from "../datasources/StudentAwarenessMapping";
+import TeacherAwarenessMapping from "../datasources/TeacherAwarenessMapping";
+import AwarenessUdaan1Mapping from "../datasources/AwarenessUdaan1Mapping";
+import RemedialPeriodMapping from "../datasources/RemedialPeriodMapping";
+import PrintedUdaanMapping from "../datasources/PrintedUdaanMapping";
 
 export class EMonitoring {
-    user_name?: string | null;
-    designation?: string | null;
-    name?: string | null;
-    school?: string | null;
-    district?: string | null;
-    block?: string | null;
-    class6_grade ?: string | null;
-    class7_grade ?: string | null;
-    class8_grade ?: string | null;
-    class6_subject ?: string | null;
-    class7_subject ?: string | null;
-    class8_subject ?: string | null;
-    imp_feed6 ?: string | null;
-    imp_feed7 ?: string | null;
-    imp_feed8 ?: string | null;
-    schoolsupport ?: string[] | null;
-    date_call?: string | null;
-    instanceID?: string | null;
+    user_name ?: string | null;
+    designation ?: string | null;
+    name ?: string | null;
+    district ?: string | null;
+    block ?: string | null;
+    school ?: string | null;
+    date_phy ?: string | null;
+    totalclasses ?: string | null;
+    display11 ?: string | null;
+    grade1_phy ?: string | null;
+    subject1_phy ?: string | null;
+    subject1_phy_other ?: string | null;
+    name1_phy ?: string | null;
+    display12 ?: string | null;
+    teachingmethod1_phy ?: string[] | null;
+    teachingmethod1_phy_other ?: string | null;
+    engagement_level1 ?: string | null;
+    comprecord1_phy ?: string | null;
+    stu_grouping1 ?: string | null;
+    display13 ?: string | null;
+    ques1_class1_fln ?: string | null;
+    ques2_class1_fln ?: string | null;
+    ques1_class1_phy ?: string | null;
+    ques2_class1_phy ?: string | null;
+    stu_awareness_1 ?: string[] | null;
+    display14 ?: string | null;
+    teacherfeedback1_phy ?: string | null;
+    feedbackdetails11_phy ?: string | null;
+    feedbackdetails12_phy ?: string | null;
+    display21 ?: string | null;
+    grade2_phy ?: string | null;
+    subject2_phy ?: string | null;
+    subject2_phy_other ?: string | null;
+    name2_phy ?: string | null;
+    display22 ?: string | null;
+    teachingmethod2_phy ?: string[] | null;
+    teachingmethod2_phy_other ?: string | null;
+    engagement_level2 ?: string | null;
+    comprecord2_phy ?: string | null;
+    stu_grouping2 ?: string | null;
+    display23 ?: string | null;
+    ques1_class2_fln ?: string | null;
+    ques2_class2_fln ?: string | null;
+    ques1_class2_phy ?: string | null;
+    ques2_class2_phy ?: string | null;
+    stu_awareness_2 ?: string[] | null;
+    display24 ?: string | null;
+    teacherfeedback2_phy ?: string | null;
+    feedbackdetails21_phy ?: string | null;
+    feedbackdetails22_phy ?: string | null;
+    display31 ?: string | null;
+    grade3_phy ?: string | null;
+    subject3_phy ?: string | null;
+    subject3_phy_other ?: string | null;
+    name3_phy ?: string | null;
+    display32 ?: string | null;
+    teachingmethod3_phy ?: string[] | null;
+    teachingmethod3_phy_other ?: string | null;
+    engagement_level3 ?: string | null;
+    comprecord3_phy ?: string | null;
+    stu_grouping3 ?: string | null;
+    display33 ?: string | null;
+    ques1_class3_fln ?: string | null;
+    ques2_class3_fln ?: string | null;
+    ques1_class3_phy ?: string | null;
+    ques2_class3_phy ?: string | null;
+    stu_awareness_3 ?: string[] | null;
+    display34 ?: string | null;
+    teacherfeedback3_phy ?: string | null;
+    feedbackdetails31_phy ?: string | null;
+    feedbackdetails32_phy ?: string | null;
+    display0 ?: string | null;
+    schoolhead_phy ?: string | null;
+    schoolsupp_areas_phy ?: string[] | null;
+    schoolsupp_areas_phy_other ?: string | null;
+    add_school_phy ?: string | null;
+    display41 ?: string | null;
+    teacher_awareness ?: string[] | null;
+    display42 ?: string | null;
+    awareness_udaan ?: string | null;
+    awareness_udaan1 ?: string[] | null;
+    remedial_period ?: string[] | null;
+    digital_udaan ?: string | null;
+    printed_udaan ?: string | null;
+    udaan_challenges ?: string | null;
+    udaan_best ?: string | null;
+    start ?: string | null;
+    end ?: string | null;
+    today ?: string | null;
+    deviceid ?: string | null;
+    subscriberid ?: string | null;
+    simserial ?: string | null;
+    username ?: string | null;
+    phonenumber ?: string | null;
+    instanceID ?: string | null;
 
-    schoolhead?: string | null;
-    pcl_tchr?: string | null;
-    class6_subject_other?: string | null;
-    ptotalst6 ?: number | null;
-    ppresentst6 ?: number | null;
-    lessonplan6?: string | null;
-    lessonplansource6 ?: string[] | null;
-    lessonplansource6_other?: string | null;
-    content6 ?: string[] | null;
-    content6_other?: string | null;
-    interact6?: string | null;
-    thw6?: string | null;
-    comprecord6?: string | null;
-    textb6 ?: number | null;
-    ques1_6?: string | null;
-    ques2_6?: string | null;
-    class6_joinWA?: string | null;
-    class6_onlineshare?: string | null;
-    class6_TC?: string | null;
-    pos_feed6?: string | null;
-    class7_subject_other?: string | null;
-    ptotalst7 ?: number | null;
-    ppresentst7 ?: number | null;
-    lessonplan7?: string | null;
-    lessonplansource7 ?: string[] | null;
-    lessonplansource7_other?: string | null;
-    content7 ?: string[] | null;
-    content7_other?: string | null;
-    interact7?: string | null;
-    thw7?: string | null;
-    comprecord7?: string | null;
-    textb7 ?: number | null;
-    ques1_7?: string | null;
-    ques2_7?: string | null;
-    class7_joinWA?: string | null;
-    class7_onlineshare?: string | null;
-    class7_TC?: string | null;
-    pos_feed7?: string | null;
-    class8_subject_other?: string | null;
-    ptotalst8 ?: number | null;
-    ppresentst8 ?: number | null;
-    lessonplan8?: string | null;
-    lessonplansource8 ?: string[] | null;
-    lessonplansource8_other?: string | null;
-    content8 ?: string[] | null;
-    content8_other?: string | null;
-    interact8?: string | null;
-    thw8?: string | null;
-    comprecord8?: string | null;
-    textb8 ?: number | null;
-    ques1_8?: string | null;
-    ques2_8?: string | null;
-    class8_joinWA?: string | null;
-    class8_onlineshare?: string | null;
-    class8_TC?: string | null;
-    pos_feed8?: string | null;
-    schoolsupport_other?: string | null;
-    start?: string | null;
-    end?: string | null;
-    today?: string | null;
-    deviceid?: string | null;
-    subscriberid?: string | null;
-    simserial?: string | null;
-    username?: string | null;
-    phonenumber?: string | null;
-
-    operationsDoc = `mutation InsertMonitoringDetails($object: monitoring_visit_new_insert_input!) {
-        insert_monitoring_visit_new_one(object: $object) {
+    operationsDoc = `mutation InsertMonitoringDetails($object: monitoring_visit_june_insert_input!) {
+        insert_monitoring_visit_june_one(object: $object) {
             instanceID
         }
     }`;
     variableName = `object`;
     operationName = `InsertMonitoringDetails`;
-    databaseOperationName = `insert_monitoring_visit_new_one`;
+    databaseOperationName = `insert_monitoring_visit_june_one`;
 
     constructor(data: any) {
         this.user_name = data?.user_name ?? null;
-        this.designation = data.designation ?? null;
-        this.name = data.name ?? null;
-        this.school = data.school ?? null;
-        this.district = data.district ?? null;
-        this.block = data.block ?? null;
-        this.date_call = data.date_call ?? null;
-        this.class6_grade = this.getClass(data?.class6_grade) ?? null;
-        this.class7_grade = this.getClass(data?.class7_grade) ?? null;
-        this.class8_grade = this.getClass(data?.class8_grade) ?? null;
-        this.class6_subject = this.getSubject(data?.class6_subject) ?? null;
-        this.class7_subject = this.getSubject(data?.class7_subject) ?? null;
-        this.class8_subject = this.getSubject(data?.class8_subject) ?? null;
-        this.imp_feed6 = data?.imp_feed6 ?? null;
-        this.imp_feed7 = data?.imp_feed7 ?? null;
-        this.imp_feed8 = data?.imp_feed8 ?? null;
-        this.schoolsupport = this.getUpdatedSchoolSupport(data?.schoolsupport) ?? null;
-        this.instanceID = data.instanceID?.replace("uuid:", "") ?? null;
-
-        this.thw6 = data?.thw6 ?? null;
-        this.comprecord6 = data?.comprecord6 ?? null;
-        this.textb6 = data?.textb6 ?? null;
-        this.ques1_6 = data?.ques1_6 ?? null;
-        this.ques2_6 = data?.ques2_6 ?? null;
-        this.class6_joinWA = data?.class6_joinWA ?? null;
-        this.class6_onlineshare = data?.class6_onlineshare ?? null;
-        this.class6_TC = data?.class6_TC ?? null;
-        this.pos_feed6 = data?.pos_feed6 ?? null;
-        this.class7_subject_other = data?.class7_subject_other ?? null;
-        this.ptotalst7 = data?.ptotalst7 ?? null;
-        this.ppresentst7 = data?.ppresentst7 ?? null;
-        this.lessonplan7 = data?.lessonplan7 ?? null;
-        this.lessonplansource7 = data?.lessonplansource7 ?? null;
-        this.lessonplansource7_other = data?.lessonplansource7_other ?? null;
-        this.content7 = data?.content7 ?? null;
-        this.content7_other = data?.content7_other ?? null;
-        this.interact7 = data?.interact7 ?? null;
-        this.thw7 = data?.thw7 ?? null;
-        this.comprecord7 = data?.comprecord7 ?? null;
-        this.textb7 = data?.textb7 ?? null;
-        this.ques1_7 = data?.ques1_7 ?? null;
-        this.ques2_7 = data?.ques2_7 ?? null;
-        this.class7_joinWA = data?.class7_joinWA ?? null;
-        this.class7_onlineshare = data?.class7_onlineshare ?? null;
-        this.class7_TC = data?.class7_TC ?? null;
-        this.pos_feed7 = data?.pos_feed7 ?? null;
-        this.class8_subject_other = data?.class8_subject_other ?? null;
-        this.ptotalst8 = data?.ptotalst8 ?? null;
-        this.ppresentst8 = data?.ppresentst8 ?? null;
-        this.lessonplan8 = data?.lessonplan8 ?? null;
-        this.lessonplansource8 = data?.lessonplansource8 ?? null;
-        this.lessonplansource8_other = data?.lessonplansource8_other ?? null;
-        this.content8 = data?.content8 ?? null;
-        this.content8_other = data?.content8_other ?? null;
-        this.interact8 = data?.interact8 ?? null;
-        this.thw8 = data?.thw8 ?? null;
-        this.comprecord8 = data?.comprecord8 ?? null;
-        this.textb8 = data?.textb8 ?? null;
-        this.ques1_8 = data?.ques1_8 ?? null;
-        this.ques2_8 = data?.ques2_8 ?? null;
-        this.class8_joinWA = data?.class8_joinWA ?? null;
-        this.class8_onlineshare = data?.class8_onlineshare ?? null;
-        this.class8_TC = data?.class8_TC ?? null;
-        this.pos_feed8 = data?.pos_feed8 ?? null;
-        this.schoolsupport_other = data?.schoolsupport_other ?? null;
+        this.designation = data?.designation ?? null;
+        this.name = data?.name ?? null;
+        this.district = data?.district ?? null;
+        this.block = data?.block ?? null;
+        this.school = data?.school ?? null;
+        this.date_phy = data?.date_phy ?? null;
+        this.totalclasses = data?.totalclasses ?? null;
+        this.display11 = data?.display11 ?? null;
+        this.grade1_phy = this.getClass(data?.grade1_phy) ?? null;
+        this.subject1_phy = this.getSubject(data?.subject1_phy) ?? null;
+        this.subject1_phy_other = data?.subject1_phy_other ?? null;
+        this.name1_phy = data?.name1_phy ?? null;
+        this.display12 = data?.display12 ?? null;
+        this.teachingmethod1_phy = this.getUpdatedTeachingMethod(data?.teachingmethod1_phy) ?? null;
+        this.teachingmethod1_phy_other = data?.teachingmethod1_phy_other ?? null;
+        this.engagement_level1 = data?.engagement_level1 ?? null;
+        this.comprecord1_phy = this.booleanToText(data?.comprecord1_phy) ?? null;
+        this.stu_grouping1 = data?.stu_grouping1 ?? null;
+        this.display13 = data?.display13 ?? null;
+        this.ques1_class1_fln = data?.ques1_class1_fln ?? null;
+        this.ques2_class1_fln = data?.ques2_class1_fln ?? null;
+        this.ques1_class1_phy = data?.ques1_class1_phy ?? null;
+        this.ques2_class1_phy = data?.ques2_class1_phy ?? null;
+        this.stu_awareness_1 = this.getUpdatedStudentAwareness(data?.stu_awareness_1) ?? null;
+        this.display14 = data?.display14 ?? null;
+        this.teacherfeedback1_phy = this.booleanToText(data?.teacherfeedback1_phy) ?? null;
+        this.feedbackdetails11_phy = data?.feedbackdetails11_phy ?? null;
+        this.feedbackdetails12_phy = data?.feedbackdetails12_phy ?? null;
+        this.display21 = data?.display21 ?? null;
+        this.grade2_phy = this.getClass(data?.grade2_phy) ?? null;
+        this.subject2_phy = this.getSubject(data?.subject2_phy) ?? null;
+        this.subject2_phy_other = data?.subject2_phy_other ?? null;
+        this.name2_phy = data?.name2_phy ?? null;
+        this.display22 = data?.display22 ?? null;
+        this.teachingmethod2_phy = this.getUpdatedTeachingMethod(data?.teachingmethod2_phy) ?? null;
+        this.teachingmethod2_phy_other = data?.teachingmethod2_phy_other ?? null;
+        this.engagement_level2 = data?.engagement_level2 ?? null;
+        this.comprecord2_phy = this.booleanToText(data?.comprecord2_phy) ?? null;
+        this.stu_grouping2 = data?.stu_grouping2 ?? null;
+        this.display23 = data?.display23 ?? null;
+        this.ques1_class2_fln = data?.ques1_class2_fln ?? null;
+        this.ques2_class2_fln = data?.ques2_class2_fln ?? null;
+        this.ques1_class2_phy = data?.ques1_class2_phy ?? null;
+        this.ques2_class2_phy = data?.ques2_class2_phy ?? null;
+        this.stu_awareness_2 = this.getUpdatedStudentAwareness(data?.stu_awareness_2) ?? null;
+        this.display24 = data?.display24 ?? null;
+        this.teacherfeedback2_phy = this.booleanToText(data?.teacherfeedback2_phy) ?? null;
+        this.feedbackdetails21_phy = data?.feedbackdetails21_phy ?? null;
+        this.feedbackdetails22_phy = data?.feedbackdetails22_phy ?? null;
+        this.display31 = data?.display31 ?? null;
+        this.grade3_phy = this.getClass(data?.grade3_phy) ?? null;
+        this.subject3_phy = this.getSubject(data?.subject3_phy) ?? null;
+        this.subject3_phy_other = data?.subject3_phy_other ?? null;
+        this.name3_phy = data?.name3_phy ?? null;
+        this.display32 = data?.display32 ?? null;
+        this.teachingmethod3_phy = this.getUpdatedTeachingMethod(data?.teachingmethod3_phy) ?? null;
+        this.teachingmethod3_phy_other = data?.teachingmethod3_phy_other ?? null;
+        this.engagement_level3 = data?.engagement_level3 ?? null;
+        this.comprecord3_phy = this.booleanToText(data?.comprecord3_phy) ?? null;
+        this.stu_grouping3 = data?.stu_grouping3 ?? null;
+        this.display33 = data?.display33 ?? null;
+        this.ques1_class3_fln = data?.ques1_class3_fln ?? null;
+        this.ques2_class3_fln = data?.ques2_class3_fln ?? null;
+        this.ques1_class3_phy = data?.ques1_class3_phy ?? null;
+        this.ques2_class3_phy = data?.ques2_class3_phy ?? null;
+        this.stu_awareness_3 = this.getUpdatedStudentAwareness(data?.stu_awareness_3) ?? null;
+        this.display34 = data?.display34 ?? null;
+        this.teacherfeedback3_phy = this.booleanToText(data?.teacherfeedback3_phy) ?? null;
+        this.feedbackdetails31_phy = data?.feedbackdetails31_phy ?? null;
+        this.feedbackdetails32_phy = data?.feedbackdetails32_phy ?? null;
+        this.display0 = data?.display0 ?? null;
+        this.schoolhead_phy = this.booleanToText(data?.schoolhead_phy) ?? null;
+        this.schoolsupp_areas_phy = this.getUpdatedSchoolSupport(data?.schoolsupp_areas_phy) ?? null;
+        this.schoolsupp_areas_phy_other = data?.schoolsupp_areas_phy_other ?? null;
+        this.add_school_phy = data?.add_school_phy ?? null;
+        this.display41 = data?.display41 ?? null;
+        this.teacher_awareness = this.getUpdatedTeacherAwareness(data?.teacher_awareness) ?? null;
+        this.display42 = data?.display42 ?? null;
+        this.awareness_udaan = this.booleanToText(data?.awareness_udaan) ?? null;
+        this.awareness_udaan1 = this.getUpdatedAwarenessUdaan1(data?.awareness_udaan1) ?? null;
+        this.remedial_period = this.getUpdatedRemedialPeriod(data?.remedial_period) ?? null;
+        this.digital_udaan = this.getDigitalUdaan(data?.digital_udaan) ?? null;
+        this.printed_udaan = this.getPrintedUdaan(data?.printed_udaan) ?? null;
+        this.udaan_challenges = data?.udaan_challenges ?? null;
+        this.udaan_best = data?.udaan_best ?? null;
+        this.start = data?.start ?? null;
+        this.end = data?.end ?? null;
+        this.today = data?.today ?? null;
+        this.deviceid = data?.deviceid ?? null;
+        this.subscriberid = data?.subscriberid ?? null;
+        this.simserial = data?.simserial ?? null;
+        this.username = data?.username ?? null;
         this.phonenumber = data?.phonenumber ?? null;
-
+        this.instanceID = data.instanceID?.replace("uuid:", "") ?? null;
     }
 
     getUpdatedSchoolSupport(supportArray: string[] | null): string[] | null {
@@ -188,11 +236,124 @@ export class EMonitoring {
         return classMapping.mapping[classCode];
     }
 
+    getUpdatedTeachingMethod(teachingMethodArray: string[] | null): string[] | null {
+        if (!teachingMethodArray) return null
+        const updatedArray: string[] = []
+        teachingMethodArray.forEach(value => {
+            const result: string = <string>this.getTeachingMethod(value);
+            updatedArray.push(result === '-' ? value : result);
+        });
+        return updatedArray;
+    }
+
+    getTeachingMethod(teachingMethodCode: string | null): string | null {
+        if (!teachingMethodCode) return null;
+        const teachingMethodMapping = new TeachingMethodMapping();
+        if (!teachingMethodMapping.mapping[teachingMethodCode]) return '-';
+        return teachingMethodMapping.mapping[teachingMethodCode];
+    }
+
+    getVisitType(visitTypeCode: string | null): string | null {
+        if (!visitTypeCode) return null;
+        const visitTypeMapping = new VisitTypeMapping();
+        if (!visitTypeMapping.mapping[visitTypeCode]) return '-';
+        return visitTypeMapping.mapping[visitTypeCode];
+    }
+
     getSchoolSupportText(supportCode: string | null): string | null {
         if (!supportCode) return null;
         const schoolSupportMapping = new SchoolSupportMapping();
         if (!schoolSupportMapping.mapping[supportCode]) return '-';
         return schoolSupportMapping.mapping[supportCode];
+    }
+
+    getUpdatedStudentAwareness(studentAwarenessArray: string[] | null): string[] | null {
+        if (!studentAwarenessArray) return null
+        const updatedArray: string[] = []
+        studentAwarenessArray.forEach(value => {
+            updatedArray.push(<string>this.getStudentAwareness(value))
+        })
+        return updatedArray;
+    }
+
+    getStudentAwareness(studentAwarenessCode: string | null): string | null {
+        if (!studentAwarenessCode) return null;
+        const studentAwarenessMapping = new StudentAwarenessMapping();
+        if (!studentAwarenessMapping.mapping[studentAwarenessCode]) return '-';
+        return studentAwarenessMapping.mapping[studentAwarenessCode];
+    }
+
+    getUpdatedTeacherAwareness(teacherAwarenessArray: string[] | null): string[] | null {
+        if (!teacherAwarenessArray) return null
+        const updatedArray: string[] = []
+        teacherAwarenessArray.forEach(value => {
+            updatedArray.push(<string>this.getTeacherAwareness(value))
+        })
+        return updatedArray;
+    }
+
+    getTeacherAwareness(teacherAwarenessCode: string | null): string | null {
+        if (!teacherAwarenessCode) return null;
+        const teacherAwarenessMapping = new TeacherAwarenessMapping();
+        if (!teacherAwarenessMapping.mapping[teacherAwarenessCode]) return '-';
+        return teacherAwarenessMapping.mapping[teacherAwarenessCode];
+    }
+
+    getUpdatedAwarenessUdaan1(awarenessUdaan1Array: string[] | null): string[] | null {
+        if (!awarenessUdaan1Array) return null
+        const updatedArray: string[] = []
+        awarenessUdaan1Array.forEach(value => {
+            updatedArray.push(<string>this.getAwarenessUdaan1(value))
+        })
+        return updatedArray;
+    }
+
+    getAwarenessUdaan1(awarenessUdaan1Code: string | null): string | null {
+        if (!awarenessUdaan1Code) return null;
+        const awarenessUdaan1Mapping = new AwarenessUdaan1Mapping();
+        if (!awarenessUdaan1Mapping.mapping[awarenessUdaan1Code]) return '-';
+        return awarenessUdaan1Mapping.mapping[awarenessUdaan1Code];
+    }
+
+    getUpdatedRemedialPeriod(remedialPeriodArray: string[] | null): string[] | null {
+        if (!remedialPeriodArray) return null
+        const updatedArray: string[] = []
+        remedialPeriodArray.forEach(value => {
+            updatedArray.push(<string>this.getRemedialPeriod(value))
+        })
+        return updatedArray;
+    }
+
+    getRemedialPeriod(remedialPeriodCode: string | null): string | null {
+        if (!remedialPeriodCode) return null;
+        const remedialPeriodMapping = new RemedialPeriodMapping();
+        if (!remedialPeriodMapping.mapping[remedialPeriodCode]) return '-';
+        return remedialPeriodMapping.mapping[remedialPeriodCode];
+    }
+
+    getPrintedUdaan(printedUdaanCode: string | null): string | null {
+        if (!printedUdaanCode) return null;
+        const printedUdaanMapping = new PrintedUdaanMapping();
+        if (!printedUdaanMapping.mapping[printedUdaanCode]) return '-';
+        return printedUdaanMapping.mapping[printedUdaanCode];
+    }
+
+    getDigitalUdaan(digitalUdaanCode: string | null): string | null {
+        if (!digitalUdaanCode) return null;
+        const printedUdaanMapping = new PrintedUdaanMapping();
+        if (!printedUdaanMapping.mapping[digitalUdaanCode]) return '-';
+        return printedUdaanMapping.mapping[digitalUdaanCode];
+    }
+
+    booleanToText(booleanText: string | null): string | null {
+        if (!booleanText) return null;
+        if (booleanText === '0') {
+            return 'No';
+        } else if (booleanText === '1') {
+            return 'Yes';
+        } else {
+            return '-';
+        }
     }
 
     convertToBoolean(response: string): boolean {
@@ -207,6 +368,3 @@ export class EMonitoring {
         return null;
     }
 }
-
-import ClassMapping from "../datasources/ClassMapping";
-import SchoolSupportMapping from "../datasources/SchoolSupportMapping";

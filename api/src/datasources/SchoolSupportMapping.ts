@@ -5,7 +5,7 @@ export default class SchoolSupportMapping {
 
     constructor() {
         this.mapping = {
-            '0' : 'None',
+            '0' : 'No support needed',
             '1' : 'Textbook availability with students',
             '2' : 'Practice workbook availability with students',
             '3' : 'Teacher availability',
